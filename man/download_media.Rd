@@ -18,9 +18,11 @@ download_media(
 
 \item{location}{character string, ID of the cameralocation to download media from}
 
-\item{start}{optional date, startdate of the download}
+\item{start}{optional date, startdate of the download. Expected format DD/MM/YYYY.}
 
-\item{end}{optional data, enddate of the download}
+\item{end}{optional data, enddate of the download. Expected format DD/MM/YYYY.}
+
+\item{species}{character string, latin name of the species to download}
 
 \item{outputfolder}{character string, path where the function should download the media into}
 }
@@ -36,7 +38,6 @@ If you are getting an Authorization Error (#403), this probably means your Agout
 }
 \examples{
 # unzip camtraptor data package
-library(camtraptor)
 unzip("./Grofwild/Drongengoed/Input/Agouti/drongengoed_230601.zip",
      exdir = "./Grofwild/Drongengoed/Input/Agouti/drongengoed")
 drg <- camtraptor::read_camtrap_dp(file = "./Grofwild/Drongengoed/Input/Agouti/drongengoed")
@@ -70,6 +71,7 @@ download_media(dataset = drg,
 # cleanup after use
 remove(drg)
 unlink("./Grofwild/Drongengoed/Input/Agouti/drongengoed", recursive = TRUE)
+
 }
 \author{
 Lynn Pallemaerts
