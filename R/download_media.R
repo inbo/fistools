@@ -21,6 +21,7 @@
 #' @returns Downloads the specified media files into the outputfolder
 #'
 #' @examples
+#' \dontrun{
 #' # unzip camtraptor data package
 #' unzip("./Grofwild/Drongengoed/Input/Agouti/drongengoed_230601.zip",
 #'      exdir = "./Grofwild/Drongengoed/Input/Agouti/drongengoed")
@@ -55,6 +56,7 @@
 #' # cleanup after use
 #' remove(drg)
 #' unlink("./Grofwild/Drongengoed/Input/Agouti/drongengoed", recursive = TRUE)
+#' }
 #'
 #' @importFrom magrittr %>%
 
