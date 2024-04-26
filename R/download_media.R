@@ -31,27 +31,27 @@
 #' download_media(dataset = drg,
 #'                location = "D98_427",
 #'                start = "16/12/2022",
-#'                outputfolder = "C:/Users/lynn_pallemaerts/Pictures") # If somebody else is testing this: change to your user name
+#'                outputfolder = "C:/Users/lynn_pallemaerts/Pictures")
 #'
 #' # Situation 2: download only wanted species
 #' download_media(dataset = drg,
 #'                location = "D121_423",
 #'                start = "25/03/2023",
 #'                species = "Capreolus capreolus",
-#'                outputfolder = "C:/Users/lynn_pallemaerts/Pictures") # If somebody else is testing this: change to your user name
+#'                outputfolder = "C:/Users/lynn_pallemaerts/Pictures")
 #'
 #' download_media(dataset = drg,
 #'                location = "D55_340",
 #'                end = "27/05/2023",
 #'                species = "Lepus europaeus",
-#'                outputfolder = "C:/Users/lynn_pallemaerts/Pictures") # If somebody else is testing this: change to your user name
+#'                outputfolder = "C:/Users/lynn_pallemaerts/Pictures")
 #'
 #' # Situation 3: Try to download species that is not present
 #' download_media(dataset = drg,
 #'                location = "D55_340",
 #'                end = "27/05/2023",
 #'                species = "Dama dama",
-#'                outputfolder = "C:/Users/lynn_pallemaerts/Pictures") # If somebody else is testing this: change to your user name
+#'                outputfolder = "C:/Users/lynn_pallemaerts/Pictures")
 #'
 #' # cleanup after use
 #' remove(drg)
