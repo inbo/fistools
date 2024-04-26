@@ -1,3 +1,5 @@
+#' Download media
+#'
 #' @author Lynn Pallemaerts
 #' @author Emma Cartuyvels
 #' @author Sander Devisscher
