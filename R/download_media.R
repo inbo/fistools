@@ -15,8 +15,7 @@
 #' @param outputfolder character string, path where the function should download the media into
 #'
 #' @details
-#' If you are getting an Authorization Error (#403), this probably means you
-#  Agouti project has Restrict Images on. This needs to be turned off.
+#' If you are getting an Authorization Error (#403), this probably means your Agouti project has Restrict Images on. This needs to be turned off.
 #'
 #'
 #' @returns Downloads the specified media files into the outputfolder

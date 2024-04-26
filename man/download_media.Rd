@@ -32,7 +32,7 @@ This function allows the user to download all media related to a Agouti -
 dataset which matches the given parameters.
 }
 \details{
-If you are getting an Authorization Error (#403), this probably means you
+If you are getting an Authorization Error (#403), this probably means your Agouti project has Restrict Images on. This needs to be turned off.
 }
 \examples{
 # unzip camtraptor data package
