@@ -1,0 +1,11 @@
+Package: fistools
+Title: Tools & data used for wildlife management & invasive species in Flanders
+Version: 0.0.0.9000
+Authors@R: 
+    person("Sander", "Devisscher", , "sander.devisscher@inbo.be", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-2015-5731"))
+Description: This package contains functions & data that are widely used within the wildlife management & invasive species research group (FIS) of the research institute forest and nature (INBO).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
