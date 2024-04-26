@@ -10,19 +10,18 @@
 #'
 #' @param dataset character string, path to the folder where a camptraptor datapackage has been unzipped.
 #' @param location character string, ID of the cameralocation to download media from
-#' @param start optional date, startdate of the download
-#' @param end  optional data, enddate of the download
+#' @param start optional date, startdate of the download. Expected format DD/MM/YYYY.
+#' @param end  optional data, enddate of the download. Expected format DD/MM/YYYY.
+#' @param species character string, latin name of the species to download
 #' @param outputfolder character string, path where the function should download the media into
 #'
 #' @details
 #' If you are getting an Authorization Error (#403), this probably means your Agouti project has Restrict Images on. This needs to be turned off.
 #'
-#'
 #' @returns Downloads the specified media files into the outputfolder
 #'
 #' @examples
 #' # unzip camtraptor data package
-#' library(camtraptor)
 #' unzip("./Grofwild/Drongengoed/Input/Agouti/drongengoed_230601.zip",
 #'      exdir = "./Grofwild/Drongengoed/Input/Agouti/drongengoed")
 #' drg <- camtraptor::read_camtrap_dp(file = "./Grofwild/Drongengoed/Input/Agouti/drongengoed")
@@ -56,6 +55,8 @@
 #' # cleanup after use
 #' remove(drg)
 #' unlink("./Grofwild/Drongengoed/Input/Agouti/drongengoed", recursive = TRUE)
+#'
+#' @importFrom magrittr %>%
 
 download_media <- function(dataset,
                            location,
