@@ -12,8 +12,8 @@ RoxygenNote: 7.3.1
 Imports: 
     dplyr (>= 1.1.4),
     httr (>= 1.4.7),
-    lubridate (>= 1.9.3.9000),
+    lubridate ,
     magrittr (>= 2.0.3),
     stringr (>= 1.5.1)
 Suggests: 
-    camtraptor (>= 0.25.0)
+    camtraptor 
