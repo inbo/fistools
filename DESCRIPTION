@@ -15,5 +15,3 @@ Imports:
     lubridate ,
     magrittr (>= 2.0.3),
     stringr (>= 1.5.1)
-Suggests: 
-    camtraptor 
