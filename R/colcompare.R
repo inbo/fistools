@@ -25,6 +25,8 @@
 #' avg_active_hours=c(16, 15, 8, 10)))
 #'
 #' colcompare(super_sleepers, super_actives)
+#'
+#' @importFrom magrittr %>%
 
 colcompare <- function(x, y){
 

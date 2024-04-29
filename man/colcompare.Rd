@@ -31,6 +31,7 @@ country=c('Australia', 'Italy', 'Peru', 'China'),
 avg_active_hours=c(16, 15, 8, 10)))
 
 colcompare(super_sleepers, super_actives)
+
 }
 \author{
 Sander Devisscher
