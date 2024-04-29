@@ -1,3 +1,5 @@
+#' Columnname comparison
+#'
 #' @author Sander Devisscher
 #'
 #' @description

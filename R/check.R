@@ -1,3 +1,5 @@
+#' Check
+#'
 #' @author Sander Devisscher
 #'
 #' @description
