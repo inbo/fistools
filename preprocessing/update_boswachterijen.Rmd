@@ -42,6 +42,9 @@ for(f in filelist){
   }
 }
 
-save(list = jaren, file = "./data/boswachterijen.rda")
+save(list = jaren, 
+     file = "./data/boswachterijen.rda", 
+     compress = "xz", 
+     ascii = TRUE)
 ```
 
