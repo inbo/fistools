@@ -16,6 +16,9 @@ check(x)
 \description{
 Helper script to determine existence in environment panel
 }
+\details{
+This doesn't work with functions which will yield a 0 by default.
+}
 \author{
 Sander Devisscher
 }
