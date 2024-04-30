@@ -13,6 +13,7 @@
 #' present in y and not in x.
 #'
 #' @examples
+#' \dontrun{
 #' # create example dataframes
 #' super_sleepers <- data.frame(rating=1:4,
 #' animal=c('koala', 'hedgehog', 'sloth', 'panda'),
@@ -22,9 +23,10 @@
 #' super_actives <- data.frame(rating=1:4,
 #' animal=c('kangeroo', 'wolf', 'jaguar', 'tiger'),
 #' country=c('Australia', 'Italy', 'Peru', 'China'),
-#' avg_active_hours=c(16, 15, 8, 10)))
+#' avg_active_hours=c(16, 15, 8, 10))
 #'
 #' colcompare(super_sleepers, super_actives)
+#' }
 #'
 #' @importFrom magrittr %>%
 
@@ -47,7 +49,7 @@ colcompare <- function(x, y){
   test_xANDy <- test_xANDy$test_xANDy
 
   if(check(test_xANDy) == 1){
-    if(!is_empty(test_xANDy)){
+    if(!rlang::is_empty(test_xANDy)){
       error <- paste0("Kolommen met verschillende schrijfwijze: \n",
                      test_xANDy)
       writeLines(error)
@@ -60,7 +62,7 @@ colcompare <- function(x, y){
   test_xiny <- test_xiny$test_xiny
 
   if(check(test_xiny)==1){
-    if(!is_empty(test_xiny)){
+    if(!rlang::is_empty(test_xiny)){
       test_xiny <- paste(test_xiny, collapse = ", \n")
       error <- paste0("Kolommen uit x die niet in y voorkomen: \n", test_xiny)
       writeLines(error)
@@ -74,7 +76,7 @@ colcompare <- function(x, y){
   test_yinx <- test_yinx$test_yinx
 
   if(check(test_yinx)==1){
-    if(!is_empty(test_yinx)){
+    if(!rlang::is_empty(test_yinx)){
       test_yinx <- paste(test_yinx, collapse = ", \n")
       error <- paste0("Kolommen uit y die niet in x voorkomen: ", test_yinx)
       writeLines(error)

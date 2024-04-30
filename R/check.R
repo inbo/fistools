@@ -12,4 +12,4 @@
 #' 0 = object doesn't exist in enviroment
 
 
-check <- function(x){tryCatch(if(class(x) == 'logical') 1 else 1, error=function(e) 0)}
+check <- function(x){tryCatch(if(is.logical(class(x))) 1 else 1, error=function(e) 0)}

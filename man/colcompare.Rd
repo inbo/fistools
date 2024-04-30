@@ -19,6 +19,7 @@ present in y and not in x.
 A simple function to list the difference in column names in 2 datasets.
 }
 \examples{
+\dontrun{
 # create example dataframes
 super_sleepers <- data.frame(rating=1:4,
 animal=c('koala', 'hedgehog', 'sloth', 'panda'),
@@ -28,9 +29,10 @@ avg_sleep_hours=c(21, 18, 17, 10))
 super_actives <- data.frame(rating=1:4,
 animal=c('kangeroo', 'wolf', 'jaguar', 'tiger'),
 country=c('Australia', 'Italy', 'Peru', 'China'),
-avg_active_hours=c(16, 15, 8, 10)))
+avg_active_hours=c(16, 15, 8, 10))
 
 colcompare(super_sleepers, super_actives)
+}
 
 }
 \author{
