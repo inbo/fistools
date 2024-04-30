@@ -1,0 +1,47 @@
+---
+title: "update_boswachterijen"
+author: "Sander Devisscher"
+date: "2024-04-30"
+output: html_document
+---
+
+Script om boswachterijen.rda up te daten
+boswachterijen.rda bevat de boswachterijen van ANB voor een specifiek jaar.
+
+```{r libraries}
+library(sf)
+```
+
+```{r get filelist}
+rawdata_path <- "./data_raw/boswachterijen/"
+
+filelist <- dir(rawdata_path,
+                pattern = ".geojson",
+                full.names = TRUE)
+
+jaren <- ""
+
+for(f in filelist){
+  temp_file <- st_read(f)
+  
+  filename_redux <- gsub(pattern = rawdata_path,
+                         replacement = "",
+                         f)
+  
+  jaar <- gsub(pattern = ".geojson",
+               replacement = "",
+               filename_redux) %>% 
+    snakecase::to_snake_case()
+  
+  assign(jaar, temp_file)
+  
+  if(jaren == ""){
+    jaren <- jaar
+  }else{
+    jaren <- c(jaren, jaar)
+  }
+}
+
+save(list = jaren, file = "./data/boswachterijen.rda")
+```
+
