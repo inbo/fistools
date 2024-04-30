@@ -1,14 +1,17 @@
 ---
 name: Nieuwe functie aanmaken
 about: Checklist voor het aanmaken van een nieuwe functie
-title: "[NEW-FUNCTION]"
-labels: ''
+title: '[NEW function]'
+labels: New, Function
 assignees: ''
 
 ---
+## Voorstel functie naam
 
+## Checklist
 - [ ] maak een nieuw R-bestand 
 - [ ] sla het R bestand op onder `./R` met filenaam is gelijk aan functienaam
+- [ ] voorzie een functie titel met `#'` op regel 1 van je script
 - [ ] voorzie een auteur met `#' @author`
 - [ ] voorzie een beschrijving met `#' @description`
 - [ ] voorzie uitleg over de input parameter(s) met `#' @param name`
