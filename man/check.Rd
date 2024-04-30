@@ -10,11 +10,11 @@ check(x)
 \item{x}{environment object}
 }
 \value{
-1 = object exists in enviroment
-0 = object doesn't exist in enviroment
+1 = object exists in environment
+0 = object doesn't exist in environment
 }
 \description{
-Helper script to determine existance in environment panel
+Helper script to determine existence in environment panel
 }
 \author{
 Sander Devisscher
