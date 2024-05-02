@@ -11,10 +11,14 @@ assignees:
 
 ## checklist:
 - [ ] plaats de ruwe data in `./data_raw/`
-- [ ] schrijf (of kopieer) script, in `./src/` om de ruwe data om te zetten in een `.rda` of `.rds` bestand
+- [ ] schrijf (of kopieer) script, in `./preprocessing/` om de ruwe data om te zetten in een `.rda` of `.rds` bestand
 - [ ] creëer het data bestand en schrijf het weg met `saveRDS()` of `save()`<sup>1</sup>
-- [ ] voorzie een auteur met `#' @author`
-- [ ] voorzie een beschrijving met `#' @description`
+- [ ] creëer een documentatie script in `./R/` dmv `usethis::use_r("datasetname")`
+- [ ] voorzie het R script van een titel met `#'` op de eerste regel.
+- [ ] voorzie een beshcrijving van het data formaat met `#' @format`
+- [ ] voorzie een beschrijving van de inhoud met `#' \describe{\item{kolomnaam}{kolom beschrijving}}`
+- [ ] voorzie een bron van de data met `#' @source`
+- [ ] voorzie een link naar de dateset "datasetnaam"
 - [ ] voer `roxygen2::roxygenise()` uit in de console
 - [ ] voer `devtools::check()` uit in de console
 - [ ] los eventuele errors, warnings en notes<sup>2</sup> op
