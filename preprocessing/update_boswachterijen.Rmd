@@ -42,7 +42,21 @@ for(f in filelist){
   }
 }
 
-save(list = jaren, 
+boswachterijen <- list()
+
+for(j in 1:length(jaren)){
+  temp_list <- list(x = get(jaren[j]))
+  names(temp_list)[1] <- jaren[j]
+  
+  if(length(boswachterijen)==0){
+    boswachterijen <- c(temp_list)
+  }else{
+    boswachterijen <- c(boswachterijen, temp_list)
+  }
+  
+}
+
+save(boswachterijen, 
      file = "./data/boswachterijen.rda", 
      compress = "xz")
 ```
