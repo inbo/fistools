@@ -14,6 +14,8 @@
 #' @returns
 #' 1 = object exists in environment
 #' 0 = object doesn't exist in environment
+#'
+#' @export
 
 
 check <- function(x){tryCatch(if(!is.logical(class(x)) && ifelse(is.function(x), stop(), 0)) 1 else 1, error=function(e) 0)}
