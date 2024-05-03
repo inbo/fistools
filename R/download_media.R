@@ -58,6 +58,7 @@
 #' unlink("./Grofwild/Drongengoed/Input/Agouti/drongengoed", recursive = TRUE)
 #' }
 #'
+#' @export
 #' @importFrom magrittr %>%
 
 download_media <- function(dataset,
