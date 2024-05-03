@@ -28,6 +28,7 @@
 #' colcompare(super_sleepers, super_actives)
 #' }
 #'
+#' @export
 #' @importFrom magrittr %>%
 
 colcompare <- function(x, y){

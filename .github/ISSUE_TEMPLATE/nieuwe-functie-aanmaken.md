@@ -17,6 +17,7 @@ assignees: ''
 - [ ] voorzie uitleg over de input parameter(s) met `#' @param name`
 - [ ] voorzie uitleg over de output van de functie met `#' @returns`
 - [ ] voorzie minstens 1 voorbeeld van het gebruik van de functie dmv `#' @examples`
+- [ ] voorzie de export - tag dmv `#' @export` ([#14](https://github.com/inbo/fistools/issues/14))
 - [ ] voer `usethis::use_package("packagename", min_version = TRUE)` uit in de console voor iedere package die je gebruikt. 
 - [ ] voer `roxygen2::roxygenise()` uit in de console
 - [ ] voer `devtools::check()` uit in de console
