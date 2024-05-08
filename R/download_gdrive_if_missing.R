@@ -22,8 +22,13 @@
 #' googledrive.
 #'
 #' @examples
-#' # example code
-#' WIP
+#' #' \dontrun{
+#' # download newest version of the team charter
+#' download_gdrive_if_missing(gfileID = "1gtqcZojPnbLhEgpul3r9sy2zK3UyyCVG",
+#'                            destfile = "../../Teamcharters/Teamcharter_FIS.pdf",
+#'                            email = Sys.getenv("email")
+#'                            update_always = TRUE)
+#' }
 #'
 #' @export
 
@@ -33,13 +38,13 @@ download_gdrive_if_missing <- function(gfileID,
                                        email){
   # Authentication ####
   ## email uit system variables
-  if(check(email) == 0){
+  if (check(email) == 0) {
     email <- Sys.getenv("email")
     print("extracting email from System variables")
   }
 
   ## email dmv popup
-  if(email == ""){
+  if (email == "") {
     email <- svDialogs::dlg_input("je email adres:")
     email <- email$res
   }
@@ -84,7 +89,7 @@ download_gdrive_if_missing <- function(gfileID,
 
   # Download ####
   if(download == TRUE){
-    googledrive::drive_download(as_id(gfileID),
+    googledrive::drive_download(googledrive::as_id(gfileID),
                                 path = destfile,
                                 overwrite = TRUE)
   }
