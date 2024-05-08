@@ -2,4 +2,5 @@
 
 export(check)
 export(colcompare)
+export(download_gdrive_if_missing)
 importFrom(magrittr,"%>%")
