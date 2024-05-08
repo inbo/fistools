@@ -22,11 +22,11 @@
 #' googledrive.
 #'
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' # download newest version of the team charter
 #' download_gdrive_if_missing(gfileID = "1gtqcZojPnbLhEgpul3r9sy2zK3UyyCVG",
 #'                            destfile = "../../Teamcharters/Teamcharter_FIS.pdf",
-#'                            email = Sys.getenv("email")
+#'                            email = Sys.getenv("email"),
 #'                            update_always = TRUE)
 #' }
 #'
