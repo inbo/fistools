@@ -58,7 +58,7 @@ download_gdrive_if_missing <- function(gfileID,
 
   if(!dir.exists(destpath)){
     # destpath doesn't exist => create ?
-    q_create_dir <- askYesNo(msg = paste0(destpath, " aanmaken?"))
+    q_create_dir <- utils::askYesNo(msg = paste0(destpath, " aanmaken?"))
 
     if(q_create_dir == TRUE | update_always == TRUE){
       dir.create(destpath,
@@ -70,7 +70,7 @@ download_gdrive_if_missing <- function(gfileID,
     # update only when file doesn't exist or when user asks for it
     if(file.exists(destfile)){
       # destfile bestaat => update ?
-      q_update_destfile <- askYesNo(paste0("update ", gsub(pattern = destpath,
+      q_update_destfile <- utils::askYesNo(paste0("update ", gsub(pattern = destpath,
                                                            replacement = "",
                                                            destfile), "?"))
       if(q_update_destfile == TRUE){
