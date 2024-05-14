@@ -6,7 +6,10 @@ labels: New, Function
 assignees: ''
 
 ---
-## Voorstel functie naam
+## Voorstel functie naam "<functienaam>"
+
+## Functionality
+- [ ] list of the expected functionality
 
 ## Checklist
 - [ ] maak een nieuw R-bestand 
