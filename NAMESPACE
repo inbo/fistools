@@ -3,6 +3,6 @@
 export(check)
 export(colcompare)
 export(download_dep_media)
-export(download_seq_media)
 export(download_gdrive_if_missing)
+export(download_seq_media)
 importFrom(magrittr,"%>%")
