@@ -40,7 +40,8 @@ drg$data$media <- drg$data$media %>%
 ```{r}
 drg_example <- drg
 save(drg_example,
-     file = "./data/drg_example.Rda")
+     file = "./data/drg_example.rda", 
+     compress = "xz")
 ```
 
 ```{r}
