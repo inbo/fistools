@@ -1,0 +1,49 @@
+---
+title: "make small drg export for functions test"
+author: "Sander Devisscher"
+date: "2024-04-30"
+output: html_document
+---
+
+
+```{r libraries}
+library(here)
+library(camtraptor)
+library(tidyverse)
+```
+
+```{r}
+tempdir <- tempdir()
+unzip("../fis-projecten/Grofwild/Drongengoed/Input/Agouti/drongengoed_240502.zip",
+      exdir = tempdir)
+
+drg <- camtraptor::read_camtrap_dp(tempdir)
+```
+
+```{r}
+set.seed(12345)
+sub_fav <- drg$data$media %>%
+  filter(favourite == TRUE) %>%
+  sample_n(10) %>%
+  distinct(deploymentID)
+```
+
+```{r}
+drg$data$deployments <- drg$data$deployments %>%
+  filter(deploymentID %in% sub_fav$deploymentID)
+drg$data$observations <- drg$data$observations %>%
+  filter(deploymentID %in% sub_fav$deploymentID)
+drg$data$media <- drg$data$media %>%
+  filter(deploymentID %in% sub_fav$deploymentID)
+```
+
+```{r}
+drg_example <- drg
+save(drg_example,
+     file = "./data/drg_example.Rda")
+```
+
+```{r}
+unlink(tempdir)
+```
+
