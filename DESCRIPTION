@@ -2,10 +2,10 @@ Package: fistools
 Title: Tools & data used for wildlife management & invasive species in Flanders
 Version: 0.0.1
 Authors@R: c(
-person("Sander", "Devisscher", "sander.devisscher@inbo.be", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2015-5731")),
-person("Lynn", "Pallemaerts", "lynn.pallemaerts@inbo.be", role = "aut", comment = c(ORCID = "0000-0002-5034-5416")),
-person("Soria", "Delva", "soria.delva@inbo.be", role = "aut", comment = c(ORCID = "0000-0002-7164-6031")),
-person("Emma", "Cartuyvels", "emma.cartuyvels@inbo.be", role = "aut", comment = c(ORCID = "0000-0001-7856-6360"))
+  person(given = "Sander", middle = "", family = "Devisscher", "sander.devisscher@inbo.be", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2015-5731")),
+  person(given = "Lynn", middle = "", family = "Pallemaerts", "lynn.pallemaerts@inbo.be", role = "aut", comment = c(ORCID = "0000-0002-5034-5416")),
+  person(given = "Soria", middle = "", family = "Delva", "soria.delva@inbo.be", role = "aut", comment = c(ORCID = "0000-0002-7164-6031")),
+  person(given = "Emma", middle = "", family = "Cartuyvels", "emma.cartuyvels@inbo.be", role = "aut", comment = c(ORCID = "0000-0001-7856-6360"))
            )
 Description: This package contains functions & data that are widely used within the wildlife management & invasive species research group (FIS) of the research institute forest and nature (INBO).
 License: MIT + file LICENSE
@@ -21,7 +21,7 @@ Imports:
     magrittr (>= 2.0.3),
     stringr (>= 1.5.1),
     rlang (>= 1.1.3),
-    progress (>= 1.2.3)
+    progress (>= 1.2.3),
     googledrive (>= 2.1.1),
     svDialogs (>= 1.1.0),
     utils (>= 4.3.2)
