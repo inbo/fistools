@@ -15,7 +15,7 @@ download_dep_media(
 \arguments{
 \item{dataset}{character string, path to the folder where a camptraptor datapackage has been unzipped.}
 
-\item{depID}{character string, ID of the deplyment to download media from}
+\item{depID}{character string, ID of the deployment to download media from.}
 
 \item{species}{character string, latin name of the species to download}
 
@@ -32,6 +32,7 @@ dataset which matches the given parameters.
 }
 \details{
 If you are getting an Authorization Error (#403), this probably means your Agouti project has Restrict Images on. This needs to be turned off.
+If depID = "all" and favorite = TRUE, the function will download all favorited pictures in the whole dataset.
 }
 \examples{
 \dontrun{
@@ -50,6 +51,11 @@ download_dep_media(dataset = drg,
 download_dep_media(dataset = drg,
                     depID = "96413aa6-5f1f-4dfb-8fab-8f06decc179f",
                     species = "Dama dama",
+                    favorite = TRUE)
+
+# Situation 4: download only favorited species media
+download_dep_media(dataset = drg,
+                    depID = "all",
                     favorite = TRUE)
 }
 

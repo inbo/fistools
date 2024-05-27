@@ -29,19 +29,13 @@ If you are getting an Authorization Error (#403), this probably means your Agout
 \dontrun{
 drg <- fistools::drg_example
 
-# Situation 1: download whole deployment
+# Situation 1: download whole sequence
 download_seq_media(dataset = drg,
-                    depID = "96413aa6-5f1f-4dfb-8fab-8f06decc179f")
+                    seqID = "f4c049d2-d42f-4cd3-a951-fd485ed0279a")
 
-# Situation 2: download only wanted species
+# Situation 2: download only favorited species media within sequence
 download_seq_media(dataset = drg,
-                    depID = "96413aa6-5f1f-4dfb-8fab-8f06decc179f",
-                    species = "Dama dama")
-
-# Situation 3: download only favorited species media
-download_seq_media(dataset = drg,
-                    depID = "96413aa6-5f1f-4dfb-8fab-8f06decc179f",
-                    species = "Dama dama",
+                    seqID = "f4c049d2-d42f-4cd3-a951-fd485ed0279a",
                     favorite = TRUE)
 }
 
