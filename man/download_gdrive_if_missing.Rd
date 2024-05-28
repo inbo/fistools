@@ -39,7 +39,13 @@ download_gdrive_if_missing(gfileID = "1gtqcZojPnbLhEgpul3r9sy2zK3UyyCVG",
                            email = Sys.getenv("email"),
                            update_always = TRUE)
 }
-
+\dontrun{
+# download newest DRG Agouti export
+download_gdrive_if_missing(gfileID = "1FX8DDyREKMH1M3iW9ijWjVjO_tBH8PXi",
+                           destfile = "../fis-projecten/Grofwild/Drongengoed/Input/Agouti/drongengoed_240502.zip",
+                           email = Sys.getenv("email"),
+                           update_always = TRUE)
+}
 }
 \author{
 Sander Devisscher
