@@ -17,6 +17,45 @@
 #' @details
 #' GRTSdb is automatically installed when missing from your system.
 #'
+#' @examples
+#' \dontrun{
+#' # Preparation
+#' perimeter <- sf::st_as_sf(boswachterijen$boswachterijen_2024) %>%
+#'   dplyr::filter(Regio == "Taxandria",
+#'                 Naam == "vacant 4")
+#'
+#' # A new sample
+#' sample <- apply_grtsdb(perimeter,
+#'                        cellsize = 1000,
+#'                        n = 20,
+#'                        export_path = ".")
+#'
+#' leaflet::leaflet() %>%
+#'  leaflet::addTiles() %>%
+#'  leaflet::addCircles(data = sample$samples,
+#'                      color = "red") %>%
+#'  leaflet::addPolylines(data = sample$grid,
+#'                        color = "blue") %>%
+#'  leaflet::addPolylines(data = perimeter,
+#'                        color = "black")
+#' # Reuse a old sample
+#' seed <- sample$seed
+#'
+#' sample <- apply_grtsdb(perimeter,
+#'                        cellsize = 1000,
+#'                        n = 20,
+#'                        export_path = ".",
+#'                        seed = seed)
+#'
+#'  leaflet::leaflet() %>%
+#'  leaflet::addTiles() %>%
+#'  leaflet::addCircles(data = sample$samples,
+#'                      color = "red") %>%
+#'  leaflet::addPolylines(data = sample$grid,
+#'                        color = "blue") %>%
+#'  leaflet::addPolylines(data = perimeter,
+#'                        color = "black")
+#' }
 
 apply_grtsdb <- function(perimeter,
                          cellsize = 100,
@@ -101,6 +140,8 @@ apply_grtsdb <- function(perimeter,
     grtsdb::extract_sample(samplesize = n,
                            bbox = bbox,
                            cellsize = cellsize)
+
+    DBI::dbDisconnect(grtsdb::connect_db("grts.sqlite"))
 
     #### Move db ####
     file.copy(from = "grts.sqlite",
