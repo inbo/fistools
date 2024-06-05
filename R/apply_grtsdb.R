@@ -70,7 +70,6 @@ apply_grtsdb <- function(perimeter,
 
   crs_bel <- "EPSG:31370"
   crs_wgs <- 4326
-  source("../backoffice-wild-analyse/Functies/UUID_List.R")
 
   ## Checks ####
   ### Perimeter ####
