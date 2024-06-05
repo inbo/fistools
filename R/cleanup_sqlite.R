@@ -5,6 +5,7 @@
 #' @description
 #' A helper script to cleanup after use of apply_gtrsdb.
 #'
+#' @export
 
 cleanup_sqlite <- function(db="grts.sqlite"){
   unlink(db,

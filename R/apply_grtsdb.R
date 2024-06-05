@@ -17,6 +17,8 @@
 #' @details
 #' GRTSdb is automatically installed when missing from your system.
 #'
+#' @export
+#'
 #' @examples
 #' \dontrun{
 #' # Preparation
