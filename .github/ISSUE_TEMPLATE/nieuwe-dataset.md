@@ -22,6 +22,7 @@ assignees:
 - [ ] voer `roxygen2::roxygenise()` uit in de console
 - [ ] voer `devtools::check()` uit in de console
 - [ ] los eventuele errors, warnings en notes<sup>2</sup> op
+- [ ] increment versie dmv `usethis::use_version(which = "minor")`<sup>3</sup>
 - [ ] maak een pull request met @soriadelva of @SanderDevisscher en eventueel andere relevante gebruikers als reviewer.
 
 *<sup>1</sup>`saveRDS()` kan gebruikt worden om een enkel bestand op te slaan terwijl `save()` het opslaan van meerdere bestanden in 1 .rda/.rds bestand toelaat.*
