@@ -67,6 +67,7 @@ apply_grtsdb <- function(perimeter,
   # Setup ####
   ## Libraries ####
   tryCatch(requireNamespace(grtsdb), finally = devtools::install_github("inbo/GRTSdb"))
+  requireNamespace(grtsdb)
 
   crs_bel <- "EPSG:31370"
   crs_wgs <- 4326
@@ -132,17 +133,17 @@ apply_grtsdb <- function(perimeter,
     }
     #### Check for old db ####
     if(file.exists(paste0(export_path, "/grts.sqlite"))){
-      fistools::cleanup_sqlite(paste0(export_path, "/grts.sqlite"))
+      cleanup_sqlite(paste0(export_path, "/grts.sqlite"))
     }
 
     #### generate new grts.sqlite ####
     db_name <- paste0(export_path, "/grts.sqlite")
 
-    grtsdb::extract_sample(samplesize = n,
-                           bbox = bbox,
-                           cellsize = cellsize)
+    extract_sample(samplesize = n,
+                   bbox = bbox,
+                   cellsize = cellsize)
 
-    DBI::dbDisconnect(grtsdb::connect_db("grts.sqlite"))
+    DBI::dbDisconnect(connect_db("grts.sqlite"))
 
     #### Move db ####
     file.copy(from = "grts.sqlite",
@@ -162,13 +163,13 @@ apply_grtsdb <- function(perimeter,
   bbox_samplesize <- as.integer(sf::st_area(perimeter)/cellsize^2)
 
   ### Connect to db ####
-  con <- grtsdb::connect_db(db_name)
+  con <- connect_db(db_name)
 
   ### Extract complete sample ####
-  sample <- grtsdb::extract_sample(grtsdb = con,
-                                   samplesize = bbox_samplesize,
-                                   bbox = bbox,
-                                   cellsize = cellsize)
+  sample <- extract_sample(grtsdb = con,
+                           samplesize = bbox_samplesize,
+                           bbox = bbox,
+                           cellsize = cellsize)
 
   ### Convert sample to sf ####
   all_sample_pts <- sample %>%
