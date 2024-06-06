@@ -28,3 +28,5 @@ assignees:
 *<sup>1</sup>`saveRDS()` kan gebruikt worden om een enkel bestand op te slaan terwijl `save()` het opslaan van meerdere bestanden in 1 .rda/.rds bestand toelaat.*
 
 *<sup>2</sup>in de mate van het mogelijke.*
+
+*<sup>3</sup>als je meer dan 5 functies en/of datasets in één pull request veranderd hebt gebruik: `usethis::use_version(which = "major")`*
