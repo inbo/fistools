@@ -1,9 +1,9 @@
 ---
 name: Nieuwe dataset
 about: Checklist voor het uploaden van een nieuwe dataset
-title: '[NEW dataset]'
-labels: New, Data
-assignees: 
+title: "[NEW dataset]"
+labels: Data, New
+assignees: ''
 
 ---
 
