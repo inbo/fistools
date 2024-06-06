@@ -13,7 +13,7 @@ assignees: ''
 Beschrijf de bug kort en krachtig
 
 **Stappen om de bug te reproduceren:**
-Voeg hier een stuk code in om de fout te reporduceren
+Voeg hier een stuk code in om de fout te reproduceren
 
 **Verwachte uikomst**
 Een korte en krachtige beschrijving van de gewenste uitkomst
