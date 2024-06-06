@@ -9,10 +9,9 @@
 #'
 
 UUID_List <- function(temp_input){
-  require(uuid)
   lijst <- vector(mode="logical", nrow(temp_input))
   for(i in 1:nrow(temp_input)){
-    UUID <- UUIDgenerate()
+    UUID <- uuid::UUIDgenerate()
     lijst[i] <- UUID
   }
   return(lijst)

@@ -28,4 +28,5 @@ Imports:
     googledrive (>= 2.1.1),
     svDialogs (>= 1.1.0),
     utils (>= 4.3.2),
-    RSQLite (>= 2.3.4)
+    RSQLite (>= 2.3.4),
+    uuid (>= 1.2.0)
