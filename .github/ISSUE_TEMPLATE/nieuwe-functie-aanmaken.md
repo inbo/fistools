@@ -1,11 +1,12 @@
 ---
 name: Nieuwe functie aanmaken
 about: Checklist voor het aanmaken van een nieuwe functie
-title: '[NEW function]'
-labels: New, Function
+title: "[NEW function]"
+labels: Function, New
 assignees: ''
 
 ---
+
 ## Voorstel functie naam "<functienaam>"
 
 ## Functionality
