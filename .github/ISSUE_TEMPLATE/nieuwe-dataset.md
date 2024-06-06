@@ -1,9 +1,9 @@
 ---
 name: Nieuwe dataset
 about: Checklist voor het uploaden van een nieuwe dataset
-title: '[NEW dataset]'
-labels: New, Data
-assignees: 
+title: "[NEW dataset]"
+labels: Data, New
+assignees: ''
 
 ---
 
@@ -22,8 +22,11 @@ assignees:
 - [ ] voer `roxygen2::roxygenise()` uit in de console
 - [ ] voer `devtools::check()` uit in de console
 - [ ] los eventuele errors, warnings en notes<sup>2</sup> op
+- [ ] increment versie dmv `usethis::use_version(which = "minor")`<sup>3</sup>
 - [ ] maak een pull request met @soriadelva of @SanderDevisscher en eventueel andere relevante gebruikers als reviewer.
 
 *<sup>1</sup>`saveRDS()` kan gebruikt worden om een enkel bestand op te slaan terwijl `save()` het opslaan van meerdere bestanden in 1 .rda/.rds bestand toelaat.*
 
 *<sup>2</sup>in de mate van het mogelijke.*
+
+*<sup>3</sup>als je meer dan 5 functies en/of datasets in één pull request veranderd hebt gebruik: `usethis::use_version(which = "major")`*

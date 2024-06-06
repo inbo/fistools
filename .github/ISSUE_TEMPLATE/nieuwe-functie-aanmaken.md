@@ -1,11 +1,12 @@
 ---
 name: Nieuwe functie aanmaken
 about: Checklist voor het aanmaken van een nieuwe functie
-title: '[NEW function]'
-labels: New, Function
+title: "[NEW function]"
+labels: Function, New
 assignees: ''
 
 ---
+
 ## Voorstel functie naam "<functienaam>"
 
 ## Functionality
@@ -25,6 +26,9 @@ assignees: ''
 - [ ] voer `roxygen2::roxygenise()` uit in de console
 - [ ] voer `devtools::check()` uit in de console
 - [ ] los eventuele errors, warnings en notes<sup>1</sup> op
+- [ ] increment versie dmv `usethis::use_version(which = "minor")`<sup>2</sup>
 - [ ] maak een pull request met @soriadelva of @SanderDevisscher en eventueel andere relevante gebruikers als reviewer.
 
 *<sup>1</sup>in de mate van het mogelijke*
+
+*<sup>2</sup>als je meer dan 5 functies en/of datasets in één pull request veranderd hebt gebruik: `usethis::use_version(which = "major")`*
