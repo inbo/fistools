@@ -25,9 +25,9 @@ assignees: ''
 - [ ] voer `roxygen2::roxygenise()` uit in de console
 - [ ] voer `devtools::check()` uit in de console
 - [ ] los eventuele errors, warnings en notes<sup>1</sup> op
-- [ ] increment version using `usethis::use_version(which = "minor")`<sup>2</sup>
+- [ ] increment versie dmv `usethis::use_version(which = "minor")`<sup>2</sup>
 - [ ] maak een pull request met @soriadelva of @SanderDevisscher en eventueel andere relevante gebruikers als reviewer.
 
 *<sup>1</sup>in de mate van het mogelijke*
 
-*<sup>2</sup>if you changed more then 5 functions and/or datasets in 1 pull request use `usethis::use_version(which = "major")`*
+*<sup>2</sup>als je meer dan 5 functies en/of datasets in één pull request veranderd hebt gebruik: `usethis::use_version(which = "major")`*
