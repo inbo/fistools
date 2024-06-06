@@ -37,4 +37,4 @@ resultaat van `utils::packageVersion("fistools")`
 
 *<sup>1</sup>in de mate van het mogelijke*
 
-*<sup>2</sup>Indien het nodig is om de functie grotendeels te herzien (bvb tgv een depricated package) om de bug  op te lossen of als er meerdere functies en/of datasets bij betrokken zijn, gebruik: `usethis::use_version(which = "minor")`. *
+*<sup>2</sup>Indien het nodig is om de functie grotendeels te herzien (bvb tgv een depricated package) om de bug op te lossen of als er meerdere functies en/of datasets bij betrokken zijn, gebruik: `usethis::use_version(which = "minor")`. *
