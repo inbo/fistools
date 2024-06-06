@@ -66,7 +66,7 @@ apply_grtsdb <- function(perimeter,
                          seed){
   # Setup ####
   ## Libraries ####
-  tryCatch(library(grtsdb), finally = devtools::install_github("inbo/GRTSdb"))
+  tryCatch(requireNamespace(grtsdb), finally = devtools::install_github("inbo/GRTSdb"))
 
   crs_bel <- "EPSG:31370"
   crs_wgs <- 4326
