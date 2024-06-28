@@ -6,7 +6,7 @@
 # fistools
 Repo containing widely used data &amp; functions of the FIS team
 
-# instalatie
+# installatie
 ```
-devtools::instal_github("inbo/fistools")
+devtools::install_github("inbo/fistools")
 ```
