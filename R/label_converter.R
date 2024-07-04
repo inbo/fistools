@@ -32,32 +32,50 @@ label_converter <- function(input,
                             jaar_column,
                             output_style = "eloket"){
   # CHECKS ####
-  ## input is a data.frame ? ####
+  ## input ####
   if(!is.data.frame(input)){
+    #### input is not a dataframe ####
     stop("input is geen dataframe")
   }else{
+    #### input is a dataframe ####
+    # > create temp_input
     temp_input <- input
   }
 
-  ## id_column in input ? ####
+  ## id_column ####
   if(!id_column %in% names(input)){
+    #### id_column is not in input ####
     stop(paste0("id_column: ", id_column, " is not present in input"))
   }else{
+    #### id_column is in input ####
+    # > add id to temp_input with id_column as content
     temp_input$id <- temp_input[[id_column]]
   }
 
-  ## labelnummer_column in input ? ####
+  ## labelnummer_column ####
   if(!labelnummer_column %in% names(input)){
+    #### labelnummer_column is not in input ####
     stop(paste0("labelnummer_column: ", labelnummer_column, " is not present in input"))
   }else{
+    #### labelnummer_column is in input ####
+    # > convert labelnummer to integer
+    # > add labelnummer_ruw to temp_input with labelnummer_column as content
     temp_input$labelnummer_ruw <- as.integer(temp_input[[labelnummer_column]])
 
+    # > check for non integer labelnumbers
     nonIntLbl <- sum(is.na(temp_input$labelnummer_ruw))
 
     if(nonIntLbl > 0){
+      #### non integer labelnumbers in input ####
       warning(paste0(nonIntLbl, " rows have a incorrect labelnumber and will thus be removed"))
+      # > remove non integer labelnumbers
       temp_input <- temp_input %>%
         dplyr::filter(!is.na(labelnummer_ruw))
+
+      if(nrow(temp_input) == 0){
+        #### no valid labelnumbers in input ####
+        stop("No valid labelnumbers in input")
+      }
     }
   }
 
@@ -175,47 +193,70 @@ label_converter <- function(input,
   }
 
   ## jaar_column ####
-  ### jaar_column is in input ? ####
   if(!jaar_column %in% names(input)){
+    #### jaar_column is not in input ####
+    # > indicates a value not a column name
     warning(paste0("jaar_column: ", jaar_column, " is not a column of input >> checking if its a allowed year"))
     if(length(jaar_column) > 1){
+      #### jaar_column consists of more than 1 year ####
       stop("The jaar_column consists of more than 1 year. Add this value to the input dataframe manually. The function has no way to now which year should be used when.")
     }
+    # > convert jaar_column to integer
     jaar_column <- as.integer(jaar_column)
-    ### jaar_column is integer & not future ####
+
     if(jaar_column >= 2014 & jaar_column <= lubridate::year(Sys.Date())){
+      #### jaar_column is a valid year ####
+      # > larger than or equal to 2014 & smaller than or equal to current year
+      # > add jaar to input with jaar_column as value
       temp_input$jaar <- jaar_column
     }else{
+      #### jaar_column is not a valid year ####
       stop("The jaar_column is neither a column of input nor a valid year (>=2014 & <= current year)")
     }
   }else{
+    #### jaar_column is in input ####
+    # > indicates a column name
+    # > add jaar to input with content of jaar_column
     temp_input$jaar <- input[[jaar_column]]
   }
 
-  ## output_style is allowed ? ####
+  ## output_style ####
   if(!output_style %in% c("eloket", "labo")){
+    #### output_style is not eloket or labo ####
     stop("output_style is not one of 'eloket' or 'labo'")
   }
 
   # create labels ####
-  temp_output <-
-    temp_input %>%
-    dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
-    mutate(soort = toupper(soort)) %>%
-    mutate(soort = case_when(soort == "EVERZWIJN" ~ "WILD ZWIJN",
-                             TRUE ~ as.character(soort))) %>%
-    mutate(labeltype = case_when(soort != "REE" ~ soort,
-                                 TRUE ~ case_when(grepl("kits", labeltype, perl = TRUE) ~ paste0(soort,"KITS"),
-                                                  labeltype == "geit" ~ paste0(soort,"GEIT"),
-                                                  labeltype == "bok" ~ paste0(soort, "BOK"),
-                                                  TRUE ~ as.character(NA)))) %>%
-    mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
-    mutate(labelnummer_int = str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
-    mutate(labelnummer_pros = paste0("ANB",jaar,labeltype,labelnummer_int)) %>%
-    mutate(labelnummer = case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
-                                   TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
-    filter(!grepl("NA", labelnummer)) %>%
-    dplyr::select(id, labelnummer)
+
+  if(output_style == "eloket"){
+    ## eloket ####
+    # > ANBjjjjsoortlabelnummer
+    temp_output <-
+      temp_input %>%
+      dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
+      mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
+      mutate(labelnummer_int = str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
+      mutate(labelnummer_pros = paste0("ANB",jaar,labeltype,labelnummer_int)) %>%
+      mutate(labelnummer = case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
+                                     TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
+      filter(!grepl("NA", labelnummer)) %>%
+      dplyr::select(id, labelnummer)
+  }
+
+  if(output_style == "labo"){
+    ## labo ####
+    # > ANB-jjjj-soort-labelnummer
+    temp_output <-
+      temp_input %>%
+      dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
+      mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
+      mutate(labelnummer_int = str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
+      mutate(labelnummer_pros = paste0("ANB-",jaar,"-",soort,"-",labelnummer_int)) %>%
+      mutate(labelnummer = case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
+                                     TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
+      filter(!grepl("NA", labelnummer)) %>%
+      dplyr::select(id, labelnummer)
+  }
 
   return(temp_output)
 }
