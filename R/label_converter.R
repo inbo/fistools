@@ -88,6 +88,20 @@ label_converter <- function(input,
     stop(paste0("labelnummer_column: ", labelnummer_column, " is not present in input"))
   }else{
     #### labelnummer_column is in input ####
+    # > filter out labels allready in correct format
+
+    temp_correct <- temp_input %>%
+      dplyr::filter(grepl("ANB[0-9]{4}[A-Z]{4,7}", temp_input[[labelnummer_column]]) & nchar(temp_input[[labelnummer_column]]) == 14 | grepl("(?:ANB-)[0-9]{4}(?:-)[A-Z]{4,8}", temp_input[[labelnummer_column]]) & nchar(temp_input[[labelnummer_column]]) == 14)
+
+    # > remove correct labels from temp_input
+    temp_input <- temp_input %>%
+      dplyr::filter(!id %in% temp_correct$id)
+
+    if(nrow(temp_input) == 0){
+      #### no labels to convert ####
+      stop("No labels to convert")
+    }
+
     # > convert labelnummer to integer
     # > add labelnummer_ruw to temp_input with labelnummer_column as content
     temp_input$labelnummer_ruw <- as.integer(temp_input[[labelnummer_column]])
