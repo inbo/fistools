@@ -19,6 +19,36 @@
 #'
 #' @examples
 #' \dontrun{
+#'
+#' # provide a dataframe with the necessary columns
+#' df <- data.frame(
+#'   id = 1:1000,
+#'   labelnummer = sample(1:1000, 1000, replace = TRUE),
+#'   soort = sample(c("REE", "WILD ZWIJN", "DAMHERT"), 1000, replace = TRUE),
+#'   labeltype = sample(c("REEKITS", "REEGEIT", "REEBOK", NA), 1000, replace = TRUE),
+#'   jaar = sample(2018:2020, 1000, replace = TRUE)
+#' )
+#'
+#' labels <- label_converter(df, "id", "labelnummer", "soort", "labeltype", "jaar", "eloket")
+#'
+#' # provide a dataframe with labelnummer & labeltype & hardcode soort & jaar
+#' df <- data.frame(
+#' id = 1:1000,
+#' labelnummer = sample(1:1000, 1000, replace = TRUE),
+#' labeltype = sample(c("REEKITS", "REEGEIT", "REEBOK", NA), 1000, replace = TRUE)
+#' )
+#'
+#' labels <- label_converter(df, "id", "labelnummer", "REE", "labeltype", 2020, "eloket")
+#'
+#' # provide a dataframe with labelnummer & soort & hardcode labeltype & jaar
+#'
+#' df <- data.frame(
+#' id = 1:1000,
+#' labelnummer = sample(1:1000, 1000, replace = TRUE),
+#' soort = sample(c("REE", "WILD ZWIJN", "DAMHERT"), 1000, replace = TRUE))
+#'
+#' labels <- label_converter(df, "id", "labelnummer", "soort", "REEKITS", 2020, "eloket")
+#'
 #' }
 #'
 #' @export
