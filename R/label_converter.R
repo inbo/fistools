@@ -49,6 +49,18 @@
 #'
 #' labels <- label_converter(df, "id", "labelnummer", "soort", "REEKITS", 2020, "eloket")
 #'
+#' # provide a dataframe with mixed labelnummers & labeltype & hardcode soort & jaar
+#' df <- labels %>%
+#'   left_join(df %>% select(-labelnummer), by = "id") %>%
+#'   add_row(id = setdiff(1:1000, labels$id)) %>%
+#'   mutate(labelnummer = ifelse(is.na(labelnummer), sample(1:1000, 1000, replace = TRUE), labelnummer)) %>%
+#'   mutate(labeltype = ifelse(is.na(labeltype), sample(c("REEKITS", "REEGEIT", "REEBOK", NA), 1000, replace = TRUE), labeltype))
+#'
+#'labels <- label_converter(df, "id", "labelnummer", "REE", "labeltype", 2020, "eloket")
+#'
+#' # to troubleshoot
+#' df_test <- df[!df$id %in% labels$id,]
+#'
 #' }
 #'
 #' @export
@@ -91,7 +103,7 @@ label_converter <- function(input,
     # > filter out labels allready in correct format
 
     temp_correct <- temp_input %>%
-      dplyr::filter(grepl("ANB[0-9]{4}[A-Z]{4,7}", temp_input[[labelnummer_column]]) & nchar(temp_input[[labelnummer_column]]) == 14 | grepl("(?:ANB-)[0-9]{4}(?:-)[A-Z]{4,8}", temp_input[[labelnummer_column]]) & nchar(temp_input[[labelnummer_column]]) == 14)
+      dplyr::filter(grepl("ANB[0-9]{4}[A-Z]{4,7}", temp_input[[labelnummer_column]]) & nchar(temp_input[[labelnummer_column]]) >= 19 | grepl("(?:ANB-)[0-9]{4}(?:-)[A-Z]{4,8}", temp_input[[labelnummer_column]]) & nchar(temp_input[[labelnummer_column]]) >= 19)
 
     # > remove correct labels from temp_input
     temp_input <- temp_input %>%
@@ -206,50 +218,54 @@ label_converter <- function(input,
   ## labeltype_column ####
   standard_lbltype <- c("reegeit", "reebok", "reekits")
 
-  if(unique(temp_input$soort) == "REE"){
-    ### soort is REE ####
-    # in case of REE the labeltype_column should indicate either a column in input or a standard labeltype
-    if(!labeltype_column %in% names(input)){
-      #### labeltype_column is not in input ####
-      # > indicates a value not a column name
-      warning(paste0("labeltype_column: ", labeltype_column, " is not present in input >> checking if its a allowed labeltype"))
 
-      if(length(labeltype_column) > 1){
-        #### labeltype_column consists of more than 1 labeltype ####
-        stop("The labeltype_column consists of more than 1 labeltype. Add this value to the input dataframe manually. The function has no way to now which labeltype should be used when.")
-      }
+  if(!labeltype_column %in% names(input)){
+    #### labeltype_column is not in input ####
+    # > indicates a value not a column name
+    warning(paste0("labeltype_column: ", labeltype_column, " is not present in input >> checking if its a allowed labeltype"))
 
-      if(labeltype_column %in% standard_lbltype){
-        #### labeltype_column is a standard labeltype ####
-        # > all labels will be the same type
-        # > add labeltype to input with labeltype_column as value
-        temp_input$labeltype <- labeltype_column
-      }else{
-        #### labeltype_column is not a standard labeltype & labeltype_column is not in input ####
-        stop("labeltype_column: ", labeltype_column, " is not a column of input nor is it a allowed labeltype")
-      }
+    if(length(labeltype_column) > 1){
+      #### labeltype_column consists of more than 1 labeltype ####
+      stop("The labeltype_column consists of more than 1 labeltype. Add this value to the input dataframe manually. The function has no way to now which labeltype should be used when.")
+    }
+
+    if(labeltype_column %in% standard_lbltype){
+      #### labeltype_column is a standard labeltype ####
+      # > all labels will be the same type
+      # > add labeltype to input with labeltype_column as value
+      temp_input$labeltype <- labeltype_column
     }else{
-      #### labeltype_column is in input ####
-      # > indicates a column name
-      # > add labeltype to input with content of labeltype_column as value
-      temp_input$labeltype <- temp_input[[labeltype_column]]
+      #### labeltype_column is not a standard labeltype & labeltype_column is not in input ####
+      stop("labeltype_column: ", labeltype_column, " is not a column of input nor is it a allowed labeltype")
+    }
+  }else{
+    #### labeltype_column is in input ####
+    # > indicates a column name
+    # > add labeltype to input with content of labeltype_column as value
+    temp_input$labeltype <- temp_input[[labeltype_column]]
 
-      # > standardise labeltype
+    # > standardise labeltype
+    temp_input <- temp_input %>%
+      dplyr::mutate(labeltype = dplyr::case_when(soort == "REE" & tolower(labeltype) %in% standard_lbltype ~
+                                                   toupper(labeltype),
+                                                 soort == "REE" & !tolower(labeltype) %in% standard_lbltype ~
+                                                   NA_character_,
+                                                 TRUE ~ soort))
+
+    if(sum(is.na(temp_input$labeltype)) > 0){
+      #### labeltype_column has non valid labeltypes ###
+      # > remove non valid labeltypes
+      incorrect_label <- temp_input %>%
+        dplyr::filter(is.na(labeltype) & soort == "REE")
+
+      warning(paste0(nrow(incorrect_label), " rows from input have non valid labeltypes & are removed"))
+      # > remove non valid labeltypes
       temp_input <- temp_input %>%
-        dplyr::mutate(labeltype = dplyr::case_when(tolower(labeltype) %in% standard_lbltype ~ toupper(labeltype),
-                                                   TRUE ~ NA_character_))
+        dplyr::filter(!id %in% incorrect_label$id)
 
-      if(sum(is.na(temp_input$labeltype)) > 0){
-        #### labeltype_column has non valid labeltypes ####
-        # > remove non valid labeltypes
-        temp_input <- temp_input %>%
-          dplyr::filter(!is.na(labeltype))
-        warning(paste0(sum(is.na(temp_input$labeltype)), " rows from input have non valid labeltypes & are removed"))
-
-        if(nrow(temp_input) == 0){
-          #### no valid labeltypes in input ####
-          stop("No valid labeltypes in input")
-        }
+      if(nrow(temp_input) == 0){
+        #### no valid labeltypes in input ####
+        stop("No valid labeltypes in input")
       }
     }
   }
@@ -279,7 +295,7 @@ label_converter <- function(input,
     #### jaar_column is in input ####
     # > indicates a column name
     # > add jaar to input with content of jaar_column
-    temp_input$jaar <- input[[jaar_column]]
+    temp_input$jaar <- temp_input[[jaar_column]]
   }
 
   ## output_style ####
@@ -296,10 +312,9 @@ label_converter <- function(input,
     temp_output <-
       temp_input %>%
       dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
-      dplyr::mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
-      dplyr::mutate(labelnummer_int = stringr::str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
+      dplyr::mutate(labelnummer_int = stringr::str_pad(labelnummer_ruw, width = 6, side = "left", pad = 0)) %>%
       dplyr::mutate(labelnummer_pros = paste0("ANB",jaar,labeltype,labelnummer_int)) %>%
-      dplyr::mutate(labelnummer = dplyr::case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
+      dplyr::mutate(labelnummer = dplyr::case_when(!is.na(labelnummer_ruw) ~ labelnummer_pros,
                                                    TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
       dplyr::filter(!grepl("NA", labelnummer)) %>%
       dplyr::select(id, labelnummer)
@@ -311,17 +326,14 @@ label_converter <- function(input,
     temp_output <-
       temp_input %>%
       dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
-      dplyr::mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
-      dplyr::mutate(labelnummer_int = stringr::str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
-      dplyr::mutate(labelnummer_pros = paste0("ANB-",jaar,"-",soort,"-",labelnummer_int)) %>%
-      dplyr::mutate(labelnummer =  dplyr::case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
-                                                    TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
+      dplyr::mutate(labelnummer_int = stringr::str_pad(labelnummer_ruw, width = 6, side = "left", pad = 0)) %>%
+      dplyr::mutate(labelnummer = paste0("ANB-",jaar,"-",soort,"-",labelnummer_int)) %>%
       dplyr::filter(!grepl("NA", labelnummer)) %>%
       dplyr::select(id, labelnummer)
   }
 
   if(temp_correct %>% nrow() > 0){
-    temp_output <- rbind(temp_output, temp_correct)
+    temp_output <- rbind(temp_output, temp_correct %>% dplyr::select(id, labelnummer))
   }
 
   return(temp_output)
