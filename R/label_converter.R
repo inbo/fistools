@@ -252,76 +252,77 @@ label_converter <- function(input,
         }
       }
     }
-
-    ## jaar_column ####
-    if(!jaar_column %in% names(input)){
-      #### jaar_column is not in input ####
-      # > indicates a value not a column name
-      warning(paste0("jaar_column: ", jaar_column, " is not a column of input >> checking if its a allowed year"))
-      if(length(jaar_column) > 1){
-        #### jaar_column consists of more than 1 year ####
-        stop("The jaar_column consists of more than 1 year. Add this value to the input dataframe manually. The function has no way to now which year should be used when.")
-      }
-      # > convert jaar_column to integer
-      jaar_column <- as.integer(jaar_column)
-
-      if(jaar_column >= 2014 & jaar_column <= lubridate::year(Sys.Date())){
-        #### jaar_column is a valid year ####
-        # > larger than or equal to 2014 & smaller than or equal to current year
-        # > add jaar to input with jaar_column as value
-        temp_input$jaar <- jaar_column
-      }else{
-        #### jaar_column is not a valid year ####
-        stop("The jaar_column is neither a column of input nor a valid year (>=2014 & <= current year)")
-      }
-    }else{
-      #### jaar_column is in input ####
-      # > indicates a column name
-      # > add jaar to input with content of jaar_column
-      temp_input$jaar <- input[[jaar_column]]
-    }
-
-    ## output_style ####
-    if(!output_style %in% c("eloket", "labo")){
-      #### output_style is not eloket or labo ####
-      stop("output_style is not one of 'eloket' or 'labo'")
-    }
-
-    # create labels ####
-
-    if(output_style == "eloket"){
-      ## eloket ####
-      # > ANBjjjjsoortlabelnummer
-      temp_output <-
-        temp_input %>%
-        dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
-        dplyr::mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
-        dplyr::mutate(labelnummer_int = stringr::str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
-        dplyr::mutate(labelnummer_pros = paste0("ANB",jaar,labeltype,labelnummer_int)) %>%
-        dplyr::mutate(labelnummer = dplyr::case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
-                                                     TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
-        dplyr::filter(!grepl("NA", labelnummer)) %>%
-        dplyr::select(id, labelnummer)
-    }
-
-    if(output_style == "labo"){
-      ## labo ####
-      # > ANB-jjjj-soort-labelnummer
-      temp_output <-
-        temp_input %>%
-        dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
-        dplyr::mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
-        dplyr::mutate(labelnummer_int = stringr::str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
-        dplyr::mutate(labelnummer_pros = paste0("ANB-",jaar,"-",soort,"-",labelnummer_int)) %>%
-        dplyr::mutate(labelnummer =  dplyr::case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
-                                                      TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
-        dplyr::filter(!grepl("NA", labelnummer)) %>%
-        dplyr::select(id, labelnummer)
-    }
-
-    if(temp_correct %>% nrow() > 0){
-      temp_output <- rbind(temp_output, temp_correct)
-    }
-
-    return(temp_output)
   }
+
+  ## jaar_column ####
+  if(!jaar_column %in% names(input)){
+    #### jaar_column is not in input ####
+    # > indicates a value not a column name
+    warning(paste0("jaar_column: ", jaar_column, " is not a column of input >> checking if its a allowed year"))
+    if(length(jaar_column) > 1){
+      #### jaar_column consists of more than 1 year ####
+      stop("The jaar_column consists of more than 1 year. Add this value to the input dataframe manually. The function has no way to now which year should be used when.")
+    }
+    # > convert jaar_column to integer
+    jaar_column <- as.integer(jaar_column)
+
+    if(jaar_column >= 2014 & jaar_column <= lubridate::year(Sys.Date())){
+      #### jaar_column is a valid year ####
+      # > larger than or equal to 2014 & smaller than or equal to current year
+      # > add jaar to input with jaar_column as value
+      temp_input$jaar <- jaar_column
+    }else{
+      #### jaar_column is not a valid year ####
+      stop("The jaar_column is neither a column of input nor a valid year (>=2014 & <= current year)")
+    }
+  }else{
+    #### jaar_column is in input ####
+    # > indicates a column name
+    # > add jaar to input with content of jaar_column
+    temp_input$jaar <- input[[jaar_column]]
+  }
+
+  ## output_style ####
+  if(!output_style %in% c("eloket", "labo")){
+    #### output_style is not eloket or labo ####
+    stop("output_style is not one of 'eloket' or 'labo'")
+  }
+
+  # create labels ####
+
+  if(output_style == "eloket"){
+    ## eloket ####
+    # > ANBjjjjsoortlabelnummer
+    temp_output <-
+      temp_input %>%
+      dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
+      dplyr::mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
+      dplyr::mutate(labelnummer_int = stringr::str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
+      dplyr::mutate(labelnummer_pros = paste0("ANB",jaar,labeltype,labelnummer_int)) %>%
+      dplyr::mutate(labelnummer = dplyr::case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
+                                                   TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
+      dplyr::filter(!grepl("NA", labelnummer)) %>%
+      dplyr::select(id, labelnummer)
+  }
+
+  if(output_style == "labo"){
+    ## labo ####
+    # > ANB-jjjj-soort-labelnummer
+    temp_output <-
+      temp_input %>%
+      dplyr::select(id, labelnummer_ruw, soort, labeltype, jaar) %>%
+      dplyr::mutate(labelnummer_num = as.numeric(labelnummer_ruw)) %>%
+      dplyr::mutate(labelnummer_int = stringr::str_pad(labelnummer_num, width = 6, side = "left", pad = 0)) %>%
+      dplyr::mutate(labelnummer_pros = paste0("ANB-",jaar,"-",soort,"-",labelnummer_int)) %>%
+      dplyr::mutate(labelnummer =  dplyr::case_when(!is.na(labelnummer_num) ~ labelnummer_pros,
+                                                    TRUE ~ gsub("-", "", labelnummer_ruw))) %>%
+      dplyr::filter(!grepl("NA", labelnummer)) %>%
+      dplyr::select(id, labelnummer)
+  }
+
+  if(temp_correct %>% nrow() > 0){
+    temp_output <- rbind(temp_output, temp_correct)
+  }
+
+  return(temp_output)
+}
