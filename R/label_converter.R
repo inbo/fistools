@@ -282,7 +282,7 @@ label_converter <- function(input,
     # > convert jaar_column to integer
     jaar_column <- as.integer(jaar_column)
 
-    if(jaar_column >= 2014 & jaar_column <= lubridate::year(Sys.Date())){
+    if(jaar_column >= 2014 & jaar_column <= format(Sys.Date(), "%Y")){
       #### jaar_column is a valid year ####
       # > larger than or equal to 2014 & smaller than or equal to current year
       # > add jaar to input with jaar_column as value

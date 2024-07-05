@@ -27,6 +27,4 @@ Imports:
     progress (>= 1.2.3),
     googledrive (>= 2.1.1),
     svDialogs (>= 1.1.0),
-    utils (>= 4.3.2),
-    stringi (>= 1.8.4),
-    lubridate (>= 1.9.3.9000)
+    utils (>= 4.3.2)
