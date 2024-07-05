@@ -12,10 +12,10 @@
 #' @param output_style a charcter string specifiying the output style. Can be "eloket" or "labo". Default is "eloket".
 #'
 #' @details
-#' The input dataframe should a least contain a id_column & labelnummer_column
+#' The input dataframe should at least contain an id_column & labelnummer_column
 #' other values can be 'hardcoded'.
 #'
-#' @return a dataframe containing 2 columns id & label
+#' @return a dataframe containing 2 columns: id & label
 #'
 #' @examples
 #' \dontrun{
@@ -77,7 +77,7 @@ label_converter <- function(input,
   ## input ####
   if(!is.data.frame(input)){
     #### input is not a dataframe ####
-    stop("input is geen dataframe")
+    stop("input is not a dataframe")
   }else{
     #### input is a dataframe ####
     # > create temp_input
@@ -100,7 +100,7 @@ label_converter <- function(input,
     stop(paste0("labelnummer_column: ", labelnummer_column, " is not present in input"))
   }else{
     #### labelnummer_column is in input ####
-    # > filter out labels allready in correct format
+    # > filter out labels already in correct format
 
     temp_correct <- temp_input %>%
       dplyr::filter(grepl("ANB[0-9]{4}[A-Z]{4,7}", temp_input[[labelnummer_column]]) & nchar(temp_input[[labelnummer_column]]) >= 19 | grepl("(?:ANB-)[0-9]{4}(?:-)[A-Z]{4,8}", temp_input[[labelnummer_column]]) & nchar(temp_input[[labelnummer_column]]) >= 19)
@@ -123,14 +123,14 @@ label_converter <- function(input,
 
     if(nonIntLbl > 0){
       #### non integer labelnumbers in input ####
-      warning(paste0(nonIntLbl, " rows have a incorrect labelnumber and will thus be removed"))
+      warning(paste0(nonIntLbl, " rows have an incorrect labelnumber and will thus be removed"))
       # > remove non integer labelnumbers
       temp_input <- temp_input %>%
         dplyr::filter(!is.na(labelnummer_ruw))
 
       if(nrow(temp_input) == 0){
         #### no valid labelnumbers in input ####
-        stop("No valid labelnumbers in input")
+        stop("No valid label numbers in input")
       }
     }
   }
@@ -145,11 +145,11 @@ label_converter <- function(input,
   ### soort_column is in input ? ####
   if(!soort_column %in% names(input)){
     #### soort_column is not in input ####
-    warning(paste0("soort_column: ", soort_column, " is not a column of input >> checking if its a allowed species"))
+    warning(paste0("soort_column: ", soort_column, " is not a column of input >> checking if it's an allowed species"))
 
     if(length(soort_column) > 1){
       ##### soort_column consists of more than 1 species ####
-      stop(paste0("The soort_column consists of more than 1 species. Add this value to the input dataframe manually. The function has no way to now which species should be used when."))
+      stop(paste0("The soort_column consists of more than 1 species. Add this value to the input dataframe manually. The function has no way to know which species should be used when."))
     }
     if(tolower(soort_column) %in% standard_spec){
       ##### soort_column is standard species ####
@@ -183,7 +183,7 @@ label_converter <- function(input,
         }
       }else{
         #### soort_column is not a standard nor bastardised species & soort_column is not in input ####
-        stop("soort_column: ", soort_column, " is not a column of input nor is it a allowed species")
+        stop("soort_column: ", soort_column, " is not a column of input nor is it an allowed species")
       }
     }
   }else{
@@ -205,7 +205,7 @@ label_converter <- function(input,
       # > remove non valid species
       temp_input <- temp_input %>%
         dplyr::filter(!is.na(soort))
-      warning(paste0(sum(is.na(temp_input$soort)), " rows from input have non valid species & are removed"))
+      warning(paste0(sum(is.na(temp_input$soort)), " rows from input have non valid species and are removed"))
 
       if(nrow(temp_input) == 0){
         #### no valid species in input ####
@@ -222,11 +222,11 @@ label_converter <- function(input,
   if(!labeltype_column %in% names(input)){
     #### labeltype_column is not in input ####
     # > indicates a value not a column name
-    warning(paste0("labeltype_column: ", labeltype_column, " is not present in input >> checking if its a allowed labeltype"))
+    warning(paste0("labeltype_column: ", labeltype_column, " is not present in input >> checking if it's an allowed labeltype"))
 
     if(length(labeltype_column) > 1){
       #### labeltype_column consists of more than 1 labeltype ####
-      stop("The labeltype_column consists of more than 1 labeltype. Add this value to the input dataframe manually. The function has no way to now which labeltype should be used when.")
+      stop("The labeltype_column consists of more than 1 labeltype. Add this value to the input dataframe manually. The function has no way to know which labeltype should be used when.")
     }
 
     if(labeltype_column %in% standard_lbltype){
@@ -236,7 +236,7 @@ label_converter <- function(input,
       temp_input$labeltype <- labeltype_column
     }else{
       #### labeltype_column is not a standard labeltype & labeltype_column is not in input ####
-      stop("labeltype_column: ", labeltype_column, " is not a column of input nor is it a allowed labeltype")
+      stop("labeltype_column: ", labeltype_column, " is not a column of input nor is it an allowed labeltype")
     }
   }else{
     #### labeltype_column is in input ####
@@ -258,7 +258,7 @@ label_converter <- function(input,
       incorrect_label <- temp_input %>%
         dplyr::filter(is.na(labeltype) & soort == "REE")
 
-      warning(paste0(nrow(incorrect_label), " rows from input have non valid labeltypes & are removed"))
+      warning(paste0(nrow(incorrect_label), " rows from input have non valid labeltypes and are removed"))
       # > remove non valid labeltypes
       temp_input <- temp_input %>%
         dplyr::filter(!id %in% incorrect_label$id)
@@ -274,10 +274,10 @@ label_converter <- function(input,
   if(!jaar_column %in% names(input)){
     #### jaar_column is not in input ####
     # > indicates a value not a column name
-    warning(paste0("jaar_column: ", jaar_column, " is not a column of input >> checking if its a allowed year"))
+    warning(paste0("jaar_column: ", jaar_column, " is not a column of input >> checking if it's an allowed year"))
     if(length(jaar_column) > 1){
       #### jaar_column consists of more than 1 year ####
-      stop("The jaar_column consists of more than 1 year. Add this value to the input dataframe manually. The function has no way to now which year should be used when.")
+      stop("The jaar_column consists of more than 1 year. Add this value to the input dataframe manually. The function has no way to know which year should be used when.")
     }
     # > convert jaar_column to integer
     jaar_column <- as.integer(jaar_column)
