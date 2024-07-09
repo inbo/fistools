@@ -50,6 +50,7 @@
 #' labels <- label_converter(df, "id", "labelnummer", "soort", "REEKITS", 2020, "eloket")
 #'
 #' # provide a dataframe with mixed labelnummers & labeltype & hardcode soort & jaar
+#' ## remark: run the function once prior to testing
 #' df <- labels %>%
 #'   left_join(df %>% select(-labelnummer), by = "id") %>%
 #'   add_row(id = setdiff(1:1000, labels$id)) %>%
@@ -70,7 +71,7 @@ label_converter <- function(input,
                             id_column,
                             labelnummer_column,
                             soort_column,
-                            labeltype_column,
+                            labeltype_column = NULL,
                             jaar_column,
                             output_style = "eloket"){
   # CHECKS ####
@@ -145,7 +146,7 @@ label_converter <- function(input,
   ### soort_column is in input ? ####
   if(!soort_column %in% names(input)){
     #### soort_column is not in input ####
-    warning(paste0("soort_column: ", soort_column, " is not a column of input >> checking if it's an allowed species"))
+    print(paste0("soort_column: ", soort_column, " is not a column of input >> checking if it's an allowed species"))
 
     if(length(soort_column) > 1){
       ##### soort_column consists of more than 1 species ####
@@ -154,36 +155,42 @@ label_converter <- function(input,
     if(tolower(soort_column) %in% standard_spec){
       ##### soort_column is standard species ####
       # > add soort to input with soort_column as value
+      print("check passed \U0001F389")
       print("soort_column is standard species >> adding to input")
       temp_input$soort <- toupper(soort_column)
     }else{
       if(tolower(soort_column) %in% c(bas_zwijn, bas_ree, bas_damhert, bas_edelhert)){
         #### soort_column is bastardised ####
         # > add soort to input with equivalent standard species as value
+        print("check passed \U0001F389")
         print("soort_column is bastardised")
         if(tolower(soort_column) %in% bas_zwijn){
           # soort_column is a bastard form of wild zwijn
           print(">> adding 'WILD ZWIJN' to input")
           temp_input$soort <- "WILD ZWIJN"
+          soort_column <- "WILD ZWIJN"
         }
         if(tolower(soort_column) %in% bas_ree){
           # soort_column is a bastard form of ree
           print(">> adding 'REE' to input")
           temp_input$soort <- "REE"
+          soort_column <- "REE"
         }
         if(tolower(soort_column) %in% bas_damhert){
           # soort_column is a bastard form of damhert
           print(">> adding 'DAMHERT' to input")
           temp_input$soort <- "DAMHERT"
+          soort_column <- "DAMHERT"
         }
         if(tolower(soort_column) %in% bas_edelhert){
           # soort_column is a bastard form of edelhert
           print(">> adding 'EDELHERT' to input")
           temp_input$soort <- "EDELHERT"
+          soort_column <- "EDELHERT"
         }
       }else{
         #### soort_column is not a standard nor bastardised species & soort_column is not in input ####
-        stop("soort_column: ", soort_column, " is not a column of input nor is it an allowed species")
+        stop(paste0("soort_column: ", soort_column, " is not a column of input nor is it an allowed species (", paste(c(standard_spec, bas_zwijn, bas_ree, bas_damhert, bas_edelhert), collapse = ", "), ")"))
       }
     }
   }else{
@@ -218,25 +225,41 @@ label_converter <- function(input,
   ## labeltype_column ####
   standard_lbltype <- c("reegeit", "reebok", "reekits")
 
+  if(is.null(labeltype_column) & soort_column != "REE"){
+    #### labeltype is not provided and not needed ####
+    temp_input <- temp_input %>%
+      mutate(labeltype = NA_character_)
+  }
+
+  if(!is.null(labeltype_column) & soort_column != "REE"){
+    #### labeltype is provided but not needed ####
+    warning("labeltype_column is provided but not needed")
+  }
+
+  if(is.null(labeltype_column) & soort_column == "REE"){
+    #### labeltype is not provided and needed ####
+    stop("labeltype_column is not provided and is needed")
+  }
 
   if(!labeltype_column %in% names(input)){
     #### labeltype_column is not in input ####
     # > indicates a value not a column name
-    warning(paste0("labeltype_column: ", labeltype_column, " is not present in input >> checking if it's an allowed labeltype"))
+    print(paste0("labeltype_column: ", labeltype_column, " is not present in input >> checking if it's an allowed labeltype"))
 
     if(length(labeltype_column) > 1){
       #### labeltype_column consists of more than 1 labeltype ####
       stop("The labeltype_column consists of more than 1 labeltype. Add this value to the input dataframe manually. The function has no way to know which labeltype should be used when.")
     }
 
-    if(tolower(labeltype_column) %in% standard_lbltype){
+    if(tolower(labeltype_column) %in% standard_lbltype | soort_column != "REE"){
       #### labeltype_column is a standard labeltype ####
       # > all labels will be the same type
       # > add labeltype to input with labeltype_column as value
+      print("check passed \U0001F389")
       temp_input$labeltype <- labeltype_column
     }else{
       #### labeltype_column is not a standard labeltype & labeltype_column is not in input ####
-      stop("labeltype_column: ", labeltype_column, " is not a column of input nor is it an allowed labeltype")
+      stop(paste0("labeltype_column: ", labeltype_column, " is not a column of input nor is it an allowed labeltype (", paste(standard_lbltype, collapse = ", "), ")"))
     }
   }else{
     #### labeltype_column is in input ####
@@ -277,7 +300,7 @@ label_converter <- function(input,
   if(!jaar_column %in% names(input)){
     #### jaar_column is not in input ####
     # > indicates a value not a column name
-    warning(paste0("jaar_column: ", jaar_column, " is not a column of input >> checking if it's an allowed year"))
+    print(paste0("jaar_column: ", jaar_column, " is not a column of input >> checking if it's an allowed year"))
     if(length(jaar_column) > 1){
       #### jaar_column consists of more than 1 year ####
       stop("The jaar_column consists of more than 1 year. Add this value to the input dataframe manually. The function has no way to know which year should be used when.")
@@ -289,6 +312,7 @@ label_converter <- function(input,
       #### jaar_column is a valid year ####
       # > larger than or equal to 2014 & smaller than or equal to current year
       # > add jaar to input with jaar_column as value
+      print("check passed \U0001F389")
       temp_input$jaar <- jaar_column
     }else{
       #### jaar_column is not a valid year ####
