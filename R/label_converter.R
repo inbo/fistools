@@ -229,7 +229,7 @@ label_converter <- function(input,
       stop("The labeltype_column consists of more than 1 labeltype. Add this value to the input dataframe manually. The function has no way to know which labeltype should be used when.")
     }
 
-    if(labeltype_column %in% standard_lbltype){
+    if(tolower(labeltype_column) %in% standard_lbltype){
       #### labeltype_column is a standard labeltype ####
       # > all labels will be the same type
       # > add labeltype to input with labeltype_column as value
