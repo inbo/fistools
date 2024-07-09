@@ -269,6 +269,9 @@ label_converter <- function(input,
       }
     }
   }
+  #### labeltype to uppercase ####
+  temp_input <- temp_input %>%
+    mutate(labeltype = toupper(labeltype))
 
   ## jaar_column ####
   if(!jaar_column %in% names(input)){
@@ -305,7 +308,6 @@ label_converter <- function(input,
   }
 
   # create labels ####
-
   if(output_style == "eloket"){
     ## eloket ####
     # > ANBjjjjsoortlabelnummer
