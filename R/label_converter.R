@@ -9,7 +9,7 @@
 #' @param soort_column a character string pointing to the column containing species.
 #' @param labeltype_column a character string pointing to the column containing label types.
 #' @param jaar_column a character string pointing to the column containing years.
-#' @param output_style a charcter string specifiying the output style. Can be "eloket" or "labo". Default is "eloket".
+#' @param output_style a character string specifying the output style. Can be "eloket" or "labo". Default is "eloket".
 #'
 #' @details
 #' The input dataframe should at least contain an id_column & labelnummer_column
