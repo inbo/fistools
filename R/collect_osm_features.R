@@ -60,10 +60,6 @@
 
 collect_osm_features <- function(proj_bbox) {
 
-  # required R-packages
-  require(dplyr)
-  require(osmdata)
-
   # classification of landuse classes
     urban_vals <-
       c("residential", "commercial", "industrial",
@@ -83,31 +79,31 @@ collect_osm_features <- function(proj_bbox) {
         "flowerbed", "meadow", "fell", "sand", "bare_rock", "mud")
 
     # Retrieve raw osm feature sets
-    osm_landuse <- opq(bbox = proj_bbox) %>%
-      add_osm_feature(key = 'landuse') %>%
-      osmdata_sf()
+    osm_landuse <- osmdata::opq(bbox = proj_bbox) %>%
+      osmdata::add_osm_feature(key = 'landuse') %>%
+      osmdata::osmdata_sf()
 
-    osm_roads <- opq(bbox = proj_bbox) %>%
-      add_osm_feature(key = 'highway') %>%
-      osmdata_sf()
+    osm_roads <- osmdata::opq(bbox = proj_bbox) %>%
+      osmdata::add_osm_feature(key = 'highway') %>%
+      osmdata::osmdata_sf()
 
-    osm_waterways <- opq(bbox = proj_bbox) %>%
-      add_osm_feature(key = 'waterway') %>%
-      osmdata_sf()
+    osm_waterways <- osmdata::opq(bbox = proj_bbox) %>%
+      osmdata::add_osm_feature(key = 'waterway') %>%
+      osmdata::osmdata_sf()
 
-    osm_waterbodies <- opq(bbox = proj_bbox) %>%
-      add_osm_feature(key = 'natural', value = 'water') %>%
-      osmdata_sf()
+    osm_waterbodies <- osmdata::opq(bbox = proj_bbox) %>%
+      osmdata::add_osm_feature(key = 'natural', value = 'water') %>%
+      osmdata::osmdata_sf()
 
-    osm_cities <- opq(bbox = proj_bbox) %>%
-      add_osm_feature(key = 'place', value = c('city', 'town', 'village')) %>%
-      osmdata_sf()
+    osm_cities <- osmdata::opq(bbox = proj_bbox) %>%
+      osmdata::add_osm_feature(key = 'place', value = c('city', 'town', 'village')) %>%
+      osmdata::osmdata_sf()
 
     # Polygon features
     ## polygons
     landuse_polygons1 <- osm_landuse$osm_polygons
-    landuse_polygons1 <- landuse_polygons1 %>% mutate(
-      landuse = case_when(
+    landuse_polygons1 <- landuse_polygons1 %>% dplyr::mutate(
+      landuse = dplyr::case_when(
         landuse %in% urban_vals ~ "urban",
         landuse %in% agriculture_vals ~ "agriculture",
         landuse %in% open_vals | natural %in% open_vals ~ "open",
@@ -116,8 +112,8 @@ collect_osm_features <- function(proj_bbox) {
 
     ## multipolygons
     landuse_polygons2 <- osm_landuse$osm_multipolygons
-    landuse_polygons2 <- landuse_polygons2 %>% mutate(
-      landuse = case_when(
+    landuse_polygons2 <- landuse_polygons2 %>% dplyr::mutate(
+      landuse = dplyr::case_when(
         landuse %in% urban_vals ~ "urban",
         landuse %in% agriculture_vals ~ "agriculture",
         landuse %in% open_vals %in% open_vals ~ "open",
@@ -126,16 +122,16 @@ collect_osm_features <- function(proj_bbox) {
 
     landuse_polygons3 <- osm_waterbodies$osm_polygons
     landuse_polygons3 <- landuse_polygons3 %>%
-      mutate(landuse = "water") %>%
-      select(osm_id, landuse)
+      dplyr::mutate(landuse = "water") %>%
+      dplyr::select(osm_id, landuse)
 
     landuse_polygons <-
-      bind_rows(
+      dplyr::bind_rows(
         landuse_polygons1,
         landuse_polygons2,
         landuse_polygons3
-      ) %>% mutate(
-        osm_fill = case_when(
+      ) %>% dplyr::mutate(
+        osm_fill = dplyr::case_when(
           landuse == "urban" ~ "grey90",
           landuse == "agriculture" ~ "#FDEBA6",
           landuse == "open" ~ "#7CFC00",
@@ -147,16 +143,16 @@ collect_osm_features <- function(proj_bbox) {
     # Line features
     landuse_lines1 <- osm_roads$osm_lines
     landuse_lines1 <- landuse_lines1 %>%
-      mutate(landuse = "road", type = highway) %>%
-      select(osm_id, landuse, type)
+      dplyr::mutate(landuse = "road", type = highway) %>%
+      dplyr::select(osm_id, landuse, type)
 
     landuse_lines2 <- osm_waterways$osm_lines
     landuse_lines2 <- landuse_lines2 %>%
-      mutate(landuse = "water", type = waterway) %>%
-      select(osm_id, landuse, type)
+      dplyr::mutate(landuse = "water", type = waterway) %>%
+      dplyr::select(osm_id, landuse, type)
 
     landuse_lines <-
-      bind_rows(
+      dplyr::bind_rows(
         landuse_lines1,
         landuse_lines2
       )
