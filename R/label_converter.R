@@ -228,7 +228,7 @@ label_converter <- function(input,
   if(is.null(labeltype_column) & soort_column != "REE"){
     #### labeltype is not provided and not needed ####
     temp_input <- temp_input %>%
-      mutate(labeltype = NA_character_)
+      dplyr::mutate(labeltype = NA_character_)
   }
 
   if(!is.null(labeltype_column) & soort_column != "REE"){
@@ -294,7 +294,7 @@ label_converter <- function(input,
   }
   #### labeltype to uppercase ####
   temp_input <- temp_input %>%
-    mutate(labeltype = toupper(labeltype))
+    dplyr::mutate(labeltype = toupper(labeltype))
 
   ## jaar_column ####
   if(!jaar_column %in% names(input)){
