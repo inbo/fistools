@@ -1,10 +1,23 @@
-CRS_extracter <- function(CRS, WKT = TRUE){
+#' CRS_extracter
+#'
+#' Extracts a coordinate reference system (CRS) from a library of commonly used CRS codes
+#'
+#' @param CRS A character string with the name of the CRS
+#' @param EPSG A logical indicating whether the output should be in EPSG format
+#'
+#' @return A CRS object
+#'
+#' @examples
+#' \dontrun{
+#' }
+#'
+#'
+#' @export
+#' @author Sander Devisscher
 
-  require(sp)
-  require(readr)
+CRS_extracter <- function(CRS, EPSG = TRUE){
 
-  Lib_CRS <- read_delim("../backoffice-wild-analyse/Data/Libraries/Lib_CRS.csv",
-                        ";", escape_double = FALSE, trim_ws = TRUE)
+  Lib_CRS <- lib_crs
 
   if(grepl("wgs", CRS, ignore.case = TRUE)){
     CRS <- "WGS"
