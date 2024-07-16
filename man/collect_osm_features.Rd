@@ -4,11 +4,29 @@
 \alias{collect_osm_features}
 \title{collect OpenStreetMaps features}
 \usage{
-collect_osm_features(proj_bbox)
+collect_osm_features(
+  proj_bbox,
+  download_features = "all",
+  landuse_elements = "all",
+  line_elements = "all"
+)
 }
 \arguments{
-\item{proj_bbox}{a bbox. The bounding box for the project/ study area for which
+\item{proj_bbox}{A bbox. The bounding box for the project/ study area for which
 to extract osm features.}
+
+\item{download_features}{A character. "all" download all features. "polygons",
+"lines" and "points" to download only polygon, line or point features respectively.
+Combinations are also possible (e.g. c("polygons", "points")). Default is "all".}
+
+\item{landuse_elements}{A character. "all" to download all landuse classes. "urban",
+"agriculture", "open", "forest" and "water" to download only landuse classes
+of interest. Combinations are also possible (e.g. c("urban", "forest", "water"))
+Default is "all".}
+
+\item{line_elements}{A character. "all" to download all line elements. "road",
+"water" to download only roads and rivers, streams etc. respectively.
+Default is "all"}
 }
 \value{
 a named list of 3 sf data frames:
@@ -38,25 +56,43 @@ proj_bbox <- st_bbox(proj_sf)
 class(proj_bbox)
 # extract selected OSM features
 osm <- collect_osm_features(proj_bbox)
+# extract only polygon OSM features
+osm_polygons <- collect_osm_features(proj_bbox, download_features = "polygons")
+osm_lines <- collect_osm_features(proj_bbox, download_features = "lines")
+osm_points <- collect_osm_features(proj_bbox, download_features = "points")
+osm_forest_water <-
+ collect_osm_features(proj_bbox, download_features = c("polygons", "points"),
+                      landuse_elements = c("forest", "water"))
+# extract combination of OSM features, subset line elements
+osm_polygons_roads <-
+ collect_osm_features(proj_bbox, download_features = c("polygons", "lines"),
+                      line_elements = "road")
+
+# calculate the area of each landuse class within the bbox
+landuse <- osm_polygons$osm_polygons \%>\%
+ st_make_valid() \%>\%
+ mutate(area = set_units(st_area(.), "km^2")) \%>\%
+ group_by(landuse) \%>\%
+ summarise(area = sum(area))
 
 # plot
 ## polygons
-(p1 <- ggplot(osm$osm_polygons \%>\% filter(!is.na(landuse)) \%>\% arrange(landuse)) +
+(p1 <- ggplot(osm_polygons$osm_polygons \%>\% filter(!is.na(landuse)) \%>\% arrange(landuse)) +
    geom_sf(aes(fill = landuse), col = NA) +
    scale_fill_manual(values = unique(arrange(osm$osm_polygons, landuse)$osm_fill)) +
    theme_void() + theme(legend.position = "right"))
 
 ## lines
-(p2 <- ggplot(osm$osm_lines) +
-   geom_sf(aes(col = landuse)) +
+(p2 <- ggplot(osm_lines$osm_lines) +
+   geom_sf(aes(col = line_element)) +
    scale_color_manual(values = c("grey50", "#0092da")) +
    theme_void() + theme(legend.position = "right"))
 
 ## points
-(p3 <- ggplot(osm$osm_points) + geom_sf_label(aes(label = name)))
+(p3 <- ggplot(osm_points$osm_points) + geom_sf_label(aes(label = name)))
 
 ## combine features
-p1 + geom_sf(data = osm$osm_lines, aes(col = landuse)) +
+p1 + geom_sf(data = osm$osm_lines, aes(col = line_element)) +
  geom_sf_label(data = osm$osm_points, aes(label = name)) +
  scale_color_manual(values = c("grey20", "#0092da")) +
  coord_sf(xlim = proj_bbox[c("xmin", "xmax")],
