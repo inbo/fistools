@@ -9,6 +9,10 @@
 #'
 #' @examples
 #' \dontrun{
+#' crs_wgs <- CRS_extracter("WGS", EPSG = FALSE)
+#' crs_bel72 <- CRS_extracter("BEL72", EPSG = FALSE)
+#'
+#' epsg_wgs <- CRS_extracter("WGS", EPSG = TRUE)
 #' }
 #'
 #'
@@ -17,7 +21,7 @@
 
 CRS_extracter <- function(CRS, EPSG = TRUE){
 
-  Lib_CRS <- "lib_crs"
+  Lib_CRS <- lib_crs
 
   if(grepl("wgs", CRS, ignore.case = TRUE)){
     CRS <- "WGS"
@@ -27,10 +31,11 @@ CRS_extracter <- function(CRS, EPSG = TRUE){
     CRS <- "BEL72"
   }
 
-  if(WKT == TRUE){
-    CRS_output <- CRS(Lib_CRS$WKT[CRS == Lib_CRS$CRS_Naam])
+  if(EPSG == TRUE){
+    CRS_output <- sp::CRS(Lib_CRS$EPSG[CRS == Lib_CRS$CRS_Naam])
   }else{
-    CRS_output <- CRS(Lib_CRS$Proj4s[CRS == Lib_CRS$CRS_Naam])
+    CRS_output <- sp::CRS(Lib_CRS$Proj4s[CRS == Lib_CRS$CRS_Naam])
   }
- return(CRS_output)
+
+  return(CRS_output)
 }
