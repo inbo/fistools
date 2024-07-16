@@ -17,7 +17,7 @@
 
 CRS_extracter <- function(CRS, EPSG = TRUE){
 
-  Lib_CRS <- lib_crs
+  Lib_CRS <- "lib_crs"
 
   if(grepl("wgs", CRS, ignore.case = TRUE)){
     CRS <- "WGS"
