@@ -2,6 +2,6 @@
 
 library(readr)
 
-lib_crs <- read_csv("./data_raw/Lib_CRS.csv")
+lib_crs <- read_csv2("./data_raw/Lib_CRS.csv")
 
 save(lib_crs,file= "./data/lib_crs.rda")
