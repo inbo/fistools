@@ -1,9 +1,8 @@
-#' lib_crs
+#' Lib CRS
 #'
 #' Library of commonly used coordinate reference system (CRS) codes
 #'
-#' @format ## `lib_crs`
-#' is a named list with the following elements:
+#' @format A named list with the following elements:
 #' \describe{
 #'   \item{CRS_Naam}{ID of the CRS}
 #'   \item{Proj4s}{Javascript Object Notation (JSON) of the CRS}
