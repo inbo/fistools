@@ -1,4 +1,10 @@
-# Copyright (c) 2003-23 by Barry Rowlingson and Roger Bivand
+#' CRS methods
+#'
+#' Methods for the CRS class.
+#'
+#' @source sp version 2.1-3 by Edzer Pebesma, Roger Bivand
+#'
+#' @author Copyright (c) 2003-23 by Barry Rowlingson and Roger Bivand
 
 # if (!isGeneric("rebuild_CRS"))
 #   setGeneric("rebuild_CRS", function(obj)
@@ -13,6 +19,8 @@
 #           }
 # )
 
+#' @importFrom sf st_crs
+#' @export
 
 "CRS" <- function(projargs=NA_character_, doCheckCRSArgs=TRUE,
                   SRS_string=NULL, get_source_if_boundcrs=TRUE, use_cache=TRUE) {
@@ -100,6 +108,7 @@
 #           }
 # )
 
+#' @export
 
 "print.CRS" <- function(x, ...)
 {
@@ -152,12 +161,17 @@ identicalCRS = function(x, y) {
   }
 }
 
+#' @export
+
 identicalCRS1 = function(x, y) {
   args_x <- strsplit(x@projargs, " +")[[1]]
   args_y <- strsplit(y@projargs, " +")[[1]]
   setequal(args_x, args_y)
 }
 #https://github.com/inlabru-org/inlabru/issues/178
+
+#' @export
+
 is.na.CRS = function(x) {
   is.na(x@projargs) && is.null(comment(x))
 }
