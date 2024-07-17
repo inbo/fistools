@@ -8,6 +8,8 @@
 #' And end with a call to `unloadNamespace("sp")`.
 #' This is because the "sp" package is known to cause conflicts with other packages.
 #'
+#' @param force A logical indicating whether the installation should be forced
+#'
 #' @importFrom utils install.packages
 #'
 #' @export
