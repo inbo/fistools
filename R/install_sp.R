@@ -15,7 +15,7 @@
 #' @author Sander Devisscher
 
 install_sp <- function(force = FALSE) {
-  if (!requireNamespace("sp", quietly = TRUE)) {
+  if (!rlang::is_installed("sp")) {
     print("sp is not installed, installing it now")
     # download the tarball from CRAN https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz
     # and place it in a temporary directory
