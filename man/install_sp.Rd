@@ -6,6 +6,9 @@
 \usage{
 install_sp(force = FALSE)
 }
+\arguments{
+\item{force}{A logical indicating whether the installation should be forced}
+}
 \description{
 Helper function that installs sp when missing, from a tarball.
 }
