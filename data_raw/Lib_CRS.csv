@@ -1,3 +1,3 @@
 CRS_Naam;Proj4s;EPSG
 WGS;"+proj=longlat +datum=WGS84 +no_defs";"EPSG:4326"
-BEL72;""+init=epsg:31370"";"EPSG:31370"
+BEL72;"+init=epsg:31370";"EPSG:31370"
