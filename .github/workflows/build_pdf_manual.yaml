@@ -37,6 +37,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y texlive-full
 
+    - name: Install R packages
+      run: |
+        source("R/install_imports.R")
+      shell: Rscript {0}
+
     - name: Build and document package
       run: |
         R -e "devtools::document()"
