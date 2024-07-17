@@ -20,9 +20,3 @@ for (package in Imports) {
   package <- trimws(package)
   install.packages(package, dependencies = TRUE)
 }
-
-
-- name: Install R packages
-  run: |
-    source("R/install_imports.R")
-  shell: Rscript {0}
