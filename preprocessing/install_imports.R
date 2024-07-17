@@ -18,7 +18,14 @@ for (package in Imports) {
   package <- gsub("\\(.*\\)", "", package)
   # remove leading and trailing whitespace
   package <- trimws(package)
+  # go to next package if package is utils
+  if (package == "utils"){
+    next
+  }
+
   # unload the package if it is already loaded
-  if (package %in% rownames(installed.packages())) detach(package, unload = TRUE)
+  if (package %in% rownames(installed.packages())){
+    unloadNamespace(package)
+  }
   install.packages(package)
 }
