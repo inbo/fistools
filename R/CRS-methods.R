@@ -124,8 +124,11 @@
   invisible(pst)
 }
 
-setMethod("show", "CRS", function(object) print.CRS(object))
 
+#setMethod("show", "CRS", function(object) print.CRS(object))
+
+
+#' @export
 identicalCRS = function(x, y) {
   if (! missing(y)) {
     if (inherits(x, "ST")) x <- slot(slot(x, "sp"), "proj4string")
