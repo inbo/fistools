@@ -15,7 +15,8 @@
 #' epsg_wgs <- CRS_extracter("WGS", EPSG = TRUE)
 #' }
 #'
-#'
+#' @importFrom sp CRS
+#' @importClassesFrom sp CRS
 #' @export
 #' @author Sander Devisscher
 
