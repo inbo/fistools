@@ -10,7 +10,32 @@
 #' @examples
 #' \dontrun{
 #' # Example of how to use the calculate_polygon_centroid function
-#' centroids_data_final <- calculate_polygon_centroid(sf_df = boswachterijen$boswachterijen_2024, id = "UUID")
+#' # Load the necessary data
+#' boswachterijen <- boswachterijen$boswachterijen_2024
+#'
+#' # add a unique identifier to the sf object
+#' boswachterijen <- boswachterijen %>%
+#' dplyr::mutate(UUID = as.character(row_number()))
+#'
+#' # Calculate the centroid of the polygons
+#' centroids_data_final <- calculate_polygon_centroid(sf_df = boswachterijen, id = "UUID")
+#'
+#' # Plot the polygons and the centroids
+#' library(leaflet)
+#'
+#' # Sample 1 polygon and 1 centroid to plot using id
+#' sample_id <- sample(centroids_data_final$UUID, 1)
+#'
+#' leaflet() %>%
+#'   addProviderTiles("CartoDB.Positron") %>%
+#'   addPolygons(data = boswachterijen %>% dplyr::filter(UUID == sample_id),
+#'               weight = 1, color = "black", fillOpacity = 0.5) %>%
+#'   addCircles(data = centroids_data_final %>% dplyr::filter(UUID == sample_id),
+#'              lat = ~centroidLatitude, lng = ~centroidLongitude, radius = 5,
+#'              color = "black") %>%
+#'   addCircles(data = centroids_data_final %>% dplyr::filter(UUID == sample_id),
+#'              lat = ~centroidLatitude, lng = ~centroidLongitude, radius = ~centroidUncertainty,
+#'              color = "red", weight = 1)
 #' }
 #'
 #' @export
@@ -45,14 +70,17 @@ calculate_polygon_centroid <- function(sf_df, id){
 
   ## Extract the CRS ####
   crs_wgs <- CRS_extracter("wgs")
-  crs_bel <- CRS_extracter("bel")
+
+  ## Transform the data to the correct CRS ####
+  sf_df <- sf_df %>%
+    sf::st_transform(crs_wgs)
 
   ## Calculate the number of vertices ####
   sf_df <- sf_df %>%
     sf::st_make_valid() %>%
     dplyr::mutate(NbrVertex = mapview::npts(sf_df, by_feature = TRUE))
 
-  # Create Centroids ####
+  # Caculate Centroids ####
   ## Calculate centroids from sp_df ####
   centroids <- sf_df %>%
     sf::st_centroid()
@@ -61,15 +89,37 @@ calculate_polygon_centroid <- function(sf_df, id){
   centroids_data_final <- data.frame()
 
   UUIDS <- unique(sf_df$id)
+
+  ## Create a progress bar ####
+  pb <- progress::progress_bar$new(format = "  [:bar] :percent ETA: :eta",
+                                   total = nrow(sf_df),
+                                   clear = FALSE,
+                                   width = 60)
+
   ## Calculate the distance between the centroid and the polygon ####
   for(u in UUIDS){
+    ### Update the progress bar ####
+    pb$tick()
+    ### Filter the sf data ####
     sf_df_sub <- sf_df %>%
       dplyr::filter(id == u)
     ### Check if the polygon is valid ####
     if(nrow(sf_df_sub) == 0){
       next
       warning(paste0("no fortified shape for ", u))
+    }else{
+      ### split the polygons into vertrex points ####
+      sf_df_sub <- sf_df_sub  %>%
+        st_cast("MULTIPOINT") %>%
+        st_cast("POINT", do_split = TRUE)
+
+      ### Check if the number of points is equal to the number of vertices ####
+      if(nrow(sf_df_sub) != unique(sf_df_sub$NbrVertex)){
+        warning(paste0("The number of points is not equal to the number of vertices for ", u))
+      }
     }
+
+    ### Filter the centroid data ####
     centroids_sub <- centroids %>%
       dplyr::filter(id == u)
 
@@ -87,6 +137,7 @@ calculate_polygon_centroid <- function(sf_df, id){
 
     ### Set the maximum distance to 4 if it is smaller than 4 ####
     if(maxDistance < 4){
+      warning(paste0("The maximum distance is smaller than 4 for ", u, " >> setting the maximum distance to 4"))
       maxDistance <- 4 # reasonable accuracy of handheld GPS devices
     }
 
@@ -100,9 +151,9 @@ calculate_polygon_centroid <- function(sf_df, id){
     dplyr::mutate(centroidLatitude = sf::st_coordinates(geometry)[, 2],
                   centroidLongitude = sf::st_coordinates(geometry)[, 1]) %>%
     dplyr::select(id,
-                  verbatimCentroidLatitude,
-                  verbatimCentroidLongitude,
-                  verbatimCentroidUncertainty) %>%
+                  centroidLatitude,
+                  centroidLongitude,
+                  centroidUncertainty) %>%
     sf::st_drop_geometry()
 
   ## Rename the id column to the original name ####
