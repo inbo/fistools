@@ -1,0 +1,43 @@
+name: Build PDF Manual
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup R
+      uses: r-lib/actions/setup-r@v2
+
+    - name: Install R dependencies
+      run: |
+        install.packages('devtools')
+        install.packages('roxygen2')
+
+    - name: Install LaTeX
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-full
+
+    - name: Build and document package
+      run: |
+        R -e "devtools::document()"
+
+    - name: Generate PDF manual
+      run: |
+        R CMD Rd2pdf . -o fistools.pdf
+
+    - name: Upload PDF manual
+      uses: actions/upload-artifact@v3
+      with:
+        name: fistools-manual
+        path: fistools.pdf
