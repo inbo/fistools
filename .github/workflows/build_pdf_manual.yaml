@@ -39,7 +39,7 @@ jobs:
 
     - name: Install R packages
       run: |
-        source("R/install_imports.R")
+        source("preprocessing/install_imports.R")
       shell: Rscript {0}
 
     - name: Build and document package
