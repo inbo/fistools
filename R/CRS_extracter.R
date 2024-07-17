@@ -43,6 +43,8 @@
 CRS_extracter <- function(CRS,
                           EPSG = TRUE){
 
+  install_sp()
+
   Lib_CRS <- lib_crs
 
   if(grepl("wgs", CRS, ignore.case = TRUE)){
@@ -54,9 +56,9 @@ CRS_extracter <- function(CRS,
   }
 
   if(EPSG == TRUE){
-    CRS_output <- sp::CRS(Lib_CRS$EPSG[CRS == Lib_CRS$CRS_Naam])
+    CRS_output <- CRS(Lib_CRS$EPSG[CRS == Lib_CRS$CRS_Naam])
   }else{
-    CRS_output <- sp::CRS(Lib_CRS$Proj4s[CRS == Lib_CRS$CRS_Naam])
+    CRS_output <- CRS(Lib_CRS$Proj4s[CRS == Lib_CRS$CRS_Naam])
   }
 
   return(CRS_output)
