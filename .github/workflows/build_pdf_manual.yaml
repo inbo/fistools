@@ -11,10 +11,6 @@ jobs:
   build-pdf:
     runs-on: ubuntu-latest
 
-    env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      GITHUB_TOKEN: ${{ secrets.AUTOMATISATION }}
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -63,3 +59,4 @@ jobs:
         github_token: ${{ secrets.AUTOMATISATION }}
         commit_prefix: "[AUTO]"
         commit_message: "update fistools"
+        debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
