@@ -16,4 +16,4 @@ devtools::install_github("inbo/fistools")
 
 # what can I do with this package?
 
-A list of functions & datasets can be found in the [reference manual](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/inbo/fistools/main/fistools.pdf)
+A list of functions & datasets can be found in the [reference page](https://inbo.github.io/fistools/reference/index.html)

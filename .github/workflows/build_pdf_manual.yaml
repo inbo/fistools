@@ -56,10 +56,6 @@ jobs:
         R -e "devtools::document()"
         R -e "pkgdown::build_site()"
 
-    - name: Generate PDF manual with pkgdown
-      run: |
-        R -e "pkgdown::build_pdf()"
-
     - name: Commit and push changes
       if: success()
       uses: devops-infra/action-commit-push@master
