@@ -63,6 +63,6 @@ jobs:
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@master
       with:
-          github_token: ${{ secrets.AUTOMATISATION }}
-          commit_prefix: "[AUTO]"
-          commit_message: "update fistools.pdf"
+        github_token: ${{ secrets.AUTOMATISATION }}
+        commit_prefix: "[AUTO]"
+        commit_message: "update fistools"
