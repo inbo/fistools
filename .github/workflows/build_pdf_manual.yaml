@@ -30,34 +30,43 @@ jobs:
                                   libfribidi-dev \
                                   pandoc
 
+  - name: Install R dependencies
+    run: |
+      R -e "install.packages('devtools')"
+      R -e "install.packages('roxygen2')"
+      R -e "install.packages('pkgdown')"
 
-    - name: Install R dependencies
-      run: |
-        R -e "install.packages('devtools')"
-        R -e "install.packages('roxygen2')"
-        R -e "install.packages('pkgdown')"
+  - name: Install R packages
+    run: |
+       source("preprocessing/install_imports.R")
+    shell: Rscript {0}
 
-    - name: Install R packages
-      run: |
-        source("preprocessing/install_imports.R")
-      shell: Rscript {0}
+  - name: cleanup_reference_manual
+    run: |
+      source("preprocessing/cleanup_reference_manual.R")
+    shell: Rscript {0}
 
-    - name: cleanup_reference_manual
-      run: |
-        source("preprocessing/cleanup_reference_manual.R")
-      shell: Rscript {0}
-
-    - name: Build and document package
-      run: |
+  - name: Build and document package
+    run: |
         R -e "devtools::document()"
         R -e "pkgdown::build_site()"
 
-    - name: Commit and push changes
-      if: success()
-      uses: devops-infra/action-commit-push@master
-      with:
-        github_token: ${{ secrets.AUTOMATISATION }}
-        commit_prefix: "[AUTO]"
-        commit_message: "update fistools"
-        debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
-        target_branch: ${{ github.head_ref || github.ref_name }}
+  - name: Pull latest changes
+    run: |
+      git pull origin ${{ github.head_ref || github.ref_name }}
+    shell: bash
+
+  - name: Merge changes
+    run: |
+      git merge --no-edit origin/${{ github.head_ref || github.ref_name }}
+    shell: bash
+
+  - name: Commit and push changes
+    if: success()
+    uses: devops-infra/action-commit-push@master
+    with:
+      github_token: ${{ secrets.AUTOMATISATION }}
+      commit_prefix: "[AUTO]"
+      commit_message: "update fistools"
+      debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
+      target_branch: ${{ github.head_ref || github.ref_name }}
