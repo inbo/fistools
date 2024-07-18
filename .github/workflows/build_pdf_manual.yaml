@@ -31,7 +31,9 @@ jobs:
                                   libproj-dev \
                                   libudunits2-dev \
                                   libharfbuzz-dev \
-                                  libfribidi-dev
+                                  libfribidi-dev \
+                                  pandoc
+
 
     - name: Install R dependencies
       run: |
