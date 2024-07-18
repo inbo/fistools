@@ -62,9 +62,19 @@ jobs:
 
     - name: Generate PDF manual
       run: |
-        R CMD Rd2pdf . -o fistools.pdf --debug=1 || { echo "Failed to generate PDF"; exit 1; }
+        R CMD Rd2pdf . -o fistools.pdf || { echo "Failed to generate PDF"; exit 1; }
+
+    - name: List temp files for debugging
+      if: failure()
+      run: |
+        ls -la /tmp
+        ls -la $HOME
+        ls -la /home/runner/work/${{ github.repository }}/
+        cat /home/runner/work/${{ github.repository }}/fistools.pdf.log || true
+        cat /home/runner/work/${{ github.repository }}/*.log || true
 
     - name: Commit and push changes
+      if: success()
       uses: devops-infra/action-commit-push@master
       with:
         github_token: ${{ secrets.AUTOMATISATION }}
