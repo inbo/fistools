@@ -60,4 +60,4 @@ jobs:
         commit_prefix: "[AUTO]"
         commit_message: "update fistools"
         debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
-        target_branch: ${{ github.ref }}
+        target_branch: ${{ github.head_ref || github.ref_name }}
