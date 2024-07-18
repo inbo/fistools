@@ -110,8 +110,8 @@ calculate_polygon_centroid <- function(sf_df, id){
     }else{
       ### split the polygons into vertrex points ####
       sf_df_sub <- sf_df_sub  %>%
-        st_cast("MULTIPOINT") %>%
-        st_cast("POINT", do_split = TRUE)
+        sf::st_cast("MULTIPOINT") %>%
+        sf::st_cast("POINT", do_split = TRUE)
 
       ### Check if the number of points is equal to the number of vertices ####
       if(nrow(sf_df_sub) != unique(sf_df_sub$NbrVertex)){
@@ -129,7 +129,7 @@ calculate_polygon_centroid <- function(sf_df, id){
       warning(paste0("no centroid for ", u))
     }
     ### Calculate the distance ####
-    distance <- st_distance(sf_df_sub, centroids_sub) %>%
+    distance <- sf::st_distance(sf_df_sub, centroids_sub) %>%
       units::drop_units()
 
     ### Calculate the maximum distance ####
