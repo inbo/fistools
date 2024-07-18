@@ -38,10 +38,9 @@ jobs:
         R -e "install.packages('devtools')"
         R -e "install.packages('roxygen2')"
 
-    - name: Install LaTeX
+    - name: Install minimal LaTeX
       run: |
-        sudo apt-get install -y texlive-full \
-                                texlive-latex-recommended \
+        sudo apt-get install -y texlive-latex-recommended \
                                 texlive-latex-extra \
                                 texlive-fonts-recommended \
                                 texinfo
@@ -59,6 +58,10 @@ jobs:
     - name: Build and document package
       run: |
         R -e "devtools::document()"
+
+    - name: Check for viewers and remove
+      run: |
+        sudo apt-get remove -y xdg-utils || true
 
     - name: Generate PDF manual
       run: |
