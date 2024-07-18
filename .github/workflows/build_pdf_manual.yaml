@@ -39,6 +39,16 @@ jobs:
         R -e "install.packages('roxygen2')"
         R -e "install.packages('pkgdown')"
 
+    - name: Install R packages
+      run: |
+        source("preprocessing/install_imports.R")
+      shell: Rscript {0}
+
+    - name: cleanup_reference_manual
+      run: |
+        source("preprocessing/cleanup_reference_manual.R")
+      shell: Rscript {0}
+
     - name: Build and document package
       run: |
         R -e "devtools::document()"
