@@ -37,47 +37,16 @@ jobs:
       run: |
         R -e "install.packages('devtools')"
         R -e "install.packages('roxygen2')"
-
-    - name: Install LaTeX and required utilities
-      run: |
-        sudo apt-get install -y texlive-base \
-                                texlive-latex-recommended \
-                                texlive-latex-extra \
-                                texlive-fonts-recommended \
-                                texlive-font-utils \
-                                texlive-lang-all \
-                                texinfo
-
-    - name: Install R packages
-      run: |
-        source("preprocessing/install_imports.R")
-      shell: Rscript {0}
-
-    - name: cleanup_reference_manual
-      run: |
-        source("preprocessing/cleanup_reference_manual.R")
-      shell: Rscript {0}
+        R -e "install.packages('pkgdown')"
 
     - name: Build and document package
       run: |
         R -e "devtools::document()"
+        R -e "pkgdown::build_site()"
 
-    - name: Check for viewers and remove
+    - name: Generate PDF manual with pkgdown
       run: |
-        sudo apt-get remove -y xdg-utils || true
-
-    - name: Generate PDF manual
-      run: |
-        R CMD Rd2pdf . -o fistools.pdf || { echo "Failed to generate PDF"; exit 1; }
-
-    - name: List temp files for debugging
-      if: failure()
-      run: |
-        ls -la /tmp
-        ls -la $HOME
-        ls -la /home/runner/work/${{ github.repository }}/
-        cat /home/runner/work/${{ github.repository }}/fistools.pdf.log || true
-        cat /home/runner/work/${{ github.repository }}/*.log || true
+        R -e "pkgdown::build_pdf()"
 
     - name: Commit and push changes
       if: success()
