@@ -25,12 +25,14 @@ jobs:
 
     - name: Install linux libraries
       run: |
-          sudo apt install libsodium-dev
-          sudo apt-get install libcurl4-openssl-dev
-          sudo apt-get install libgdal-dev libproj-dev
-          sudo apt install libudunits2-dev
-          sudo apt install libharfbuzz-dev
-          sudo apt install libfribidi-dev
+          sudo apt-get update
+          sudo apt-get install -y libsodium-dev \
+                                  libcurl4-openssl-dev \
+                                  libgdal-dev \
+                                  libproj-dev \
+                                  libudunits2-dev \
+                                  libharfbuzz-dev \
+                                  libfribidi-dev
 
     - name: Install R dependencies
       run: |
@@ -39,8 +41,11 @@ jobs:
 
     - name: Install LaTeX
       run: |
-        sudo apt-get update
-        sudo apt-get install -y texlive-full
+        sudo apt-get install -y texlive-full \
+                                texlive-latex-recommended \
+                                texlive-latex-extra \
+                                texlive-fonts-recommended \
+                                texinfo
 
     - name: Install R packages
       run: |
@@ -58,7 +63,7 @@ jobs:
 
     - name: Generate PDF manual
       run: |
-        R CMD Rd2pdf . -o fistools.pdf
+        R CMD Rd2pdf . -o fistools.pdf --no-clean || { echo "Failed to generate PDF"; exit 1; }
 
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@master
