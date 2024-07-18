@@ -38,11 +38,14 @@ jobs:
         R -e "install.packages('devtools')"
         R -e "install.packages('roxygen2')"
 
-    - name: Install minimal LaTeX
+    - name: Install LaTeX and required utilities
       run: |
-        sudo apt-get install -y texlive-latex-recommended \
+        sudo apt-get install -y texlive-base \
+                                texlive-latex-recommended \
                                 texlive-latex-extra \
                                 texlive-fonts-recommended \
+                                texlive-font-utils \
+                                texlive-lang-all \
                                 texinfo
 
     - name: Install R packages
