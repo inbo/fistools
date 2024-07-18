@@ -9,7 +9,7 @@ label_converter(
   id_column,
   labelnummer_column,
   soort_column,
-  labeltype_column,
+  labeltype_column = NULL,
   jaar_column,
   output_style = "eloket"
 )
@@ -27,16 +27,16 @@ label_converter(
 
 \item{jaar_column}{a character string pointing to the column containing years.}
 
-\item{output_style}{a charcter string specifiying the output style. Can be "eloket" or "labo". Default is "eloket".}
+\item{output_style}{a character string specifying the output style. Can be "eloket" or "labo". Default is "eloket".}
 }
 \value{
-a dataframe containing 2 columns id & label
+a dataframe containing 2 columns: id & label
 }
 \description{
 Script to convert labelnummer, soort en/of labeltype en jaar into afschotlabel
 }
 \details{
-The input dataframe should a least contain a id_column & labelnummer_column
+The input dataframe should at least contain an id_column & labelnummer_column
 other values can be 'hardcoded'.
 }
 \examples{
@@ -72,6 +72,7 @@ soort = sample(c("REE", "WILD ZWIJN", "DAMHERT"), 1000, replace = TRUE))
 labels <- label_converter(df, "id", "labelnummer", "soort", "REEKITS", 2020, "eloket")
 
 # provide a dataframe with mixed labelnummers & labeltype & hardcode soort & jaar
+## remark: run the function once prior to testing
 df <- labels \%>\%
   left_join(df \%>\% select(-labelnummer), by = "id") \%>\%
   add_row(id = setdiff(1:1000, labels$id)) \%>\%
