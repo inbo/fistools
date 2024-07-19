@@ -29,6 +29,8 @@ jobs:
       run: |
         install.packages('remotes')
         remotes::install_deps(dependencies = TRUE)
+        install.packages('devtools')
+        devtools::install_github('inbo/fistools')
       shell: Rscript {0}
 
     - name: Install pkgdown
