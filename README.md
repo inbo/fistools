@@ -1,6 +1,7 @@
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/inbo/fistools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inbo/fistools/actions/workflows/R-CMD-check.yaml) [![test-coverage](https://github.com/inbo/fistools/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/inbo/fistools/actions/workflows/test-coverage.yaml) [![build-pdf-manual](https://github.com/inbo/fistools/actions/workflows/build_pdf_manual.yaml/badge.svg)](https://github.com/inbo/fistools/actions/workflows/build_pdf_manual.yaml)
+[![R-CMD-check](https://github.com/inbo/fistools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inbo/fistools/actions/workflows/R-CMD-check.yaml) [![test-coverage](https://github.com/inbo/fistools/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/inbo/fistools/actions/workflows/test-coverage.yaml) 
+[![pages-build-deployment](https://github.com/inbo/fistools/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/inbo/fistools/actions/workflows/pages/pages-build-deployment)
 
 <!-- badges: end -->
 
