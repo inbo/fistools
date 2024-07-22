@@ -27,11 +27,13 @@ jobs:
         sudo apt-get install -y libudunits2-dev
 
     - name: Install R package dependencies
+      env:
+        GITHUB_PAT: ${{ secrets.GH_PAT }}
       run: |
         install.packages('remotes')
         remotes::install_deps(dependencies = TRUE)
         install.packages('devtools')
-        devtools::install_github('inbo/fistools')
+        devtools::install_github('inbo/fistools', auth_token = Sys.getenv("GITHUB_PAT"))
       shell: Rscript {0}
 
     - name: Install pkgdown
