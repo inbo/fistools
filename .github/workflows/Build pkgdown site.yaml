@@ -9,6 +9,10 @@ jobs:
   build-site:
     runs-on: ubuntu-latest
 
+    env:
+      RSPM: ${{ matrix.config.rspm }}
+      GITHUB_PAT: ${{ secrets.GH_PAT }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -29,8 +33,6 @@ jobs:
         sudo apt-get install -y libgeos-dev libproj-dev libgdal-dev
 
     - name: Install R package dependencies
-      env:
-        GITHUB_PAT: ${{ secrets.GH_PAT }}
       run: |
         install.packages('remotes')
         remotes::install_deps(dependencies = TRUE)
