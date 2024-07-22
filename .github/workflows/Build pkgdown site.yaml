@@ -34,6 +34,7 @@ jobs:
         install.packages('remotes')
         remotes::install_deps(dependencies = TRUE)
         install.packages('devtools')
+        install.packages('utils')
         devtools::install_github('inbo/fistools', auth_token = Sys.getenv("GITHUB_PAT"))
       shell: Rscript {0}
 
