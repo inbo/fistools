@@ -11,17 +11,17 @@
 #' @return A `data.frame` with the values of the wfs appended to the list of points
 #'
 #' @export
-#' @family download_functions
+#' @family wfs_functions
 #'
 #' @examples
 #' \dontrun{
 #' }
-extract_soil_map_data <- function(df,
-                                  x_lam,
-                                  y_lam,
-                                  url,
-                                  layer
-                                  ) {
+wfs_intersect <- function(df,
+                          x_lam,
+                          y_lam,
+                          url,
+                          layer
+) {
 
   # check if x_lam & y_lam are in the df ####
   if (!all(c(x_lam, y_lam) %in% names(df))) {
@@ -54,8 +54,8 @@ extract_soil_map_data <- function(df,
 
   # check if url is a character string ####
   if (!is.character(url)) {
-   warning("url should be a character string >> converting to character string")
-   url <- as.character(url)
+    warning("url should be a character string >> converting to character string")
+    url <- as.character(url)
   }
 
   # check if the layer is in the wfs ####
@@ -128,7 +128,7 @@ extract_soil_map_data <- function(df,
 #' @export
 get_wfs_layers <- function(url) {
   client <- ows4R::WFSClient$new(url,
-                              serviceVersion = "2.0.0")
+                                 serviceVersion = "2.0.0")
 
   list <- client$getFeatureTypes(pretty = TRUE)
 
