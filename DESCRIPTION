@@ -35,4 +35,6 @@ Imports:
     units (>= 0.8.5),
     sp (>= 2.1.4),
     mapview (>= 2.11.2),
-    osmdata (>= 0.2.5)
+    osmdata (>= 0.2.5),
+    ows4R (>= 0.3.6),
+    jsonlite (>= 1.8.8)
