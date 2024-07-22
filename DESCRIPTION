@@ -9,7 +9,9 @@ Authors@R: c(
     person(given = "Soria", middle = "", family = "Delva", "soria.delva@inbo.be", 
       role = "aut", comment = c(ORCID = "0000-0002-7164-6031")),
     person(given = "Emma", middle = "", family = "Cartuyvels", "emma.cartuyvels@inbo.be", 
-      role = "aut", comment = c(ORCID = "0000-0001-7856-6360"))
+      role = "aut", comment = c(ORCID = "0000-0001-7856-6360")),
+    person(given = "Martijn", middle = "", family = "Bollen", "martijn.bollen@inbo.be", 
+      role = "aut", comment = c(ORCID = "0000-0002-1621-6258"))
            )
 Description: This package contains functions & data that are widely used within the wildlife management & invasive species research group (FIS) of the research institute forest and nature (INBO).
 License: MIT + file LICENSE
