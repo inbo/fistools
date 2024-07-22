@@ -23,12 +23,42 @@ extract_soil_map_data <- function(df,
                                   layer
                                   ) {
 
-  # check if x_lam & y_lam are in the df
+  # check if x_lam & y_lam are in the df ####
   if (!all(c(x_lam, y_lam) %in% names(df))) {
     stop("x_lam and y_lam should be columns in the df")
   }
 
-  # check if the layer is in the wfs
+  # check if x_lam & y_lam are numeric ####
+  if (!all(sapply(df[, c(x_lam, y_lam)], is.numeric))) {
+    warning("x_lam and y_lam should be numeric >> converting to numeric")
+    df[[x_lam]] <- as.numeric(df[[x_lam]])
+    df[[y_lam]] <- as.numeric(df[[y_lam]])
+  }
+
+  # check if x_lam & y_lam are provided ##
+  ## filter missing x_lam & y_lam values ####
+  missing_x_y <- df %>%
+    filter(is.na(!!sym(x_lam)) | is.na(!!sym(y_lam)))
+
+  if (nrow(missing_x_y) > 0) {
+    warning(paste(nrow(missing_x_y), "rows with missing x_lam & y_lam values"))
+  }
+
+  df <- df %>%
+    filter(!is.na(!!sym(x_lam)) & !is.na(!!sym(y_lam)))
+
+  ### check if there are still rows left in the df ####
+  if (nrow(df) == 0) {
+    stop("No rows left in the df after filtering missing x_lam & y_lam values")
+  }
+
+  # check if url is a character string ####
+  if (!is.character(url)) {
+   warning("url should be a character string >> converting to character string")
+   url <- as.character(url)
+  }
+
+  # check if the layer is in the wfs ####
   wfs_layers <- get_wfs_layers(url)
 
   if (!layer %in% wfs_layers) {
@@ -39,53 +69,52 @@ extract_soil_map_data <- function(df,
     ))
   }
 
-  # dealing with point data inside a certain polygon of the soil map:
-  query <- list(
-    service = "WFS",
-    request = "GetFeature",
-    version = "1.1.0",
-    typeName = layer,
-    outputFormat = "json",
-    CRS = "EPSG:31370",
-    CQL_FILTER = sprintf(
-      "INTERSECTS(geom,POINT(%s %s))",
-      x_lam, y_lam
-    )
-  )
+  # loop through the df and get the values from the wfs ####
+  ## create a progress bar ####
+  pb <- progress::progress_bar$new(format = "  [:bar] :percent ETA: :eta",
+                                   total = nrow(sf_df),
+                                   clear = FALSE,
+                                   width = 60)
+  ## loop through the df ####
+  for(i in 1:nrow(df)) {
+    ### update the progress bar ####
+    pb$tick()
 
-  result <- GET(wfs_bodemtypes, query = query)
-  if (grepl("ExceptionText", content(result, "text"))) {
-    stop(paste(
-      paste(properties_of_interest, collapse = ", "),
-      "is not available for bodemkaart:bodemtypes.",
-      "The possible propertyName values are: [gid, id_kaartvlak, geom, Bodemtype
-      , Unibodemtype, Bodemserie, Beknopte_omschrijving_bodemserie,
-      Substraat_legende, Gegeneraliseerde_legende, Substraat_code,
-      Substraat_Vlaanderen, Textuurklasse_code, Textuurklasse,
-      Drainageklasse_code, Drainageklasse, Profielontwikkelingsgroep_code,
-      Profielontwikkelingsgroep, Fase_code, Fase,
-      Variante_van_het_moedermateriaal_code, Variante_van_het_moedermateriaal,
-      Variante_van_de_profielontwikkeling_code,
-      Variante_van_de_profielontwikkeling, Substraat_code_zeepolders,
-      Substraat_zeepolders, Streek_code, Streek, Serie_code, Serie,
-      Subserie_code, Subserie, Type_code, Type, Subtype_code, Subtype,
-      Eenduidige_legende_titel, Eenduidige_legende, Scan_analoge_bodemkaarblad,
-      Scan_toelichtingsboekje, Scan_bodemkaart5000, Scan_stippenkaart5000,
-      Type_classificatie, Bodemtype_per_streek, Kaartbladnr, codeid]"
-    ))
-  }
-  parsed <- fromJSON(content(result, "text"))
-  soil_info_df <- parsed$features$properties
-  # if else to catch cases where a point falls outside the map
-  if (is.null(soil_info_df)) {
-    as.data.frame(
-      matrix(rep(NA, length(properties_of_interest)),
-             nrow = 1,
-             dimnames = list(NULL, properties_of_interest)
+    ### make the query ####
+    query <- list(
+      service = "WFS",
+      request = "GetFeature",
+      version = "1.1.0",
+      typeName = layer,
+      outputFormat = "json",
+      CRS = "EPSG:31370",
+      CQL_FILTER = sprintf(
+        "INTERSECTS(geom,POINT(%s %s))",
+        df[[x_lam]][i], df[[y_lam]][i]
       )
     )
-  } else {
-    soil_info_df
+
+    ### get the data from the wfs ####
+    result <- httr::GET(url, query = query)
+
+    ### parse the result ####
+    parsed <- jsonlite::fromJSON(httr::content(result, "text"))
+    wfs_info <- parsed$features$properties
+
+    ### recombine the data ####
+
+    if (is.null(wfs_info)) {
+      next
+      warning("No data found for point ", i, " in the wfs")
+    } else {
+      wfs_info <- as.data.frame(wfs_info)
+    }
+
+    if (i == 1) {
+      wfs_info_df <- wfs_info
+    } else {
+      wfs_info_df <- rbind(wfs_info_df, wfs_info)
+    }
   }
 }
 
@@ -95,10 +124,13 @@ extract_soil_map_data <- function(df,
 #'
 #' @return A character vector with the available layers in the wfs
 #'
+#' @import ows4R
 #' @export
 get_wfs_layers <- function(url) {
-  result <- GET(url)
-  parsed <- fromJSON(content(result, "text"))
-  wfs_layers <- parsed$operations$GetFeature$parameters$type$allowedValues$value
-  wfs_layers
+  client <- ows4R::WFSClient$new(url,
+                              serviceVersion = "2.0.0")
+
+  list <- client$getFeatureTypes(pretty = TRUE)
+
+  return(list$name)
 }
