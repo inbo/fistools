@@ -7,11 +7,13 @@
 #' @param y_lam A character string with the column name of the Y coordinate
 #' @param url A character string with the url of the wfs
 #' @param layer A character string with the name of the layer in the wfs
+#' @param crs A character string with the coordinate reference system of the wfs
+#' @param debug A logical value to print debug information
 #'
 #' @return A `data.frame` with the values of the wfs appended to the list of points
 #'
 #' @export
-#' @family wfs_functions
+#' @family spatal_functions
 #'
 #' @examples
 #' \dontrun{
@@ -20,8 +22,9 @@ wfs_intersect <- function(df,
                           x_lam,
                           y_lam,
                           url,
-                          layer
-) {
+                          layer,
+                          crs = 31370,
+                          debug = FALSE) {
 
   # check if x_lam & y_lam are in the df ####
   if (!all(c(x_lam, y_lam) %in% names(df))) {
@@ -29,23 +32,36 @@ wfs_intersect <- function(df,
   }
 
   # check if x_lam & y_lam are numeric ####
-  if (!all(sapply(df[, c(x_lam, y_lam)], is.numeric))) {
-    warning("x_lam and y_lam should be numeric >> converting to numeric")
-    df[[x_lam]] <- as.numeric(df[[x_lam]])
-    df[[y_lam]] <- as.numeric(df[[y_lam]])
+  # if (!all(sapply(df[, c(x_lam, y_lam)], is.numeric))) {
+  #   warning("x_lam and y_lam should be numeric >> converting to numeric")
+  #   df$x_lam <- as.numeric(df[[x_lam]])
+  #   df$y_lam <- as.numeric(df[[y_lam]])
+  # }
+
+  # check if geometry is in the df ####
+  if ("sf" %in% class(df)) {
+    print("sf object detected >> dropping geometry")
+    df <- df %>%
+      sf::st_drop_geometry()
   }
+
+  # add x_lam & y_lam to the df ####
+  df$x_lam <- df[[x_lam]]
+  df$y_lam <- df[[y_lam]]
 
   # check if x_lam & y_lam are provided ##
   ## filter missing x_lam & y_lam values ####
   missing_x_y <- df %>%
-    filter(is.na(!!sym(x_lam)) | is.na(!!sym(y_lam)))
+    dplyr::filter(is.na(x_lam) |
+                  is.na(y_lam))
 
   if (nrow(missing_x_y) > 0) {
     warning(paste(nrow(missing_x_y), "rows with missing x_lam & y_lam values"))
   }
 
   df <- df %>%
-    filter(!is.na(!!sym(x_lam)) & !is.na(!!sym(y_lam)))
+    dplyr::filter(!is.na(x_lam) ,
+                  !is.na(y_lam))
 
   ### check if there are still rows left in the df ####
   if (nrow(df) == 0) {
@@ -69,10 +85,16 @@ wfs_intersect <- function(df,
     ))
   }
 
+  # check if crs is a character string ####
+  if (!is.character(crs)) {
+    warning("crs should be a character string >> converting to character string")
+    crs <- as.character(crs)
+  }
+
   # loop through the df and get the values from the wfs ####
   ## create a progress bar ####
   pb <- progress::progress_bar$new(format = "  [:bar] :percent ETA: :eta",
-                                   total = nrow(sf_df),
+                                   total = nrow(df),
                                    clear = FALSE,
                                    width = 60)
   ## loop through the df ####
@@ -83,23 +105,30 @@ wfs_intersect <- function(df,
     ### make the query ####
     query <- list(
       service = "WFS",
+      version = "2.0.0",
       request = "GetFeature",
-      version = "1.1.0",
       typeName = layer,
-      outputFormat = "json",
-      CRS = "EPSG:31370",
+      crs = "EPSG:6.9:31370",
       CQL_FILTER = sprintf(
         "INTERSECTS(geom,POINT(%s %s))",
-        df[[x_lam]][i], df[[y_lam]][i]
-      )
+        df$x_lam[i], df$y_lam[i]
+      ),
+      outputFormat = "csv",
+      resultType = "results",
+      maxFeatures = 1,
+      uniqueParam = runif(1)  # Adding a unique parameter to bypass cache
     )
 
-    ### get the data from the wfs ####
-    result <- httr::GET(url, query = query)
+    response <- httr::GET(url, query = query)
+    # Check if the request was successful
+    if (httr::http_type(response) != "text/csv") {
+      stop("Failed to get data from WFS. Status code: ", httr::status_code(response))
+    }
 
-    ### parse the result ####
-    parsed <- jsonlite::fromJSON(httr::content(result, "text"))
-    wfs_info <- parsed$features$properties
+    # Parse the result
+    wfs_info <- read.csv(textConnection(httr::content(response, "text"))) %>%
+      as.data.frame() %>%
+      dplyr::rename(geometry = Shape)
 
     ### recombine the data ####
 
@@ -115,7 +144,27 @@ wfs_intersect <- function(df,
     } else {
       wfs_info_df <- rbind(wfs_info_df, wfs_info)
     }
+
+    ### Print debug information ####
+    if (debug){
+      cat(sprintf("Processing point %d: (%s, %s)\n", i, df$x_lam[i], df$y_lam[i]))
+      print(query)
+      cat("Raw response content:\n", httr::content(response, "text"), "\n")
+      print(wfs_info)
+      print(wfs_info_df)
+      # Construct the full URL with query parameters
+      url_with_query <- modify_url(url, query = query)
+
+      # Print the full URL for debugging
+      cat("Full URL:\n", url_with_query, "\n")
+
+    }
+
+    ### cleanup after run ####
+    rm(wfs_info)
+    rm(response)
   }
+  return(wfs_info_df)
 }
 
 #' Function to get the available layers in a wfs
@@ -126,6 +175,8 @@ wfs_intersect <- function(df,
 #'
 #' @import ows4R
 #' @export
+#' @family spatial_functions
+#'
 get_wfs_layers <- function(url) {
   client <- ows4R::WFSClient$new(url,
                                  serviceVersion = "2.0.0")
