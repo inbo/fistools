@@ -10,10 +10,14 @@
 #' @param crs A character string with the coordinate reference system of the wfs
 #' @param debug A logical value to print debug information
 #'
+#' @details This function extracts values from a web feature service (wfs) based on the x and y coordinates in the df. The function loops through the df and makes a request to the wfs for each point. The function returns a data.frame with the values of the wfs appended to the list of points.
+#'
+#' the functions is mainly build to work with
+#'
 #' @return A `data.frame` with the values of the wfs appended to the list of points
 #'
 #' @export
-#' @family spatal_functions
+#' @family spatial_functions
 #'
 #' @examples
 #' \dontrun{
