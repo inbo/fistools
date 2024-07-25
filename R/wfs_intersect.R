@@ -126,7 +126,8 @@ wfs_intersect <- function(df,
     response <- httr::GET(url, query = query)
     # Check if the request was successful
     if (httr::http_type(response) != "text/csv") {
-      stop("Failed to get data from WFS. Status code: ", httr::status_code(response))
+      stop("Failed to get data from WFS. Status code: ", httr::status_code(response),
+           "http_type: ", httr::http_type(response), " expects text/csv")
     }
 
     # Parse the result
