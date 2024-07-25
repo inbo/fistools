@@ -35,6 +35,10 @@ wfs_intersect <- function(df,
     stop("x_lam and y_lam should be columns in the df")
   }
 
+  # add x_lam & y_lam to the df ####
+  df$x_lam <- df[[x_lam]]
+  df$y_lam <- df[[y_lam]]
+
   # check if x_lam & y_lam are numeric ####
   # if (!all(sapply(df[, c(x_lam, y_lam)], is.numeric))) {
   #   warning("x_lam and y_lam should be numeric >> converting to numeric")
@@ -44,20 +48,31 @@ wfs_intersect <- function(df,
 
   # check if geometry is in the df ####
   if ("sf" %in% class(df)) {
-    print("sf object detected >> dropping geometry")
+    print("sf object detected >> testing crs & dropping geometry")
+
+    ## check if crs is provided ####
+    if (is.null(sf::st_crs(df))) {
+      warning("crs is not provided in the sf object >> skipping crs test")
+    } else {
+      ### check if crs is the same as the provided crs ####
+      if (sf::st_crs(df) != crs) {
+        warning("crs of the sf object is not the same as the provided crs >> converting to the provided crs &
+                recalculating points")
+        df <- sf::st_transform(df, crs) %>%
+          dplyr::mutate(x_lam := sf::st_coordinates(.)[,1],
+                        y_lam := sf::st_coordinates(.)[,2])
+      }
+    }
+    ## drop the geometry ####
     df <- df %>%
       sf::st_drop_geometry()
   }
-
-  # add x_lam & y_lam to the df ####
-  df$x_lam <- df[[x_lam]]
-  df$y_lam <- df[[y_lam]]
 
   # check if x_lam & y_lam are provided ##
   ## filter missing x_lam & y_lam values ####
   missing_x_y <- df %>%
     dplyr::filter(is.na(x_lam) |
-                  is.na(y_lam))
+                    is.na(y_lam))
 
   if (nrow(missing_x_y) > 0) {
     warning(paste(nrow(missing_x_y), "rows with missing x_lam & y_lam values"))
@@ -107,33 +122,51 @@ wfs_intersect <- function(df,
     pb$tick()
 
     ### make the query ####
-    query <- list(
+    par_url <- httr::parse_url(url)
+    par_url$query <- list(
       service = "WFS",
       version = "2.0.0",
       request = "GetFeature",
       typeName = layer,
-      crs = "EPSG:6.9:31370",
+      crs = crs,
       CQL_FILTER = sprintf(
         "INTERSECTS(geom,POINT(%s %s))",
         df$x_lam[i], df$y_lam[i]
       ),
-      outputFormat = "csv",
       resultType = "results",
       maxFeatures = 1,
-      uniqueParam = runif(1)  # Adding a unique parameter to bypass cache
+      uniqueParam = as.numeric(Sys.time())  # Adding a unique parameter to bypass cache
     )
 
-    response <- httr::GET(url, query = query)
-    # Check if the request was successful
-    if (httr::http_type(response) != "text/csv") {
-      stop("Failed to get data from WFS. Status code: ", httr::status_code(response),
-           "http_type: ", httr::http_type(response), " expects text/csv")
+    response <- httr::GET(httr::build_url(par_url))
+
+    ### Check if the request was successful ####
+    if (httr::status_code(response) != 200) {
+      stop("Failed to get data from WFS. Status code: ", httr::status_code(response))
     }
 
-    # Parse the result
-    wfs_info <- read.csv(textConnection(httr::content(response, "text"))) %>%
-      as.data.frame() %>%
-      dplyr::rename(geometry = Shape)
+    ### Check if the response content is of a allowed type ####
+    allowed_content_types <- c("text/csv", "text/plain", "application/xml")
+
+    if (!httr::http_type(response) %in% allowed_content_types) {
+      stop("Failed to get data from WFS. Status code: ", httr::status_code(response),
+           "http_type: ", httr::http_type(response), " expects ",
+           paste(allowed_content_types, colapse = ", "), " response.
+           >> check wfs metadata if output is supported")
+    }
+
+    ### Parse the result ####
+    # response is a csv file or a text file
+    if(httr::http_type(response) == "text/csv" | httr::http_type(response) == "text/plain") {
+      wfs_info <- read.csv(textConnection(httr::content(response, "text"))) %>%
+        as.data.frame()
+    }
+
+    # response is a xml file
+    if(httr::http_type(response) == "application/xml") {
+      wfs_info <- xml2::read_xml(httr::content(response, "text")) %>%
+        xml2::as_list()
+    }
 
     ### recombine the data ####
 
@@ -169,6 +202,10 @@ wfs_intersect <- function(df,
     rm(wfs_info)
     rm(response)
   }
+
+  ### add the wfs_info_df to the df ####
+  wfs_info_df <- cbind(df, wfs_info_df)
+
   return(wfs_info_df)
 }
 
