@@ -1,5 +1,6 @@
 #' Compare column contents of two dataframes
-
+#'
+#' @description
 #' Compares the content of 2 similar columns of two data frames.
 #' The function prints a list of values missing from the first column,
 #' missing from the second column, and the values that are in both columns.
@@ -25,6 +26,14 @@
 #' @author Sander Devisscher
 
 col_content_compare <- function(df1, col1, df2, col2) {
+
+  # Check if the columns are present in the data frames
+  if (!col1 %in% names(df1)) {
+    stop(paste("Column", col1, "not found in df1"))
+  }
+  if (!col2 %in% names(df2)) {
+    stop(paste("Column", col2, "not found in df2"))
+  }
 
   # Get the unique values of the columns
   col1_unique <- unique(df1[[col1]])
