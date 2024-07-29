@@ -64,6 +64,13 @@ calculate_polygon_centroid <- function(sf_df, id){
   }
 
   # prepare data ####
+  ## Check if col name "id" is already present in the sf object ####
+  if("id" %in% names(sf_df) & id != "id"){
+    warning("The column name 'id' is already present in the sf object >> this column will be overwritten by the specified id")
+    sf_df <- sf_df %>%
+      dplyr::select(-id)
+  }
+
   ## Rename the id column to "id" ####
   id_col <- id
   names(sf_df)[names(sf_df) == id_col] <- "id"
