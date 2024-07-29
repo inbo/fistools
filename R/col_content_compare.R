@@ -15,9 +15,9 @@
 #'
 #' @examples
 #'  \dontrun{
-#' df1 <- data.frame(a = c(1, 2, 3, 4, 5), b = c("a", "b", "c", "d", "e"))
-#' df2 <- data.frame(a = c(1, 2, 3, 4, 5), b = c("a", "b", "f", "d", "e"))
-#' col_content_compare(df1, "b", df2, "b")
+#' dataset1 <- data.frame(a = c(1, 2, 3, 4, 5), b = c("a", "b", "c", "d", "e"))
+#' dataset2 <- data.frame(a = c(1, 2, 3, 4, 5), b = c("a", "b", "f", "d", "e"))
+#' col_content_compare(df1 = dataset1, "b", df2 = dataset2, "b")
 #' }
 #'
 #' @export
