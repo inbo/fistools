@@ -154,14 +154,34 @@ calculate_polygon_centroid <- function(sf_df, id){
   }
 
   ## Transform the data to a data frame ####
+  input_crs <- sf::st_crs(sf_df)
+
   centroids_data_final <- centroids_data_final %>%
-    dplyr::mutate(centroidLatitude = sf::st_coordinates(geometry)[, 2],
-                  centroidLongitude = sf::st_coordinates(geometry)[, 1]) %>%
-    dplyr::select(id,
-                  centroidLatitude,
-                  centroidLongitude,
-                  centroidUncertainty) %>%
-    sf::st_drop_geometry()
+      dplyr::mutate(centroidLatitude = sf::st_coordinates(geometry)[, 2],
+                    centroidLongitude = sf::st_coordinates(geometry)[, 1])
+
+    centroids_data_final_2 <- centroids_data_final %>%
+      sf::st_transform(input_crs) %>%
+      dplyr::mutate(centroidX = sf::st_coordinates(geometry)[, 1],
+                    centroidY = sf::st_coordinates(geometry)[, 2]) %>%
+      sf::st_transform(crs_wgs)
+
+    centroids_data_final <- cbind(centroids_data_final, centroids_data_final_2)  %>%
+      dplyr::select(id,
+                    centroidLatitude,
+                    centroidLongitude,
+                    centroidX,
+                    centroidY,
+                    centroidUncertainty) %>%
+      sf::st_drop_geometry()
+
+    ## Remove the centroidX and centroidY columns if they are equal to the centroidLatitude and centroidLongitude columns ####
+    if(all(centroids_data_final$centroidLatitude == centroids_data_final$centroidY) &
+       all(centroids_data_final$centroidLongitude == centroids_data_final$centroidX)){
+      centroids_data_final <- centroids_data_final %>%
+        dplyr::select(-centroidX, -centroidY)
+    }
+
 
   ## Rename the id column to the original name ####
   names(centroids_data_final)[names(centroids_data_final) == "id"] <- id_col
