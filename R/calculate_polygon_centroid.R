@@ -77,6 +77,7 @@ calculate_polygon_centroid <- function(sf_df, id){
 
   ## Extract the CRS ####
   crs_wgs <- CRS_extracter("wgs")
+  input_crs <- sf::st_crs(sf_df)
 
   ## Transform the data to the correct CRS ####
   sf_df <- sf_df %>%
@@ -154,8 +155,6 @@ calculate_polygon_centroid <- function(sf_df, id){
   }
 
   ## Transform the data to a data frame ####
-  input_crs <- sf::st_crs(sf_df)
-
   centroids_data_final <- centroids_data_final %>%
       dplyr::mutate(centroidLatitude = sf::st_coordinates(geometry)[, 2],
                     centroidLongitude = sf::st_coordinates(geometry)[, 1])
