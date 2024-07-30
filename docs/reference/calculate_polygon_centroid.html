@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fistools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
       </span>
     </div>
 
@@ -62,6 +62,15 @@
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the unique identifier, latitude, longitude and uncertainty of the centroid</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>The function always returns the latitude &amp; longitude of the polygon centroid
+and the uncertainty of this centroid.</p>
+<p>The uncertainty is calculated as the maximum distance between the centroid and
+vertrexes of the polygon.</p>
+<p>When the crs of the input is not wgs84 centroidX &amp; centroidY are also returned.
+The crs of these columns is equal to the crs of the input sf data frame.</p>
     </div>
     <div id="author">
     <h2>Author</h2>

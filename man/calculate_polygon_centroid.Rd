@@ -17,6 +17,16 @@ A data frame with the unique identifier, latitude, longitude and uncertainty of 
 \description{
 This function calculates the centroid of a polygon and returns the latitude, longitude and uncertainty of the centroid.
 }
+\details{
+The function always returns the latitude & longitude of the polygon centroid
+and the uncertainty of this centroid.
+
+The uncertainty is calculated as the maximum distance between the centroid and
+vertrexes of the polygon.
+
+When the crs of the input is not wgs84 centroidX & centroidY are also returned.
+The crs of these columns is equal to the crs of the input sf data frame.
+}
 \examples{
 \dontrun{
 # Example of how to use the calculate_polygon_centroid function

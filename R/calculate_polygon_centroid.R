@@ -5,6 +5,17 @@
 #' @param sf_df A sf object with polygons
 #' @param id A character string with the name of the column containing the unique identifier
 #'
+#' @details
+#' The function always returns the latitude & longitude of the polygon centroid
+#' and the uncertainty of this centroid.
+#'
+#' The uncertainty is calculated as the maximum distance between the centroid and
+#' vertrexes of the polygon.
+#'
+#' When the crs of the input is not wgs84 centroidX & centroidY are also returned.
+#' The crs of these columns is equal to the crs of the input sf data frame.
+#'
+#'
 #' @return A data frame with the unique identifier, latitude, longitude and uncertainty of the centroid
 #'
 #' @examples
@@ -41,7 +52,8 @@
 #' @export
 #' @author Sander Devisscher
 
-calculate_polygon_centroid <- function(sf_df, id){
+calculate_polygon_centroid <- function(sf_df,
+                                       id){
   # Checks ####
   ## Check if the input is an sf object ####
   if(!inherits(sf_df, "sf")){
@@ -77,6 +89,7 @@ calculate_polygon_centroid <- function(sf_df, id){
 
   ## Extract the CRS ####
   crs_wgs <- CRS_extracter("wgs")
+  input_crs <- sf::st_crs(sf_df)
 
   ## Transform the data to the correct CRS ####
   sf_df <- sf_df %>%
@@ -155,13 +168,31 @@ calculate_polygon_centroid <- function(sf_df, id){
 
   ## Transform the data to a data frame ####
   centroids_data_final <- centroids_data_final %>%
-    dplyr::mutate(centroidLatitude = sf::st_coordinates(geometry)[, 2],
-                  centroidLongitude = sf::st_coordinates(geometry)[, 1]) %>%
-    dplyr::select(id,
-                  centroidLatitude,
-                  centroidLongitude,
-                  centroidUncertainty) %>%
-    sf::st_drop_geometry()
+      dplyr::mutate(centroidLatitude = sf::st_coordinates(geometry)[, 2],
+                    centroidLongitude = sf::st_coordinates(geometry)[, 1])
+
+    centroids_data_final_2 <- centroids_data_final %>%
+      sf::st_transform(input_crs) %>%
+      dplyr::mutate(centroidX = sf::st_coordinates(geometry)[, 1],
+                    centroidY = sf::st_coordinates(geometry)[, 2]) %>%
+      sf::st_transform(crs_wgs)
+
+    centroids_data_final <- cbind(centroids_data_final, centroids_data_final_2)  %>%
+      dplyr::select(id,
+                    centroidLatitude,
+                    centroidLongitude,
+                    centroidX,
+                    centroidY,
+                    centroidUncertainty) %>%
+      sf::st_drop_geometry()
+
+    ## Remove the centroidX and centroidY columns if they are equal to the centroidLatitude and centroidLongitude columns ####
+    if(all(centroids_data_final$centroidLatitude == centroids_data_final$centroidY) &
+       all(centroids_data_final$centroidLongitude == centroids_data_final$centroidX)){
+      centroids_data_final <- centroids_data_final %>%
+        dplyr::select(-centroidX, -centroidY)
+    }
+
 
   ## Rename the id column to the original name ####
   names(centroids_data_final)[names(centroids_data_final) == "id"] <- id_col
