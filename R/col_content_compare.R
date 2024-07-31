@@ -16,8 +16,8 @@
 #' @examples
 #'  \dontrun{
 #' dataset1 <- data.frame(a = c(1, 2, 3, 4, 5), b = c("a", "b", "c", "d", "e"))
-#' dataset2 <- data.frame(a = c(1, 2, 3, 4, 5), b = c("a", "b", "f", "d", "e"))
-#' col_content_compare(df1 = dataset1, "b", df2 = dataset2, "b")
+#' dataset2 <- data.frame(c = c(1, 2, 3, 4, 5), d = c("a", "b", "f", "d", "e"))
+#' col_content_compare(df1 = dataset1, "b", df2 = dataset2, "d")
 #' }
 #'
 #' @export
@@ -69,10 +69,10 @@ col_content_compare <- function(df1, col1, df2, col2) {
   missing_from_col1 <- setdiff(col2_unique, col1_unique)
 
   # Print the results
-  print(paste0("Values missing from ", df1_name, "$", col1, " but in ", df2_name, "$", col2, ":"))
+  print(paste0("Values missing from ", df2_name, "$", col2, " but in ", df1_name, "$", col1, ":"))
   print(missing_from_col2)
 
-  print(paste0("Values missing from ", df2_name, "$", col2, " but in ", df1_name, "$", col1, ":"))
+  print(paste0("Values missing from ", df1_name, "$", col1, " but in ", df2_name, "$", col2, ":"))
   print(missing_from_col1)
 
   print("Values in both columns:")
