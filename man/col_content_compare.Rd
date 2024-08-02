@@ -27,8 +27,8 @@ missing from the second column, and the values that are in both columns.
 \examples{
  \dontrun{
 dataset1 <- data.frame(a = c(1, 2, 3, 4, 5), b = c("a", "b", "c", "d", "e"))
-dataset2 <- data.frame(a = c(1, 2, 3, 4, 5), b = c("a", "b", "f", "d", "e"))
-col_content_compare(df1 = dataset1, "b", df2 = dataset2, "b")
+dataset2 <- data.frame(c = c(1, 2, 3, 4, 5), d = c("a", "b", "f", "d", "e"))
+col_content_compare(df1 = dataset1, "b", df2 = dataset2, "d")
 }
 
 }
