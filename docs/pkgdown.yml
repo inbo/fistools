@@ -7,7 +7,7 @@ last_built: 2024-07-31T18:46Z
 reference:
 - title: Spatial functions
   contents:
-  - has_concept("Spatial")
+  - has_concept("spatial")
 - title: Dataframe comparison functions
   contents:
    - has_concept("dataframe_comparison")
