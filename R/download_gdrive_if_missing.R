@@ -18,7 +18,16 @@
 #' achieved by adding email as an item in a .renviron file or even beter by using
 #' more robust encryption methods.
 #'
-#' @returns If the destination file was missing it is now downloaded from the
+#' When a *PERMISSION_DENIED* error occurs, it is likely that the file is not shared
+#' with the email address provided. This can be fixed by sharing the file with the
+#' email address. If the file was shared correctly this might indicate that email address
+#' does not have the correct permissions to access the file. This can be fixed by
+#' running `googledrive::drive_auth()` and making sure the
+#' 'show, modify and delete all drive files' option is selected. If the error persists
+#' please create a [new issue](https://github.com/inbo/fistools/issues/new/choose)
+#' on the github page.
+#'
+#' @returns If the destination file was missing it is downloaded from the
 #' googledrive.
 #'
 #' @examples
