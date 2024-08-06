@@ -3,3 +3,20 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles: {}
 last_built: 2024-07-31T18:46Z
+
+reference:
+- title: Spatial functions
+  contents:
+  - has_concept("Spatial")
+- title: Dataframe comparison functions
+  contents:
+   - has_concept("dataframe_comparison")
+- title: Other functions
+  contents:
+  - other
+- title: Datasets
+  contents:
+  - has_concept("dataset")
+- title: Libraries
+  contents:
+  - has_concept("library")
