@@ -11,5 +11,6 @@
 #'   \item{telefoon}{Telefoon nr van de boswachter}
 #'   ...
 #' }
+#' @family dataset
 #' @source <https://www.who.int/teams/global-tuberculosis-programme/data>
 "boswachterijen"

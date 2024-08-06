@@ -18,6 +18,8 @@
 #'
 #' @return A data frame with the unique identifier, latitude, longitude and uncertainty of the centroid
 #'
+#' @family spatial
+#'
 #' @examples
 #' \dontrun{
 #' # Example of how to use the calculate_polygon_centroid function
