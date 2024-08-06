@@ -18,6 +18,8 @@
 #' achieved by adding email as an item in a .renviron file or even beter by using
 #' more robust encryption methods.
 #'
+#' @family download
+#'
 #' @returns If the destination file was missing it is now downloaded from the
 #' googledrive.
 #'
