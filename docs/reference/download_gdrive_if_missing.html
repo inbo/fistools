@@ -19,7 +19,7 @@ it again."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fistools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.4</span>
       </span>
     </div>
 
@@ -75,7 +75,7 @@ googledrive file.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>If the destination file was missing it is now downloaded from the
+    <p>If the destination file was missing it is downloaded from the
 googledrive.</p>
     </div>
     <div id="details">
@@ -83,6 +83,14 @@ googledrive.</p>
     <p>Its best practice to provide the email in encrypted form. This can be easily
 achieved by adding email as an item in a .renviron file or even beter by using
 more robust encryption methods.</p>
+<p>When a <em>PERMISSION_DENIED</em> error occurs, it is likely that the file is not shared
+with the email address provided. This can be fixed by sharing the file with the
+email address. If the file was shared correctly this might indicate that email address
+does not have the correct permissions to access the file. This can be fixed by
+running <code><a href="https://googledrive.tidyverse.org/reference/drive_auth.html" class="external-link">googledrive::drive_auth()</a></code> and making sure the
+'show, modify and delete all drive files' option is selected. If the error persists
+please create a <a href="https://github.com/inbo/fistools/issues/new/choose" class="external-link">new issue</a>
+on the github page.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
