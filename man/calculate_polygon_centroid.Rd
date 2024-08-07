@@ -61,7 +61,9 @@ leaflet() \%>\%
 }
 \seealso{
 Other spatial: 
-\code{\link{apply_grtsdb}()}
+\code{\link{CRS_extracter}()},
+\code{\link{apply_grtsdb}()},
+\code{\link{collect_osm_features}()}
 }
 \author{
 Sander Devisscher

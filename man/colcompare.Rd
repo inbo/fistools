@@ -36,10 +36,10 @@ colcompare(super_sleepers, super_actives)
 
 }
 \seealso{
-Other column comparison: 
+Other dataframe_comparison: 
 \code{\link{col_content_compare}()}
 }
 \author{
 Sander Devisscher
 }
-\concept{column comparison}
+\concept{dataframe_comparison}

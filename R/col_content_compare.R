@@ -10,7 +10,7 @@
 #' @param df2 A data frame
 #' @param col2 A column name of df2
 #'
-#' @family column comparison
+#' @family dataframe_comparison
 #'
 #' @return A list of values missing from the first column, missing from the second column,
 #' and the values that are in both columns.
