@@ -66,6 +66,11 @@ sample <- apply_grtsdb(perimeter,
                        color = "black")
 }
 }
+\seealso{
+Other spatial: 
+\code{\link{calculate_polygon_centroid}()}
+}
 \author{
 Sander Devisscher
 }
+\concept{spatial}

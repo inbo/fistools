@@ -23,4 +23,5 @@ lib_crs
 \description{
 Library of commonly used coordinate reference system (CRS) codes
 }
+\concept{library}
 \keyword{datasets}

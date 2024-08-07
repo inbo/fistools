@@ -35,6 +35,11 @@ colcompare(super_sleepers, super_actives)
 }
 
 }
+\seealso{
+Other column comparison: 
+\code{\link{col_content_compare}()}
+}
 \author{
 Sander Devisscher
 }
+\concept{column comparison}

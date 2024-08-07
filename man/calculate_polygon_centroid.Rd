@@ -59,6 +59,11 @@ leaflet() \%>\%
 }
 
 }
+\seealso{
+Other spatial: 
+\code{\link{apply_grtsdb}()}
+}
 \author{
 Sander Devisscher
 }
+\concept{spatial}

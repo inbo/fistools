@@ -1,7 +1,6 @@
 pandoc: 2.9.2.1
 pkgdown: 2.1.0
 pkgdown_sha: ~
-articles: {}
 last_built: 2024-07-31T18:46Z
 
 reference:
@@ -23,3 +22,6 @@ reference:
 - title: Other functions
   contents:
   - lacks_concepts(c("spatial", "dataframe_comparison", "dataset", "library", "download"))
+
+build:
+  without_rdb: true

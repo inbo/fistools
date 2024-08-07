@@ -32,6 +32,13 @@ col_content_compare(df1 = dataset1, "b", df2 = dataset2, "d")
 }
 
 }
+\seealso{
+Other column comparison: 
+\code{\link{colcompare}()}
+
+Other column comparison: 
+\code{\link{colcompare}()}
+}
 \author{
 Sander Devisscher
 }
