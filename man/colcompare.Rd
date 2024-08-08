@@ -35,6 +35,11 @@ colcompare(super_sleepers, super_actives)
 }
 
 }
+\seealso{
+Other dataframe_comparison: 
+\code{\link{col_content_compare}()}
+}
 \author{
 Sander Devisscher
 }
+\concept{dataframe_comparison}

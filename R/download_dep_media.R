@@ -19,6 +19,8 @@
 #' If you are getting an Authorization Error (#403), this probably means your Agouti project has Restrict Images on. This needs to be turned off.
 #' If depID = "all" and favorite = TRUE, the function will download all favorited pictures in the whole dataset.
 #'
+#' @family download
+#'
 #' @returns Downloads the specified media files into the outputfolder
 #'
 #' @examples

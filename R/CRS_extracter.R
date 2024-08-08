@@ -9,6 +9,8 @@
 #'
 #' @return A CRS object
 #'
+#' @family spatial
+#'
 #' @examples
 #' \dontrun{
 #' # Example of how to use the CRS_extracter function

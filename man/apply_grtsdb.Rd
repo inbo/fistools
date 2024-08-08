@@ -66,6 +66,13 @@ sample <- apply_grtsdb(perimeter,
                        color = "black")
 }
 }
+\seealso{
+Other spatial: 
+\code{\link{CRS_extracter}()},
+\code{\link{calculate_polygon_centroid}()},
+\code{\link{collect_osm_features}()}
+}
 \author{
 Sander Devisscher
 }
+\concept{spatial}

@@ -30,6 +30,8 @@
 #' @returns If the destination file was missing it is downloaded from the
 #' googledrive.
 #'
+#' @family download
+#'
 #' @examples
 #' \dontrun{
 #' # download newest version of the team charter

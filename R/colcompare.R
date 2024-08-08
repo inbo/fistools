@@ -12,6 +12,8 @@
 #' a list of columns present in x but not in y and a list of columns
 #' present in y and not in x.
 #'
+#' @family dataframe_comparison
+#'
 #' @examples
 #' \dontrun{
 #' # create example dataframes

@@ -40,6 +40,11 @@ download_seq_media(dataset = drg,
 }
 
 }
+\seealso{
+Other download: 
+\code{\link{download_dep_media}()},
+\code{\link{download_gdrive_if_missing}()}
+}
 \author{
 Lynn Pallemaerts
 
@@ -49,3 +54,4 @@ Sander Devisscher
 
 Soria Delva
 }
+\concept{download}

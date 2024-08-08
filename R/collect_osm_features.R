@@ -31,6 +31,8 @@
 #' osm_polygons, osm_lines, osm_points. Each sf data frame contains the
 #' corresponding geometry types.
 #'
+#' @family spatial
+#'
 #' @details
 #' dplyr and osmdata are automatically installed when missing from your system.
 #'
