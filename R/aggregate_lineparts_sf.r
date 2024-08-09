@@ -60,8 +60,12 @@ aggregate_lineparts_sf <- function(sf_data,
   if(!(sf_id %in% names(sf_data))){
     stop("sf_id is not a column in sf_data")
   } else {
-    sf_data <- sf_data %>%
-      dplyr::mutate(sf_id = as.character(sf_data[[sf_id]]))
+    # check if sf_id == "sf_id"
+    if(sf_id == "sf_id"){
+    } else {
+      sf_data <- sf_data %>%
+        dplyr::mutate(sf_id = as.character(sf_data[[sf_id]]))
+    }
   }
 
   # check if geometry is present
