@@ -1,12 +1,12 @@
-#' Connect seperate line parts to one line
+#' Connect seperate line parts into 1 line
 #'
-#' This function takes a sf object with seperate line parts and connects them to one line.
+#' This function takes a sf object with separate line parts and connects them into 1 line.
 #' The function is based on the st_union function from the sf package.
 #' The function is designed to work with sf objects that have a column with unique
-#' identifiers for the seperate line parts.
+#' identifiers for the separate line parts.
 #' The function will connect the line parts based on the unique identifier.
 #'
-#' @param sf_data A sf object with seperate line parts
+#' @param sf_data A sf object with separate line parts
 #' @param sf_id A character string with the name of the column with unique identifiers
 #'
 #' @return A sf object with connected line parts
@@ -17,17 +17,29 @@
 #'
 #' @examples
 #' \dontrun{
-#' # create a sf object with 2 line parts with the same id with wgs84 as crs
-#' sf_data <- st_sfc(st_linestring(matrix(c(0,0,1,1), ncol = 2)),
-#'                  st_linestring(matrix(c(1,1,2,2), ncol = 2))) %>%
-#'                  st_sf(sf_id = c("a", "a"))
+#' # create a sf object containing 2 seperate linstrings with wgs84 coordinates that lay within belgium
+#' # add a column with the same id for both linestrings & a unique label for each line
+#' sf_data <- sf::st_sfc(sf::st_linestring(matrix(c(5.5, 5.0, 50.0, 50.6), ncol = 2)),
+#'                      sf::st_linestring(matrix(c(4.7, 4.8, 50.8, 50.8), ncol = 2))) %>%
+#'  sf::st_sf(id = c("a", "a")) %>%
+#'  dplyr::mutate(label = as.factor(dplyr::row_number()))
+#'
+#' # plot sf_data using leaflet
+#' # create a palette for label
+#' pal <- leaflet::colorFactor(palette = "RdBu", levels = sf_data$label)
+#'
+#' plot <- leaflet::leaflet() %>%
+#'   leaflet::addTiles() %>%
+#'   leaflet::addPolylines(data = sf_data, color = ~pal(label), weight = 5, opacity = 1)
 #'
 #' # connect the line parts
-#' sf_data_connected <- aggregate_lineparts_sf(sf_data, "sf_id")
+#' sf_data_connected <- aggregate_lineparts_sf(sf_data, "id")
 #'
-#' # plot the connected line parts & the seperate line parts
-#' plot(sf_data)
-#' plot(sf_data_connected)
+#' # add sf_data_connected to plot
+#' plot <- plot %>%
+#'   leaflet::addPolylines(data = sf_data_connected, color = "black", weight = 2, opacity = 0.5)
+#'
+#' plot
 #' }
 
 aggregate_lineparts_sf <- function(sf_data,
@@ -73,13 +85,13 @@ aggregate_lineparts_sf <- function(sf_data,
     # create empty data frame to store points
     temp <- data.frame() %>%
       dplyr::mutate(lon = NA_integer_,
-             lat = NA_integer_)
+                    lat = NA_integer_)
 
     # loop over line parts to convert them to points
     for(n in 1:length(sf_unit)){
       temp <- temp %>%
         dplyr::add_row(lon = sf_unit[[n]][,1],
-                lat = sf_unit[[n]][,2]) %>%
+                       lat = sf_unit[[n]][,2]) %>%
         dplyr::distinct(lon, lat) %>%
         dplyr::arrange(lat, lon)
 
@@ -91,8 +103,16 @@ aggregate_lineparts_sf <- function(sf_data,
 
       a <- 1
 
+      # start progress bar
+      pb <- progress::progress_bar$new(format = "  [:bar] :percent ETA: :eta",
+                                       total = nrow(sf_point),
+                                       clear = FALSE,
+                                       width = 60)
+
       while(a <= nrow(sf_point)){
-        print(a)
+        # tick progress bar
+        pb$tick()
+
         if(a == 1){
           # get first point
           sf_point_ref <- sf_point[a,]
