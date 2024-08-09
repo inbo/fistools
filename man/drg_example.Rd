@@ -21,4 +21,9 @@ drg_example
 \description{
 Subset of Drongengoed Agouti export for testing of functions
 }
+\seealso{
+Other dataset: 
+\code{\link{boswachterijen}}
+}
+\concept{dataset}
 \keyword{datasets}

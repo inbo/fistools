@@ -46,6 +46,13 @@ leaflet() \%>\%
 }
 
 }
+\seealso{
+Other spatial: 
+\code{\link{apply_grtsdb}()},
+\code{\link{calculate_polygon_centroid}()},
+\code{\link{collect_osm_features}()}
+}
 \author{
 Sander Devisscher
 }
+\concept{spatial}

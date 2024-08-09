@@ -8,5 +8,8 @@
 #'   \item{observations}{Observaties van de geselecteerde deployments}
 #'   \item{media}{Lijst van media-urls van de geselecteerde deployments}
 #'   }
+#'
+#' @family dataset
+#'
 #' @source <https://www.agouti.eu>
 "drg_example"

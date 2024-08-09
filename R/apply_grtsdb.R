@@ -19,6 +19,8 @@
 #'
 #' @export
 #'
+#' @family spatial
+#'
 #' @examples
 #' \dontrun{
 #' # Preparation

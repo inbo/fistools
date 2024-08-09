@@ -17,6 +17,8 @@
 #' @details
 #' If you are getting an Authorization Error (#403), this probably means your Agouti project has Restrict Images on. This needs to be turned off.
 #'
+#' @family download
+#'
 #' @returns Downloads the specified media files into the outputfolder
 #'
 #' @examples
