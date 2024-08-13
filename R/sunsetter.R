@@ -148,7 +148,10 @@ sunsetter <- function(StartDate = Sys.Date(), EndDate = Sys.Date(), lat = 50.866
 #'
 #' @return dataframe containing the dates, latitudes, longitudes, sunrise time and sunset time.
 
-sunsetter2 <- function(df){
+sunsetter2 <- function(df,
+                       dates,
+                       lat,
+                       lng){
   # check if df is a dataframe
   if(!is.data.frame(df)){
     stop("df is not a dataframe")
