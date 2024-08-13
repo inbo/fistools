@@ -2,7 +2,8 @@
 % Please edit documentation in R/sunsetter.R
 \name{sunsetter}
 \alias{sunsetter}
-\title{Calculate the sunrise and sunset times for a given date and location}
+\title{sunsetter
+Calculate the sunrise and sunset times for a given range of dates and location}
 \usage{
 sunsetter(
   StartDate = Sys.Date(),
@@ -24,17 +25,30 @@ sunsetter(
 dataframe containing the dates between the startdate and enddate, the corresponding sunrise time and sunset time.
 }
 \description{
-Calculate the sunrise and sunset times for a given date and location
+sunsetter
+Calculate the sunrise and sunset times for a given range of dates and location
 }
 \details{
-This function uses the sunrise-sunset API to calculate the sunrise and sunset times for a given date and location.
+This function uses the sunrise-sunset API to calculate the sunrise and sunset
+times for a given range of dates and fixed location.
+The default location is the Herman Teirlinck building in Brussels.
+
+if StartDate and EndDate are not specified, the function will return the sunrise
+and sunset times for today.
 }
 \examples{
 \dontrun{
-# Example of how to use the sunsetter function
+# sunrise and sunset times for the first 10 days of 2021 in Brussels
 sunsetter(StartDate = "2021-01-01", EndDate = "2021-01-10", lat = 50.866572, lng = 4.350309)
+
+# sunrise and sunset times for today in Brussels
+sunsetter()
 }
 
+}
+\seealso{
+Other temporal: 
+\code{\link{sunsetter2}()}
 }
 \author{
 Sander Devisscher
