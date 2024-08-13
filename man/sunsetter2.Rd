@@ -4,7 +4,7 @@
 \alias{sunsetter2}
 \title{sunsetter2}
 \usage{
-sunsetter2(df)
+sunsetter2(df, dates, lat, lng)
 }
 \arguments{
 \item{df}{A dataframe containing the dates, latitudes and longitudes}
