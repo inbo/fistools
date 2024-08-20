@@ -34,4 +34,6 @@ if(grepl("new-function", branch) | grepl("new-dataset", branch)){
 
 if(version_local == version_remote){
   usethis::use_version(which = type)
+}else{
+  print("Version in DESCRIPTION file is already higher than the one in the package")
 }
