@@ -14,17 +14,17 @@ label_selecter(
 )
 }
 \arguments{
-\item{'label'}{een character (lijst) met labelnummer(s) die dienen onderzocht te worden. Dit kan in 3 vormen (volgnummer, met streepjes of zonder streepjes) of een combinatie van deze vormen aangeleverd worden}
+\item{label}{een character (lijst) met labelnummer(s) die dienen onderzocht te worden. Dit kan in 3 vormen (volgnummer, met streepjes of zonder streepjes) of een combinatie van deze vormen aangeleverd worden}
 
-\item{'update'}{een boolean die aangeeft of ook de nog niet wegeschreven dwh - bestanden moeten worden gecontroleerd.}
+\item{update}{een boolean die aangeeft of ook de nog niet wegeschreven dwh - bestanden moeten worden gecontroleerd.}
 
-\item{'label_type'}{een een character (lijst) met labeltypes die dienen onderzocht te worden.}
+\item{label_type}{een een character (lijst) met labeltypes die dienen onderzocht te worden.}
 
-\item{'jaar'}{een numerieke (lijst) van jaren die dienen onderzocht te worden.}
+\item{jaar}{een numerieke (lijst) van jaren die dienen onderzocht te worden.}
 
-\item{'soort'}{een character van de soort die onderzocht dient te worden.}
+\item{soort}{een character van de soort die onderzocht dient te worden.}
 
-\item{'bo_dir'}{een character met de directory waar de backoffice-wild-analyse repository staat.}
+\item{bo_dir}{een character met de directory waar de backoffice-wild-analyse repository staat.}
 }
 \value{
 Een dataframe met de volgende kolommen:
