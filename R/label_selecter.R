@@ -218,7 +218,7 @@ label_selecter <- function(label,
       }
     }else{
       print(paste0(l, " is numeric"))
-      l2 <- str_pad(string = l, 6, "0", side = "left")
+      l2 <- stringr::str_pad(string = l, 6, "0", side = "left")
       label_list4 <- NULL
       label_list3a <- NULL
       for(lt in labeltypes){
