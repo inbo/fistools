@@ -97,10 +97,17 @@ label_selecter <- function(label,
     dir.create(paste0(temp_dir_update, "/E_Loket"), recursive = TRUE, showWarnings = FALSE)
     dir.create(paste0(temp_dir_update, "/INBO"), recursive = TRUE, showWarnings = FALSE)
 
-    source(paste0(bo_dir,"Basis_Scripts/DWH_connect.R"),
-           local = TRUE,
-           verbose = TRUE,
-           chdir = TRUE)
+    # handle a failure with trycatch
+    tryCatch({
+      # download data from DWH
+      source(paste0(bo_dir,"Basis_Scripts/DWH_connect.R"),
+             local = TRUE,
+             verbose = TRUE,
+             chdir = TRUE)
+    }, error = function(e) {
+      warning("DWH_connect.R failed to run >> DWH niet upgedatet")
+      update <<- FALSE
+    })
 
     remove(dataAanvragenAfschot,
            dataAanvragenAfschotPartij,
