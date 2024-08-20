@@ -19,6 +19,19 @@ desc_remote <- as.data.frame(read.dcf(dest_file))
 
 version_remote <- desc_remote$Version
 
+# get git branch name
+branch <- system("git rev-parse --abbrev-ref HEAD", intern = TRUE)
+
+# Check if new-function or new-dataset is in branch
+if(grepl("new-function", branch) | grepl("new-dataset", branch)){
+  type <- "minor"
+}else{
+  type <- "patch"
+
+}
+
+# Check if the version in the DESCRIPTION file is lower than the one in the package
+
 if(version_local == version_remote){
-  usethis::use_version(which = "minor")
+  usethis::use_version(which = type)
 }
