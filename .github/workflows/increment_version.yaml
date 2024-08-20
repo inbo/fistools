@@ -1,4 +1,4 @@
-name: Build pkgdown site
+name: Increment version
 
 on:
   pull_request:
