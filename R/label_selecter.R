@@ -2,12 +2,12 @@
 #'
 #' @description Deze functie onderzoekt of de labels bestaan in de datasets AfschotMelding (AM), ToegekendeLabels (TL), Toekenningen_Cleaned (TL_Cleaned), Dieren_met_onderkaakgegevens (DMOG), Dieren_met_onderkaakgegevens_Georef (DMOGG).
 #'
-#' @param 'bo_dir' een character met de directory waar de backoffice-wild-analyse repository staat.
 #' @param 'label' een character (lijst) met labelnummer(s) die dienen onderzocht te worden. Dit kan in 3 vormen (volgnummer, met streepjes of zonder streepjes) of een combinatie van deze vormen aangeleverd worden
 #' @param 'update' een boolean die aangeeft of ook de nog niet wegeschreven dwh - bestanden moeten worden gecontroleerd.
 #' @param 'label_type' een een character (lijst) met labeltypes die dienen onderzocht te worden.
 #' @param 'jaar' een numerieke (lijst) van jaren die dienen onderzocht te worden.
 #' @param 'soort' een character van de soort die onderzocht dient te worden.
+#' @param 'bo_dir' een character met de directory waar de backoffice-wild-analyse repository staat.
 #'
 #' @details
 #' De parameter `label_type`, `jaar` en `soort` zijn enkel relevant als één van
@@ -35,18 +35,19 @@
 #' - JAAR: het jaar waarin de labels onderzocht worden
 #' - AM_OLD: een boolean die aangeeft of de label(s) in AfschotMelding voorkomen **voor** de update van DWH_Connect
 #' - AM_OLD_LABEL: de label(s) die in AfschotMelding voorkomen **voor** de update van DWH_Connect
-#' - AM_NEW: een boolean die aangeeft of de label(s) in AfschotMelding voorkomen **na** de update van DWH_Connect
-#' - AM_NEW_LABEL: de label(s) die in AfschotMelding voorkomen **na** de update van DWH_Connect
 #' - TL_OLD: een boolean die aangeeft of de label(s) in ToegekendeLabels voorkomen **voor** de update van DWH_Connect
 #' - TL_OLD_LABEL: de label(s) die in ToegekendeLabels voorkomen **voor** de update van DWH_Connect
-#' - TL_NEW: een boolean die aangeeft of de label(s) in ToegekendeLabels voorkomen **na** de update van DWH_Connect
-#' - TL_NEW_LABEL: de label(s) die in ToegekendeLabels voorkomen **na** de update van DWH_Connect
 #' - TL_CLEANED: een boolean die aangeeft of de label(s) in Toekenningen_Cleaned voorkomen
 #' - TL_CLEANED_LABEL: de label(s) die in Toekenningen_Cleaned voorkomen
 #' - DMOG: een boolean die aangeeft of de label(s) in Dieren_met_onderkaakgegevens voorkomen
 #' - DMOG_LABEL: de label(s) die in Dieren_met_onderkaakgegevens voorkomen
 #' - DMOG_GEO: een boolean die aangeeft of de label(s) in Dieren_met_onderkaakgegevens_Georef voorkomen
 #' - DMOG_GEO_LABEL: de label(s) die in Dieren_met_onderkaakgegevens_Georef voorkomen
+#' *Als `update = TRUE` worden de volgende kolommen toegevoegd:*
+#' - AM_NEW: een boolean die aangeeft of de label(s) in AfschotMelding voorkomen **na** de update van DWH_Connect
+#' - AM_NEW_LABEL: de label(s) die in AfschotMelding voorkomen **na** de update van DWH_Connect
+#' - TL_NEW: een boolean die aangeeft of de label(s) in ToegekendeLabels voorkomen **na** de update van DWH_Connect
+#' - TL_NEW_LABEL: de label(s) die in ToegekendeLabels voorkomen **na** de update van DWH_Connect
 #'
 #' @family other
 #' @export
@@ -70,12 +71,12 @@
 #'  output <- label_selecter(label, jaar = jaar , soort = soort)
 #'}
 
-label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
-                           label,
+label_selecter <- function(label,
                            update = FALSE,
                            label_type,
                            jaar,
-                           soort){
+                           soort,
+                           bo_dir = "~/Github/backoffice-wild-analyse/"){
 
   # check if bo_dir is a directory
   if (!dir.exists(bo_dir)) {
@@ -85,57 +86,60 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
   #Datasets to check
   AfschotMelding <- readr::read_csv(paste0(bo_dir, "Basis_Scripts/Input/E_Loket/AfschotMelding.csv")) #AM_OLD
   ToegekendeLabels <- readr::read_csv(paste0(bo_dir, "Basis_Scripts/Input/E_Loket/ToegekendeLabels.csv")) #TL_OLD
-  Toekenningen_Cleaned <- readr::read_delim(paste0(bo_dir,"Basis_Scripts/Interim/Toekenningen_Cleaned.csv",
-                                     ";", escape_double = FALSE, trim_ws = TRUE)) #TL_CLEANED
+  Toekenningen_Cleaned <- readr::read_delim(paste0(bo_dir,"Basis_Scripts/Interim/Toekenningen_Cleaned.csv"),
+                                            ";", escape_double = FALSE, trim_ws = TRUE) #TL_CLEANED
   Dieren_met_onderkaakgegevens <- readr::read_csv(paste0(bo_dir,"Data/Interim/Dieren_met_onderkaakgegevens.csv")) #DMOG
-  Dieren_met_onderkaakgegevens_Georef <- readr::read_delim(paste0(bo_dir,"Data/Interim/Dieren_met_onderkaakgegevens_Georef.csv",
-                                                    ";", escape_double = FALSE, trim_ws = TRUE)) #DMOG_GEO
+  Dieren_met_onderkaakgegevens_Georef <- readr::read_delim(paste0(bo_dir,"Data/Interim/Dieren_met_onderkaakgegevens_Georef.csv"),
+                                                           ";", escape_double = FALSE, trim_ws = TRUE) #DMOG_GEO
   if(update == TRUE){
-  print("Updating E_Loket Data")
-  source(paste0(bo_dir,"Basis_Scripts/DWH_connect.R"),
-         local = TRUE,
-         verbose = TRUE)
+    print("Updating E_Loket Data")
+    temp_dir_update <- paste0(bo_dir, "Basis_Scripts/Basis_Scripts/Input/")
+    dir.create(paste0(temp_dir_update, "/E_Loket"), recursive = TRUE, showWarnings = FALSE)
+    dir.create(paste0(temp_dir_update, "/INBO"), recursive = TRUE, showWarnings = FALSE)
 
-  temp_dir_update <- "Basis_Scripts/Input/"
-  dir.create(paste0(temp_dir_update, "E_Loket"), showWarnings = FALSE)
-  dir.create(paste0(temp_dir_update, "INBO"), showWarnings = FALSE)
+    source(paste0(bo_dir,"Basis_Scripts/DWH_connect.R"),
+           local = TRUE,
+           verbose = TRUE,
+           chdir = TRUE)
 
-  remove(dataAanvragenAfschot,
-         dataAanvragenAfschotPartij,
-         dataDiersoort,
-         dataErkenningWBE,
-         dataGeslacht,
-         dataIdentificaties,
-         dataKboWbe,
-         dataLeeftijd,
-         dataMeldingsformulier,
-         dataOnderkaak,
-         dataRapport,
-         dataRapportGegevens,
-         dataStaal,
-         dataVerbandKboWbe,
-         datawildschade,
-         csvPath_backoffice,
-         csvPath_e_loket,
-         csvPathAanvragenAfschot,
-         csvPathAanvragenAfschotPartij,
-         csvPathAfschotMelding,
-         csvPathdataRapportGegevens,
-         csvPathDiersoort,
-         csvPathErkenningWBE,
-         csvPathGeslacht,
-         csvPathIdentificaties,
-         csvPathKboWbe,
-         csvPathLeeftijd,
-         csvPathMeldingsformulier,
-         csvPathOnderkaak,
-         csvPathRapport,
-         csvPathSchade,
-         csvPathStaal,
-         csvPathVerbandKboWbe)
+    remove(dataAanvragenAfschot,
+           dataAanvragenAfschotPartij,
+           dataDiersoort,
+           dataErkenningWBE,
+           dataGeslacht,
+           dataIdentificaties,
+           dataKboWbe,
+           dataLeeftijd,
+           dataMeldingsformulier,
+           dataOnderkaak,
+           dataRapport,
+           dataRapportGegevens,
+           dataStaal,
+           dataVerbandKboWbe,
+           datawildschade,
+           csvPath_backoffice,
+           csvPath_e_loket,
+           csvPathAanvragenAfschot,
+           csvPathAanvragenAfschotPartij,
+           csvPathAfschotMelding,
+           csvPathdataRapportGegevens,
+           csvPathDiersoort,
+           csvPathErkenningWBE,
+           csvPathGeslacht,
+           csvPathIdentificaties,
+           csvPathKboWbe,
+           csvPathLeeftijd,
+           csvPathMeldingsformulier,
+           csvPathOnderkaak,
+           csvPathRapport,
+           csvPathSchade,
+           csvPathStaal,
+           csvPathVerbandKboWbe)
 
-  unlink(paste0(temp_dir_update, "E_Loket"), recursive = TRUE)
-  unlink(paste0(temp_dir_update, "INBO"), recursive = TRUE)
+    unlink(paste0(temp_dir_update, "/E_Loket"), recursive = TRUE)
+    unlink(paste0(temp_dir_update, "/INBO"), recursive = TRUE)
+    unlink(temp_dir_update, recursive = TRUE)
+    unlink(paste0(bo_dir, "/Basis_Scripts/"), force = TRUE, expand = TRUE)
 
   }
   #make labeltypes
@@ -173,7 +177,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
   label_check <-
     label_check %>%
     dplyr::mutate(label = 1,
-           numeric = as.numeric(1)) %>%
+                  numeric = as.numeric(1)) %>%
     dplyr::select(-X1)
 
   ##Make progress bar
@@ -188,7 +192,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
     label_check <-
       label_check %>%
       dplyr::mutate(label = l,
-             numeric = as.numeric(l))
+                    numeric = as.numeric(l))
     ##Make list
     if(is.na(label_check$numeric)){
       print(paste0(l, " is a character"))
@@ -204,7 +208,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
         label_list2 <- c(l, l3)
         labeltypes <- substr(l, 8, nchar(l)-6)
         jaren <- substr(l, 4, 7)
-        }
+      }
     }else{
       print(paste0(l, " is numeric"))
       l2 <- str_pad(string = l, 6, "0", side = "left")
@@ -270,7 +274,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
         output_temp <-
           output_temp %>%
           dplyr::mutate(AM_NEW = TRUE,
-                 AM_NEW_LABEL = AM_NEW_LABEL2)
+                        AM_NEW_LABEL = AM_NEW_LABEL2)
       }
 
       ##Toegekende labels
@@ -281,7 +285,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
         output_temp <-
           output_temp %>%
           dplyr::mutate(TL_NEW = TRUE,
-                 TL_NEW_LABEL = TL_NEW_LABEL2)
+                        TL_NEW_LABEL = TL_NEW_LABEL2)
       }
     }else{
       output_temp <- data.frame(INPUTLABEL, LABELTYPE, JAAR, AM_OLD, AM_OLD_LABEL, TL_OLD, TL_OLD_LABEL, TL_CLEANED, TL_CLEANED_LABEL, DMOG, DMOG_LABEL, DMOG_GEO,DMOG_GEO_LABEL)
@@ -297,7 +301,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
       output_temp <-
         output_temp %>%
         dplyr::mutate(AM_OLD = TRUE,
-               AM_OLD_LABEL = AM_OLD_LABEL2)
+                      AM_OLD_LABEL = AM_OLD_LABEL2)
     }
 
     ##Toegekende labels
@@ -308,7 +312,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
       output_temp <-
         output_temp %>%
         dplyr::mutate(TL_OLD = TRUE,
-               TL_OLD_LABEL = TL_OLD_LABEL2)
+                      TL_OLD_LABEL = TL_OLD_LABEL2)
     }
 
     ##Toekenningen_Cleaned
@@ -319,7 +323,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
       output_temp <-
         output_temp %>%
         dplyr::mutate(TL_CLEANED = TRUE,
-               TL_CLEANED_LABEL = TL_CLEANED_LABEL2)
+                      TL_CLEANED_LABEL = TL_CLEANED_LABEL2)
     }
 
     ##Dieren_met_onderkaakgegevens
@@ -330,7 +334,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
       output_temp <-
         output_temp %>%
         dplyr::mutate(DMOG = TRUE,
-               DMOG_LABEL = DMOG_LABEL2)
+                      DMOG_LABEL = DMOG_LABEL2)
     }
 
     ##Dieren_met_onderkaakgegevens_Georef
@@ -341,7 +345,7 @@ label_selecter <- function(bo_dir = "~/Github/backoffice-wild-analyse/",
       output_temp <-
         output_temp %>%
         dplyr::mutate(DMOG_GEO = TRUE,
-               DMOG_GEO_LABEL = DMOG_GEO_LABEL2)
+                      DMOG_GEO_LABEL = DMOG_GEO_LABEL2)
     }
 
     #Outputs Samenvoegen
