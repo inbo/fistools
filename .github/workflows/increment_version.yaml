@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true    # Cancel any in-progress runs in the same group
 
 jobs:
-  build-site:
+  increment-version:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
