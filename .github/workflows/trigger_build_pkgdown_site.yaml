@@ -24,6 +24,8 @@ jobs:
 
     - name: Trigger Build pkgdown site
       run: |
-        gh workflow run "Build pkgdown site" --ref ${{ github.head_ref }}
+        # Extract the branch name from the full reference
+        BRANCH_NAME=${GITHUB_REF##*/}
+        gh workflow run "Build pkgdown site" --ref "$BRANCH_NAME"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
