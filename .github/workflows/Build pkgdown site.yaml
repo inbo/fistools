@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.ref }}  # Use the branch reference as the concurrency group
+  group: ${{ github.ref }}-${{ github.workflow }}  # Use the branch reference as the concurrency group
   cancel-in-progress: true    # Cancel any in-progress runs in the same group
 
 jobs:
