@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.ref }}  # Use the branch reference as the concurrency group
+  group: ${{ github.ref }}-${{ github.workflow }}  # Use the branch reference as the concurrency group
   cancel-in-progress: true    # Cancel any in-progress runs in the same group
 
 jobs:
@@ -63,12 +63,7 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        if ! git diff --cached --quiet; then
-          git pull --rebase origin ${{ github.head_ref }}
-        else
-           echo "No changes to pull."
-        fi
-
+        git pull --rebase origin ${{ github.head_ref }}
 
     - name: Build pkgdown site
       run: pkgdown::build_site()
