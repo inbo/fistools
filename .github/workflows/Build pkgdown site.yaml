@@ -2,6 +2,10 @@ name: Build pkgdown site
 
 on:
   workflow_dispatch: # Trigger manually
+  workflow_run:
+    workflows: ["Trigger Build pkgdown Site"]
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}  # Use the branch reference as the concurrency group
