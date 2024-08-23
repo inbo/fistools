@@ -1,11 +1,11 @@
 name: Build pkgdown site
 
 on:
-  workflow_run:
-    workflows: ["Increment version"]
+  workflow_run:  # Trigger the workflow based on the run of another workflow
+    workflows: ["increment_version"] # yaml filename of dependent workflows (without .yaml)
     types:
-      - completed
-  workflow_dispatch:
+      - completed # Trigger on completion
+  workflow_dispatch: # Trigger manually
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}  # Use the branch reference as the concurrency group
