@@ -11,15 +11,21 @@ jobs:
   trigger-build:
     runs-on: ubuntu-latest
     steps:
+    - name: Install gh
+      run: |
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+        sudo apt-add-repository https://cli.github.com/packages
+        sudo apt update
+        sudo apt install gh
+
+    - name: Configure gh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh auth login --with-token <<< "$GITHUB_TOKEN"
+
     - name: Trigger Build pkgdown site
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const workflow_id = "Build pkgdown site"; // The name of the workflow to trigger
-          const response = await github.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id,
-            ref: context.ref, // The branch or tag to run the workflow on
-          });
-          console.log(`Triggered workflow: ${response.data.message}`);
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh workflow run "Build pkgdown site"
