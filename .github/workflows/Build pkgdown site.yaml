@@ -5,6 +5,9 @@ on:
     workflows: ["increment_version"] # yaml filename of dependent workflows (without .yaml)
     types:
       - completed # Trigger on completion
+  pull_request:
+    branches:
+      - main  # Trigger needs to listen to pull requests to main to trigger.
   workflow_dispatch: # Trigger manually
 
 concurrency:
