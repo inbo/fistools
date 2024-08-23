@@ -1,10 +1,6 @@
 name: Build pkgdown site
 
 on:
-  workflow_run:  # Trigger the workflow based on the run of another workflow
-    workflows: ["increment_version"] # yaml filename of dependent workflows (without .yaml)
-    types:
-      - completed # Trigger on completion
   workflow_dispatch: # Trigger manually
 
 concurrency:
@@ -13,7 +9,6 @@ concurrency:
 
 jobs:
   build-site:
-    needs: increment-version  # Ensure this job waits for the previous job to complete
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})

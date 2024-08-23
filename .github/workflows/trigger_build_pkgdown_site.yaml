@@ -1,0 +1,28 @@
+name: Trigger Build pkgdown Site
+
+on:
+  workflow_run:
+    workflows: ["Increment version"]  # Ensure this matches the name in increment_version.yaml
+    types:
+      - completed
+
+jobs:
+  trigger-build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger Build pkgdown site
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { exec } = require('child_process');
+          exec('gh workflow run "Build pkgdown site"', (error, stdout, stderr) => {
+            if (error) {
+              console.error(`Error: ${error.message}`);
+              return;
+            }
+            if (stderr) {
+              console.error(`Stderr: ${stderr}`);
+              return;
+            }
+            console.log(`Stdout: ${stdout}`);
+          });
