@@ -22,6 +22,8 @@ version_remote <- desc_remote$Version
 # get git branch name
 branch <- system("git rev-parse --abbrev-ref HEAD", intern = TRUE)
 
+print(branch)
+
 # Check if new-function or new-dataset is in branch
 if(grepl("new-function", branch) |
    grepl("new-dataset", branch) |
