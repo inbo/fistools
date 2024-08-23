@@ -1,9 +1,10 @@
 name: Build pkgdown site
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Increment version"]
+    types:
+      - completed
   workflow_dispatch:
 
 concurrency:
