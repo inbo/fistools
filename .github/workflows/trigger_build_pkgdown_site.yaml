@@ -5,6 +5,7 @@ on:
     workflows: ["Increment version"]  # Ensure this matches the name in increment_version.yaml
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   trigger-build:
