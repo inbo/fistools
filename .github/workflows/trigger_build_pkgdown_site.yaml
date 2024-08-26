@@ -24,8 +24,16 @@ jobs:
 
     - name: Trigger Build pkgdown site
       run: |
-        # Extract the branch name from the full reference
-        BRANCH_NAME=${GITHUB_REF##*/}
+       # Determine the branch name based on the event type
+        if [[ "${{ github.event_name }}" == "workflow_run" ]]; then
+          # If triggered by a workflow_run, use the head_ref from the triggering workflow
+          BRANCH_NAME=${{ github.event.workflow_run.head_branch }}
+        else
+          # For other events, use the ref
+          BRANCH_NAME=${GITHUB_REF##*/}
+        fi
+
+        echo "Triggering Build pkgdown site on branch: $BRANCH_NAME"
         gh workflow run "Build pkgdown site" --ref "$BRANCH_NAME"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
