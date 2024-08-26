@@ -11,15 +11,21 @@ jobs:
   trigger-build:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install GitHub CLI
+      run: |
+        sudo apt update
+        sudo apt install -y gh
+
+    - name: Configure GitHub CLI
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
     - name: Trigger Build pkgdown site
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const workflow_id = "Build pkgdown site"; // The name of the workflow to trigger
-          const response = await github.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id,
-            ref: context.ref, // The branch or tag to run the workflow on
-          });
-          console.log(`Triggered workflow: ${response.data.message}`);
+      run: |
+        # Extract the branch name from the full reference
+        BRANCH_NAME=${GITHUB_REF##*/}
+        gh workflow run "Build pkgdown site" --ref "$BRANCH_NAME"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

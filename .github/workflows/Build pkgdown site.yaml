@@ -2,6 +2,10 @@ name: Build pkgdown site
 
 on:
   workflow_dispatch: # Trigger manually
+  workflow_run:
+    workflows: ["Trigger Build pkgdown Site"]
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}  # Use the branch reference as the concurrency group
@@ -75,9 +79,10 @@ jobs:
         git add -A
         if ! git diff --cached --quiet; then
           git commit -m 'Build pkgdown site [skip ci]'
-          git pull --rebase origin ${{ github.head_ref }}
-          git push origin HEAD:${{ github.head_ref }}
+          # Extract the branch name from the full reference
+          BRANCH_NAME=${GITHUB_REF##*/}
+          git pull --rebase origin "$BRANCH_NAME"
+          git push origin HEAD:"$BRANCH_NAME"
         else
           echo "No changes to commit."
         fi
-
