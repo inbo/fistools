@@ -18,6 +18,12 @@ Every function that uses "sp" should start with a call to this function.
 And end with a call to \code{unloadNamespace("sp")}.
 This is because the "sp" package is known to cause conflicts with other packages.
 }
+\seealso{
+Other other: 
+\code{\link{install_depricated}()},
+\code{\link{label_selecter}()}
+}
 \author{
 Sander Devisscher
 }
+\concept{other}
