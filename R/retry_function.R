@@ -20,6 +20,8 @@
 #'  print("Success")
 #'  })
 #' }
+#'
+#' @export
 
 retry_function <- function(expr, max_attempts = 3) {
   attempts <- 0
