@@ -4,12 +4,14 @@
 \alias{retry_function}
 \title{Retry a function multiple times}
 \usage{
-retry_function(expr, max_attempts = 3)
+retry_function(expr, max_attempts = 3, sleep_time = 0)
 }
 \arguments{
 \item{expr}{An expression to evaluate.}
 
 \item{max_attempts}{The maximum number of attempts to make.}
+
+\item{sleep_time}{The time to sleep between attempts, in seconds.}
 }
 \value{
 The result of the expression if successful.
