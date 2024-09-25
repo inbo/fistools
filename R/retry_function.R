@@ -4,6 +4,8 @@
 #'
 #' @param expr An expression to evaluate.
 #' @param max_attempts The maximum number of attempts to make.
+#' @param sleep_time The time to sleep between attempts, in seconds.
+#'
 #'
 #' @return The result of the expression if successful.
 #'
@@ -23,7 +25,9 @@
 #'
 #' @export
 
-retry_function <- function(expr, max_attempts = 3) {
+retry_function <- function(expr,
+                           max_attempts = 3,
+                           sleep_time = 0) {
   attempts <- 0
   success <- FALSE
   result <- NULL
@@ -38,6 +42,9 @@ retry_function <- function(expr, max_attempts = 3) {
       message(sprintf("Attempt %d failed: %s", attempts, e$message))
       NULL  # Return NULL on error
     })
+    if (!success) {
+      Sys.sleep(sleep_time)  # Sleep before retrying
+    }
   }
 
   if (!success) {
