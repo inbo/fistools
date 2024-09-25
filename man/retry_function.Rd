@@ -27,6 +27,7 @@ retry_function({
  print("Success")
  })
 }
+
 }
 \seealso{
 Other other: 
