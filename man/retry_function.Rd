@@ -21,13 +21,16 @@ This function evaluates an expression multiple times until it succeeds or the ma
 }
 \examples{
 \dontrun{
-# This example will fail the first two times, but succeed on the third attempt.
-retry_function({
+# This example will fail or succeed randomly.
+
+some_function <- function() {
  if (runif(1) < 0.5) {  # Randomly fail
- stop("Failed")
- }
- print("Success")
- })
+   stop("Failed")
+   }
+ return("Success")
+}
+
+retry_function({some_function()}, max_attempts = 5, sleep_time = 1)
 }
 
 }
