@@ -14,13 +14,16 @@
 #'
 #' @examples
 #' \dontrun{
-#' # This example will fail the first two times, but succeed on the third attempt.
-#' retry_function({
+#' # This example will fail or succeed randomly.
+#'
+#' some_function <- function() {
 #'  if (runif(1) < 0.5) {  # Randomly fail
-#'  stop("Failed")
-#'  }
-#'  print("Success")
-#'  })
+#'    stop("Failed")
+#'    }
+#'  return("Success")
+#' }
+#'
+#' retry_function({some_function()}, max_attempts = 5, sleep_time = 1)
 #' }
 #'
 #' @export
@@ -36,13 +39,14 @@ retry_function <- function(expr,
     attempts <- attempts + 1
     result <- tryCatch({
       eval(expr)  # Evaluate the expression
-      success <- TRUE
-      result  # Return the result if successful
     }, error = function(e) {
       message(sprintf("Attempt %d failed: %s", attempts, e$message))
       NULL  # Return NULL on error
     })
-    if (!success) {
+
+    if (!is.null(result)) {
+      success <- TRUE  # If result is not NULL, we succeeded
+    } else {
       Sys.sleep(sleep_time)  # Sleep before retrying
     }
   }
