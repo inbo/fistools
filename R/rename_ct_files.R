@@ -21,7 +21,7 @@
 #'                                      email = Sys.getenv("email"),
 #'                                      update_always = TRUE)
 #'
-#' foldername <- paste0(tempdir(), "/test_rename_ct_files_unzipped")
+#' foldername <- paste0(tempdir(), "/test_case_renaming")
 #' unzip(tempzip,
 #'       exdir = tempdir())
 #' rename_ct_files(foldername)
