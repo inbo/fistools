@@ -28,11 +28,11 @@
 #'}
 #' #'@export
 
-rename_file_names <- function(foldername,
                               extensions = c("jpg", "png", "jpeg", "bmp")) {
 
   require(dplyr)
   require(stringr)
+rename_ct_files <- function(foldername,
 
   # list all the files in the subfolders and prepare new file names
   images <- dir(foldername, recursive = TRUE,  full.names = FALSE) %>%
