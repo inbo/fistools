@@ -16,10 +16,10 @@
 #' @examples
 #' \dontrun{
 #' fistools::download_gdrive_if_missing(gfileID = "1-84hbKouLKGwnLgBSRaQO1BnfogoFZWz",
-#'                                      destfile = "./data/test_rename_ct_files.zip",
+#'                                      destfile = tempfile(fileext = ".zip"),
 #'                                      email = Sys.getenv("email"),
 #'                                      update_always = TRUE)
-#' unzip("./data/test_rename_ct_files.zip",
+#' unzip(tempfile(fileext = ".zip"),
 #'       exdir = "./data/test_rename_ct_files_unzipped")
 #' foldername <- "./data/test_rename_ct_files_unzipped"
 #' rename_file_names(foldername)
