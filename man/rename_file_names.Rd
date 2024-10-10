@@ -21,6 +21,13 @@ all unique file names across a deployment. Needed for deployments with more
 than 9999 pictures, so they can be uploaded in Agouti. This is a copy of the
 old \code{rename_file_names()} in the old \code{fis-projecten} (archived).
 }
+\examples{
+\dontrun{
+foldername <- "./data/test_case_renaming/"
+rename_file_names(foldername)
+}
+#'@export
+}
 \author{
 : Lynn Pallemaerts and Someone Before Her
 }
