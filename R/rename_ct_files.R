@@ -19,11 +19,12 @@
 #'                                      destfile = tempfile(fileext = ".zip"),
 #'                                      email = Sys.getenv("email"),
 #'                                      update_always = TRUE)
+#'
+#' foldername <- paste0(tempdir(), "/test_rename_ct_files_unzipped")
 #' unzip(tempfile(fileext = ".zip"),
-#'       exdir = "./data/test_rename_ct_files_unzipped")
-#' foldername <- "./data/test_rename_ct_files_unzipped"
-#' rename_file_names(foldername)
-#' unlink("./data/test_rename_ct_files_unzipped",
+#'       exdir = foldername)
+#' #' rename_file_names(foldername)
+#' unlink(foldername,
 #'        recursive = TRUE)
 #'}
 #'
