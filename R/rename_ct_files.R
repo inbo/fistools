@@ -28,22 +28,19 @@
 #'}
 #' #'@export
 
-                              extensions = c("jpg", "png", "jpeg", "bmp")) {
-
-  require(dplyr)
-  require(stringr)
 rename_ct_files <- function(foldername,
+                            extensions = c("jpg", "png", "jpeg", "bmp")) {
 
   # list all the files in the subfolders and prepare new file names
   images <- dir(foldername, recursive = TRUE,  full.names = FALSE) %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
-    select(filename = ".") %>%
-    filter(grepl(paste0(extensions, collapse = "|"), str_to_lower(filename))) %>%
-    mutate(subfolder = dirname(filename)) %>%
-    mutate(foldername = foldername) %>%
-    mutate(new_filename = gsub("/", "_", filename)) %>%
-    mutate(full_filename = as.character(file.path(foldername, filename))) %>%
-    mutate(full_new_filename = as.character(file.path(foldername, subfolder, new_filename)))
+    dplyr::select(filename = ".") %>%
+    dplyr::filter(grepl(paste0(extensions, collapse = "|"), tolower(filename))) %>%
+    dplyr::mutate(subfolder = dirname(filename)) %>%
+    dplyr::mutate(foldername = foldername) %>%
+    dplyr::mutate(new_filename = gsub("/", "_", filename)) %>%
+    dplyr::mutate(full_filename = as.character(file.path(foldername, filename))) %>%
+    dplyr::mutate(full_new_filename = as.character(file.path(foldername, subfolder, new_filename)))
 
   # execute file renaming
   file.rename(images$full_filename, images$full_new_filename)
