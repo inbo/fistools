@@ -17,7 +17,7 @@
 #' \dontrun{
 #' foldername <- "./data/test_case_renaming/"
 #' rename_file_names(foldername)
-#'
+#'}
 #' #'@export
 
 rename_file_names <- function(foldername,
