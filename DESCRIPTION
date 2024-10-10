@@ -1,6 +1,6 @@
 Package: fistools
 Title: Tools & data used for wildlife management & invasive species in Flanders
-Version: 1.2.9
+Version: 1.2.10
 Authors@R: c(
     person(given = "Sander", middle = "", family = "Devisscher", "sander.devisscher@inbo.be", 
       role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2015-5731")),
