@@ -23,15 +23,17 @@ old \code{rename_file_names()} in the old \code{fis-projecten} (archived).
 }
 \examples{
 \dontrun{
+tempzip <- tempfile(fileext = ".zip")
 fistools::download_gdrive_if_missing(gfileID = "1-84hbKouLKGwnLgBSRaQO1BnfogoFZWz",
-                                     destfile = tempfile(fileext = ".zip"),
+                                     destfile = tempzip,
                                      email = Sys.getenv("email"),
                                      update_always = TRUE)
 
-foldername <- paste0(tempdir(), "/test_rename_ct_files_unzipped")
-unzip(tempfile(fileext = ".zip"),
-      exdir = foldername)
+foldername <- paste0(tempdir(), "/test_case_renaming")
+unzip(tempzip,
+      exdir = tempdir())
 rename_ct_files(foldername)
+browseURL(foldername)
 unlink(foldername,
        recursive = TRUE)
 }
