@@ -40,4 +40,4 @@ rename_file_names <- function(foldername,
   # execute file renaming
   file.rename(images$full_filename, images$full_new_filename)
 
-})
+}
