@@ -34,7 +34,7 @@ rename_file_names(foldername)
 unlink("./data/test_rename_ct_files_unzipped",
        recursive = TRUE)
 }
-#'@export
+
 }
 \author{
 : Lynn Pallemaerts and Someone Before Her

@@ -26,7 +26,8 @@
 #' unlink("./data/test_rename_ct_files_unzipped",
 #'        recursive = TRUE)
 #'}
-#' #'@export
+#'
+#' @export
 
 rename_ct_files <- function(foldername,
                             extensions = c("jpg", "png", "jpeg", "bmp")) {
