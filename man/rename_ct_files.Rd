@@ -31,7 +31,7 @@ fistools::download_gdrive_if_missing(gfileID = "1-84hbKouLKGwnLgBSRaQO1BnfogoFZW
 foldername <- paste0(tempdir(), "/test_rename_ct_files_unzipped")
 unzip(tempfile(fileext = ".zip"),
       exdir = foldername)
-#' rename_file_names(foldername)
+rename_ct_files(foldername)
 unlink(foldername,
        recursive = TRUE)
 }
