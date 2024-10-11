@@ -45,9 +45,9 @@
 CRS_extracter <- function(CRS,
                           EPSG = TRUE){
 
-  install_sp()
+  fistools::install_sp()
 
-  Lib_CRS <- lib_crs
+  Lib_CRS <- fistools::lib_crs
 
   if(grepl("wgs", CRS, ignore.case = TRUE)){
     CRS <- "WGS"
