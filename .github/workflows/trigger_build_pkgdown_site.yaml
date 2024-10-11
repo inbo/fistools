@@ -23,6 +23,7 @@ jobs:
       run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
     - name: Trigger Build pkgdown site
+      if: github.event.workflow_run.conclusion == 'success' && github.event_name == 'workflow_run' # Conditional check
       run: |
        # Determine the branch name based on the event type
         if [[ "${{ github.event_name }}" == "workflow_run" ]]; then
