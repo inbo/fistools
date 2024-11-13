@@ -7,29 +7,32 @@
 ### >>> qd_pci1
 ############################
 
-#'Potential conflict index (first variant)
+#' Potential conflict index (first variant)
 #'
-#'questionnaire data analysis: potential conflict index
+#' questionnaire data analysis: potential conflict index
 #' @param x vector with scores of the respondents
 #' @param scale_values vector with levels; default: -2:2
 #' @param x_is_table if TRUE, x is table with the distribution of the scores
 #'
 #' @return PCI-score (potential for conflict index)
 #' @export
+#' @family plotting
 #'
-#' @examples{
-#'set.seed(201)
-#'Xv <- sample(-2:2, size = 100, replace = TRUE) #random responses
-#'Yv <- rep(c(-2,2),50) #most extreme difference
-#'Zv <- rep(2,100) #minimal difference
+#' @examples
+#' /dontrun{
+#'  set.seed(201)
+#'  Xv <- sample(-2:2, size = 100, replace = TRUE) #random responses
+#'  Yv <- rep(c(-2,2),50) #most extreme difference
+#'  Zv <- rep(2,100) #minimal difference
 
-#'#qd_pci1
-#'qd_pci1(Xv, scale_values = -2:2, x_is_table = FALSE) # 0.4
-#'qd_pci1(Yv, scale_values = -2:2, x_is_table = FALSE) # 1
-#'qd_pci1(Zv, scale_values = -2:2, x_is_table = FALSE) # 0
+#'  #qd_pci1
+#'  qd_pci1(Xv, scale_values = -2:2, x_is_table = FALSE) # 0.4
+#'  qd_pci1(Yv, scale_values = -2:2, x_is_table = FALSE) # 1
+#'  qd_pci1(Zv, scale_values = -2:2, x_is_table = FALSE) # 0
 #' }
+#'
 qd_pci1 <- function(x, scale_values = c(-2:2),
-  x_is_table = FALSE){
+                    x_is_table = FALSE){
 
   ### ERROR CONTROL AND PREPARE DATA
   if (scale_values[1] != -scale_values[length(scale_values)])
@@ -81,12 +84,14 @@ qd_pci1 <- function(x, scale_values = c(-2:2),
 #' else d_{x,y} = 0}
 #' Dp_x,y = (|r_x - r_y| - (m-1))^p
 #' @return single value containing pci index
-#' @examples{
+#' @examples
+#' /dontrun{
 #' #'set.seed(201)
 #'Xv <- sample(-2:2, size = 100, replace = TRUE) #random responses
 #'qd_pci2(Xv, scale_values = -2:2, x_is_table = FALSE, m = 1, p = 1) # 0.37
 #' }
 #' @export
+#' @family plotting
 
 
 qd_pci2_D <- function(x, m=1, p=1){
@@ -119,8 +124,10 @@ qd_pci2_D <- function(x, m=1, p=1){
 #'
 #' @return PCI-score (potential for conflict index)
 #' @export
+#' @family plotting
 #'
-#' @examples{
+#' @examples
+#' /dontrun{
 #'set.seed(201)
 #'Xv <- sample(-2:2, size = 100, replace = TRUE) #random responses
 #'Yv <- rep(c(-2,2),50) #most extreme difference
@@ -136,9 +143,9 @@ qd_pci2_D <- function(x, m=1, p=1){
 #'qd_pci2(Zv, scale_values = -2:2, x_is_table = FALSE, m = 2, p = 1) # 0
 #' }
 qd_pci2 <- function(x, scale_values = c(-2:2),
-   x_is_table = FALSE, m = 1, p = 1, print = FALSE){
+                    x_is_table = FALSE, m = 1, p = 1, print = FALSE){
 
-### ERROR CONTROL AND PREPARE DATA
+  ### ERROR CONTROL AND PREPARE DATA
 
   if (scale_values[1] != -scale_values[length(scale_values)])
     stop("index should be symmetric")
@@ -149,7 +156,7 @@ qd_pci2 <- function(x, scale_values = c(-2:2),
     x <- table(factor(x, levels = scale_values))
   }
 
-### PREP DATA
+  ### PREP DATA
 
   #Total N
   Ntot <- sum(x)
@@ -161,20 +168,20 @@ qd_pci2 <- function(x, scale_values = c(-2:2),
   n <- matrix(nrow = length(x), ncol = length(x), data = rep(x, length(x)))
 
   #Actual Distance
-    #n = nk, t(n) = nh
-    #d is distance matrix between the scale_value levels
-    #d * nk * nh accounts for number of elements in each scale_value level
-    #rowsums(d*n*t(n)) calculates the deltax for each level
-    #diag(d)*diag(n)^2 actual distance with itself is subtracted
-    #sum(...) sums the results for each level
+  #n = nk, t(n) = nh
+  #d is distance matrix between the scale_value levels
+  #d * nk * nh accounts for number of elements in each scale_value level
+  #rowsums(d*n*t(n)) calculates the deltax for each level
+  #diag(d)*diag(n)^2 actual distance with itself is subtracted
+  #sum(...) sums the results for each level
 
   weightedsum <- sum(rowSums(d * n * t(n)) - (diag(d) * diag(n) * diag(n)))
 
   #Maximum Possible Distance
-    #dmax = max distance between 2 single elements
-    #even N: multiply with Ntot^2 = max distance
-    #  if each element is at the extremes
-    #odd N: multiply with Ntot^2 - 1
+  #dmax = max distance between 2 single elements
+  #even N: multiply with Ntot^2 = max distance
+  #  if each element is at the extremes
+  #odd N: multiply with Ntot^2 - 1
   dmax <- max(d)
 
   delta <- dmax * (Ntot^2 - Ntot %% 2) / 2
