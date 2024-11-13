@@ -19,7 +19,7 @@
 #' @family plotting
 #'
 #' @examples
-#' /dontrun{
+#' \dontrun{
 #'  set.seed(201)
 #'  Xv <- sample(-2:2, size = 100, replace = TRUE) #random responses
 #'  Yv <- rep(c(-2,2),50) #most extreme difference
@@ -85,7 +85,7 @@ qd_pci1 <- function(x, scale_values = c(-2:2),
 #' Dp_x,y = (|r_x - r_y| - (m-1))^p
 #' @return single value containing pci index
 #' @examples
-#' /dontrun{
+#' \dontrun{
 #' #'set.seed(201)
 #'Xv <- sample(-2:2, size = 100, replace = TRUE) #random responses
 #'qd_pci2(Xv, scale_values = -2:2, x_is_table = FALSE, m = 1, p = 1) # 0.37
@@ -127,7 +127,7 @@ qd_pci2_D <- function(x, m=1, p=1){
 #' @family plotting
 #'
 #' @examples
-#' /dontrun{
+#' \dontrun{
 #'set.seed(201)
 #'Xv <- sample(-2:2, size = 100, replace = TRUE) #random responses
 #'Yv <- rep(c(-2,2),50) #most extreme difference
