@@ -13,6 +13,7 @@
 #' @importFrom utils install.packages
 #'
 #' @export
+#' @family other
 #'
 #' @author Sander Devisscher
 
