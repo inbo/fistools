@@ -33,10 +33,14 @@ more robust encryption methods.
 
 When a \emph{PERMISSION_DENIED} error occurs, it is likely that the file is not shared
 with the email address provided. This can be fixed by sharing the file with the
-email address. If the file was shared correctly this might indicate that email address
+email address.
+If the file was shared correctly this might indicate that email address
 does not have the correct permissions to access the file. This can be fixed by
-running \code{googledrive::drive_auth()} and making sure the
-'show, modify and delete all drive files' option is selected. If the error persists
+running \code{googledrive::drive_deauth()} followed by \code{googledrive::drive_auth()} and
+making sure the 'show, modify and delete all drive files' option is selected.
+Additionally running \code{options(gargle_oauth_cache = ".secrets")} prior to running
+the function can fix this issue.
+If the error yet persists
 please create a \href{https://github.com/inbo/fistools/issues/new/choose}{new issue}
 on the github page.
 }

@@ -20,10 +20,14 @@
 #'
 #' When a *PERMISSION_DENIED* error occurs, it is likely that the file is not shared
 #' with the email address provided. This can be fixed by sharing the file with the
-#' email address. If the file was shared correctly this might indicate that email address
+#' email address. 
+#' If the file was shared correctly this might indicate that email address
 #' does not have the correct permissions to access the file. This can be fixed by
-#' running `googledrive::drive_auth()` and making sure the
-#' 'show, modify and delete all drive files' option is selected. If the error persists
+#' running `googledrive::drive_deauth()` followed by `googledrive::drive_auth()` and 
+#' making sure the 'show, modify and delete all drive files' option is selected. 
+#' Additionally running `options(gargle_oauth_cache = ".secrets")` prior to running 
+#' the function can fix this issue. 
+#' If the error yet persists
 #' please create a [new issue](https://github.com/inbo/fistools/issues/new/choose)
 #' on the github page.
 #'
