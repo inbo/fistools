@@ -1,20 +1,19 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>/404.html</loc></url>
+<url><loc>/authors.html</loc></url>
 <url><loc>/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>/index.html</loc></url>
 <url><loc>/LICENSE-text.html</loc></url>
 <url><loc>/LICENSE.html</loc></url>
-<url><loc>/authors.html</loc></url>
-<url><loc>/index.html</loc></url>
-<url><loc>/reference/CRS_extracter.html</loc></url>
-<url><loc>/reference/UUID_List.html</loc></url>
 <url><loc>/reference/apply_grtsdb.html</loc></url>
 <url><loc>/reference/boswachterijen.html</loc></url>
 <url><loc>/reference/calculate_polygon_centroid.html</loc></url>
 <url><loc>/reference/check.html</loc></url>
 <url><loc>/reference/cleanup_sqlite.html</loc></url>
-<url><loc>/reference/col_content_compare.html</loc></url>
 <url><loc>/reference/colcompare.html</loc></url>
 <url><loc>/reference/collect_osm_features.html</loc></url>
+<url><loc>/reference/col_content_compare.html</loc></url>
+<url><loc>/reference/CRS_extracter.html</loc></url>
 <url><loc>/reference/download_dep_media.html</loc></url>
 <url><loc>/reference/download_gdrive_if_missing.html</loc></url>
 <url><loc>/reference/download_seq_media.html</loc></url>
@@ -30,5 +29,6 @@
 <url><loc>/reference/rename_ct_files.html</loc></url>
 <url><loc>/reference/sunsetter.html</loc></url>
 <url><loc>/reference/sunsetter2.html</loc></url>
+<url><loc>/reference/UUID_List.html</loc></url>
 </urlset>
 
