@@ -90,7 +90,7 @@ shape_to_geojson <- function(input,
 
     ## Check if the shape has a crs ####
     if(is.na(sf::st_crs(shape))){
-      cat(paste0(f, " has no crs, please provide a crs >> skipping"))
+      cat(paste0(f, " has no crs, please provide a crs & retry >> skipping"))
       next()
     }
 
