@@ -19,6 +19,9 @@
 #'
 #' @family spatial
 #' @export
+#' @author Sander Devisscher
+#'
+#' @returns een .geojson bestand of meerdere .geojson bestanden
 #'
 #' @examples
 #' \dontrun{
