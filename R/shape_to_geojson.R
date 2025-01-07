@@ -106,6 +106,11 @@ shape_to_geojson <- function(input,
       q_overwrite <- overwrite
     }
 
+    if(q_overwrite == FALSE & file.exists(here::here(output, output_fn))){
+      cat(paste0(f, " already exists >> skipping"))
+      next()
+    }
+
     shape <- sf::st_read(here::here(input, paste0(f, ".shp")))
 
     ## Check if the shape has a crs ####
