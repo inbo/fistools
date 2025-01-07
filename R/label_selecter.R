@@ -8,6 +8,7 @@
 #' @param jaar een numerieke (lijst) van jaren die dienen onderzocht te worden.
 #' @param soort een character van de soort die onderzocht dient te worden.
 #' @param bo_dir een character met de directory waar de backoffice-wild-analyse repository staat.
+#' @param debug een boolean die aangeeft of de debug modus moet worden aangezet.
 #'
 #' @details
 #' De parameter `label_type`, `jaar` en `soort` zijn enkel relevant als één van
@@ -76,11 +77,18 @@ label_selecter <- function(label,
                            label_type,
                            jaar,
                            soort,
-                           bo_dir = "~/Github/backoffice-wild-analyse/"){
+                           bo_dir = "~/Github/backoffice-wild-analyse/",
+                           debug = FALSE){
 
   # check if bo_dir is a directory
   if (!dir.exists(bo_dir)) {
     stop(paste0(bo_dir, " is geen directory >> probeer 'https://github.com/inbo/backoffice-wild-analyse' te clonen en/of 'bo_dir' te wijzgigen"))
+  }
+
+  # ask if the backoffice-wild-analyse repository is up to date
+  q_update <- utils::askYesNo(msg = "Is de backoffice-wild-analyse repository up to date?")
+  if (q_update == FALSE) {
+    warning("De backoffice-wild-analyse repository is mogelijk niet up to date! Let hierop bij het interpreteren van de resultaten")
   }
 
   #Datasets to check
@@ -93,61 +101,26 @@ label_selecter <- function(label,
                                                            ";", escape_double = FALSE, trim_ws = TRUE) #DMOG_GEO
   if(update == TRUE){
     print("Updating E_Loket Data")
-    temp_dir_update <- paste0(bo_dir, "Basis_Scripts/Basis_Scripts/Input/")
-    dir.create(paste0(temp_dir_update, "/E_Loket"), recursive = TRUE, showWarnings = FALSE)
-    dir.create(paste0(temp_dir_update, "/INBO"), recursive = TRUE, showWarnings = FALSE)
+
+    source(paste0(bo_dir,"Basis_Scripts/DWH_connector.R"),
+           local = TRUE,
+           verbose = debug,
+           chdir = TRUE)
 
     # handle a failure with trycatch
     tryCatch({
       # download data from DWH
-      source(paste0(bo_dir,"Basis_Scripts/DWH_connect.R"),
-             local = TRUE,
-             verbose = TRUE,
-             chdir = TRUE)
+      dataAfschotMelding <- DWH_Connector(schema = "staging_Wild",
+                                          dataset = "AfschotMelding")
+
+      dataToegekendeLabels <- DWH_Connector(schema = "staging_Wild",
+                                            dataset = "ToegekendeLabels")
+
     }, error = function(e) {
       warning("DWH_connect.R failed to run >> DWH niet upgedatet")
+      message("Check if you are connected to the VPN of the INBO or if you are at a VAC location")
       update <<- FALSE
     })
-
-    remove(dataAanvragenAfschot,
-           dataAanvragenAfschotPartij,
-           dataDiersoort,
-           dataErkenningWBE,
-           dataGeslacht,
-           dataIdentificaties,
-           dataKboWbe,
-           dataLeeftijd,
-           dataMeldingsformulier,
-           dataOnderkaak,
-           dataRapport,
-           dataRapportGegevens,
-           dataStaal,
-           dataVerbandKboWbe,
-           datawildschade,
-           csvPath_backoffice,
-           csvPath_e_loket,
-           csvPathAanvragenAfschot,
-           csvPathAanvragenAfschotPartij,
-           csvPathAfschotMelding,
-           csvPathdataRapportGegevens,
-           csvPathDiersoort,
-           csvPathErkenningWBE,
-           csvPathGeslacht,
-           csvPathIdentificaties,
-           csvPathKboWbe,
-           csvPathLeeftijd,
-           csvPathMeldingsformulier,
-           csvPathOnderkaak,
-           csvPathRapport,
-           csvPathSchade,
-           csvPathStaal,
-           csvPathVerbandKboWbe)
-
-    unlink(paste0(temp_dir_update, "/E_Loket"), recursive = TRUE)
-    unlink(paste0(temp_dir_update, "/INBO"), recursive = TRUE)
-    unlink(temp_dir_update, recursive = TRUE)
-    unlink(paste0(bo_dir, "/Basis_Scripts/"), force = TRUE, expand = TRUE)
-
   }
   #make labeltypes
   if(check(label_type) == 1){
@@ -265,8 +238,8 @@ label_selecter <- function(label,
     DMOG_LABEL <- NA
     DMOG_GEO <- FALSE
     DMOG_GEO_LABEL <- NA
-    if(update == TRUE){
 
+    if(update == TRUE){
       AM_NEW <- FALSE
       AM_NEW_LABEL <- NA
       TL_NEW <- FALSE
