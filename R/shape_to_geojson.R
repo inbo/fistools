@@ -54,7 +54,7 @@ shape_to_geojson <- function(input,
     filelist <- dir(path = input, pattern = ".shp", recursive = TRUE)
     ## Overwrite output with input if not specified
     if(missing(output)){
-      cat("Output folder is not specified, using input folder as output folder")
+      message("Output folder is not specified, using input folder as output folder")
       output <- input
     }
   }else{
@@ -107,7 +107,7 @@ shape_to_geojson <- function(input,
     }
 
     if(q_overwrite == FALSE & file.exists(here::here(output, output_fn))){
-      cat(paste0(f, " already exists >> skipping"))
+      message(paste0(f, " already exists >> skipping"))
       next()
     }
 
@@ -115,13 +115,13 @@ shape_to_geojson <- function(input,
 
     ## Check if the shape has a crs ####
     if(is.na(sf::st_crs(shape))){
-      cat(paste0(f, " has no crs, please provide a crs & retry >> skipping"))
+      message(paste0(f, " has no crs, please provide a crs & retry >> skipping"))
       next()
     }
 
     ## Check if the crs is not wgs84 ####
     if(sf::st_crs(shape)$input != output_crs){
-      cat(paste0(f, " is not output crs >> transforming"))
+      message(paste0(f, " is not output crs >> transforming"))
       shape <- sf::st_transform(shape, output_crs)
     }
 
