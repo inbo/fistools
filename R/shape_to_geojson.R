@@ -18,13 +18,28 @@
 #' Als de output niet is gespecificeerd, wordt de output gelijkgesteld aan de input.
 #'
 #' @family spatial
+#' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Voorbeeld van hoe de shape_to_geojson functie te gebruiken
-#' # Zet alle shapes in de map om naar geojson
-#' shape_to_geojson(input = "Data/Spatial")
-#' }
+#' # Sla boswachterijen_2024 op als .shp bestand in een tempdir
+#' boswachterijen_2024 <- fistools::boswachterijen$boswachterijen_2024
+#' tempdir <- tempdir()
+#' sf::st_write(boswachterijen_2024, paste0(tempdir, "/boswachterijen_2024.shp"))
+#'
+#' # controleer of de shp goed opgeslagen werd
+#' browseURL(tempdir)
+#'
+#' # Zet de shp om naar geojson
+#' shape_to_geojson(input = tempdir)
+#'
+#' # Read and plot the geojson
+#' boswachterijen_2024_geojson <- sf::st_read(paste0(tempdir, "/boswachterijen_2024.geojson"))
+#' leaflet::leaflet() %>%
+#'  leaflet::addTiles() %>%
+#'  leaflet::addPolygons(data = boswachterijen_2024_geojson)
+#'  }
 
 shape_to_geojson <- function(input,
                              output,
@@ -84,9 +99,11 @@ shape_to_geojson <- function(input,
       }else{
         q_overwrite <- overwrite
       }
+    }else{
+      q_overwrite <- overwrite
     }
 
-    shape <- sf::st_read(here(input, f))
+    shape <- sf::st_read(here::here(input, paste0(f, ".shp")))
 
     ## Check if the shape has a crs ####
     if(is.na(sf::st_crs(shape))){
