@@ -20,6 +20,9 @@ opgeslagen, default is de input map}
 \item{overwrite}{een boolean of character string, Vraag of de bestanden mogen
 overschreven worden, default is "ask"}
 }
+\value{
+een .geojson bestand of meerdere .geojson bestanden
+}
 \description{
 Convert shapefiles to geojson
 Deze functie zet alle shapes in een specifieke map, één bestand of een lijst van bestanden
@@ -60,5 +63,8 @@ Other spatial:
 \code{\link{apply_grtsdb}()},
 \code{\link{calculate_polygon_centroid}()},
 \code{\link{collect_osm_features}()}
+}
+\author{
+Sander Devisscher
 }
 \concept{spatial}
