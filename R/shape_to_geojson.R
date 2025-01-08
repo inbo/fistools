@@ -51,7 +51,7 @@ shape_to_geojson <- function(input,
 
   ## Check if the input is a directory ####
   if(dir.exists(input)){
-    filelist <- dir(path = input, pattern = ".shp", recursive = TRUE)
+    filelist <- dir(path = input, pattern = ".shp", recursive = TRUE, full.names = FALSE)
     ## Overwrite output with input if not specified
     if(missing(output)){
       message("Output folder is not specified, using input folder as output folder")
@@ -63,9 +63,12 @@ shape_to_geojson <- function(input,
     ## Extract input folder ####
     input <- dirname(input)
 
+    filelist <- gsub(pattern = input, replacement = "", filelist)
+
     ## Output is not specified, but needed
     if(missing(output)){
-      stop("The output folder is not specified, but needed >> specify output folder")
+      message("Output folder is not specified, using input folder as output folder")
+      output <- input
     }
   }
 
@@ -111,7 +114,8 @@ shape_to_geojson <- function(input,
       next()
     }
 
-    shape <- sf::st_read(here::here(input, paste0(f, ".shp")))
+    shape <- sf::st_read(here::here(input, paste0(f, ".shp"))) %>%
+      sf::st_make_valid()
 
     ## Check if the shape has a crs ####
     if(is.na(sf::st_crs(shape))){
@@ -123,6 +127,10 @@ shape_to_geojson <- function(input,
     if(sf::st_crs(shape)$input != output_crs){
       message(paste0(f, " is not output crs >> transforming"))
       shape <- sf::st_transform(shape, output_crs)
+    }
+
+    if(q_overwrite == TRUE & file.exists(here::here(output, output_fn))){
+      file.remove(here::here(output, output_fn))
     }
 
     ## Write the shape to geojson ####
