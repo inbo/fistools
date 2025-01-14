@@ -2,6 +2,7 @@
 
 export(CRS_extracter)
 export(UUID_List)
+export(aggregate_lineparts_sf)
 export(apply_grtsdb)
 export(calculate_polygon_centroid)
 export(check)
