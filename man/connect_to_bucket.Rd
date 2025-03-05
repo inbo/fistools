@@ -37,7 +37,7 @@ kan je bekomen bij Jens Polspoel.
 -\emph{devops-toolkit} moet lokaal worden geïnstalleerd dit doe je door
 \emph{https://github.com/inbo/devops-toolkit} te clonen dmv \emph{github dekstop}.
 Vervolgens kopiëer je \emph{aws-cli-mfa-login.py} & \emph{common.py} naar de Home
-Directory van Windows. Default is dat \emph{C:\Users\<voornaam_achternaam>\bin}.
+Directory van Windows. Default is dat \emph{C:/Users/\%voornaam_achternaam\%/bin}.
 -\emph{Python} moet worden geïnstalleerd als dat nog niet gebeurd is. Dit kan
 rechtstreeks in \emph{R} met onderstaande code:
 \code{install.packages("reticulate")}
@@ -48,8 +48,10 @@ rechtstreeks in \emph{R} met onderstaande code:
 \examples{
  \dontrun{
 # Alleen de bucket_name is uiterst noodzakelijk:
-source("./src/connect_to_bucket.R")
+# Connect to the UAT bucket of exotenportaal:
 connect_to_bucket("inbo-exotenportaal-uat-eu-west-1-default")
+# Connect to the UAT bucket of faunabeheer:
+connect_to_bucket("inbo-faunabeheer-uat-eu-west-1-default")
 }
 }
 \author{
