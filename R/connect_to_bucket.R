@@ -25,7 +25,7 @@
 #' -*devops-toolkit* moet lokaal worden geïnstalleerd dit doe je door
 #' *https://github.com/inbo/devops-toolkit* te clonen dmv _github dekstop_.
 #' Vervolgens kopiëer je *aws-cli-mfa-login.py* & *common.py* naar de Home
-#' Directory van Windows. Default is dat *C:\Users\<voornaam_achternaam>\bin*.
+#' Directory van Windows. Default is dat *C:/Users/%voornaam_achternaam%/bin*.
 #' -*Python* moet worden geïnstalleerd als dat nog niet gebeurd is. Dit kan
 #' rechtstreeks in _R_ met onderstaande code:
 #' `install.packages("reticulate")`
@@ -39,8 +39,10 @@
 #' @examples
 #'  \dontrun{
 #' # Alleen de bucket_name is uiterst noodzakelijk:
-#' source("./src/connect_to_bucket.R")
+#' # Connect to the UAT bucket of exotenportaal:
 #' connect_to_bucket("inbo-exotenportaal-uat-eu-west-1-default")
+#' # Connect to the UAT bucket of faunabeheer:
+#' connect_to_bucket("inbo-faunabeheer-uat-eu-west-1-default")
 #' }
 
 connect_to_bucket <- function(bucket_name,
