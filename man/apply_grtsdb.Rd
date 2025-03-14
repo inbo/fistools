@@ -70,7 +70,8 @@ sample <- apply_grtsdb(perimeter,
 Other spatial: 
 \code{\link{CRS_extracter}()},
 \code{\link{calculate_polygon_centroid}()},
-\code{\link{collect_osm_features}()}
+\code{\link{collect_osm_features}()},
+\code{\link{shape_to_geojson}()}
 }
 \author{
 Sander Devisscher
