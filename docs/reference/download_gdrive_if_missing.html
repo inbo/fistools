@@ -11,7 +11,7 @@ it again."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fistools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.14</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,10 +80,14 @@ achieved by adding email as an item in a .renviron file or even beter by using
 more robust encryption methods.</p>
 <p>When a <em>PERMISSION_DENIED</em> error occurs, it is likely that the file is not shared
 with the email address provided. This can be fixed by sharing the file with the
-email address. If the file was shared correctly this might indicate that email address
+email address.
+If the file was shared correctly this might indicate that email address
 does not have the correct permissions to access the file. This can be fixed by
-running <code><a href="https://googledrive.tidyverse.org/reference/drive_auth.html" class="external-link">googledrive::drive_auth()</a></code> and making sure the
-'show, modify and delete all drive files' option is selected. If the error persists
+running <code><a href="https://googledrive.tidyverse.org/reference/drive_deauth.html" class="external-link">googledrive::drive_deauth()</a></code> followed by <code><a href="https://googledrive.tidyverse.org/reference/drive_auth.html" class="external-link">googledrive::drive_auth()</a></code> and
+making sure the 'show, modify and delete all drive files' option is selected.
+Additionally running <code>options(gargle_oauth_cache = ".secrets")</code> prior to running
+the function can fix this issue.
+If the error yet persists
 please create a <a href="https://github.com/inbo/fistools/issues/new/choose" class="external-link">new issue</a>
 on the github page.</p>
     </div>
