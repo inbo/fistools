@@ -28,12 +28,26 @@
 #' browseURL(foldername)
 #' unlink(foldername,
 #'        recursive = TRUE)
+#'
+#' # The function also works when no foldername is provided
+#' rename_ct_files()
 #'}
 #'
 #' @export
 
 rename_ct_files <- function(foldername,
                             extensions = c("jpg", "png", "jpeg", "bmp")) {
+                            extensions = c("jpg", "png", "jpeg", "bmp"),
+
+  # test whether foldername is missing & prompt a browser when it is
+  if (rlang::is_missing(foldername)) {
+    foldername <- tcltk::tclvalue(tcltk::tkchooseDirectory())
+  }
+
+  # test whether foldername is a folder & exists
+  if (!dir.exists(foldername)) {
+    stop("Folder does not exist")
+  }
 
   # list all the files in the subfolders and prepare new file names
   images <- dir(foldername, recursive = TRUE,  full.names = FALSE) %>%
