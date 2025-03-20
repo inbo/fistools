@@ -27,6 +27,13 @@ all unique file names across a deployment. Needed for deployments with more
 than 9999 pictures, so they can be uploaded in Agouti. This is a copy of the
 old \code{rename_file_names()} in the old \code{fis-projecten} (archived).
 }
+\details{
+This function will rename all files in the subfolders of the folder specified
+by foldername. If no foldername is provided, the user will be prompted to
+select a folder. The function will rename all files with the extensions
+specified in the extensions argument. The function will also compile all files
+in a single folder if compile is set to TRUE.
+}
 \examples{
 \dontrun{
 tempzip <- tempfile(fileext = ".zip")
