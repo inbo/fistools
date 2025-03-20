@@ -10,6 +10,7 @@
 #'
 #' @param foldername DCIM folder to be treated
 #' @param extensions file extensions to be rename. Default is jpg, jpeg, bmp and png
+#' @param compile logical. If TRUE, all files will be compiled in a single folder
 #'
 #' @returns renamed picture files in the original folder
 #'
@@ -31,13 +32,19 @@
 #'
 #' # The function also works when no foldername is provided
 #' rename_ct_files()
+#'
+#' # The function can also compile all files in a single folder
+#' rename_ct_files(foldername, compile = TRUE)
+#' browseURL(foldername)
+#' unlink(foldername,
+#'        recursive = TRUE)
 #'}
 #'
 #' @export
 
 rename_ct_files <- function(foldername,
-                            extensions = c("jpg", "png", "jpeg", "bmp")) {
                             extensions = c("jpg", "png", "jpeg", "bmp"),
+                            compile = FALSE) {
 
   # test whether foldername is missing & prompt a browser when it is
   if (rlang::is_missing(foldername)) {
@@ -63,4 +70,13 @@ rename_ct_files <- function(foldername,
   # execute file renaming
   file.rename(images$full_filename, images$full_new_filename)
 
+  # compile all files in a single folder
+  if (compile) {
+    images_compile <- images %>%
+      dplyr::mutate(full_new_filename_compiled = paste0(foldername, "/compiled/", new_filename))
+
+    dir.create(paste0(foldername, "/compiled"))
+
+    file.copy(images_compile$full_new_filename, images_compile$full_new_filename_compiled)
+  }
 }
