@@ -38,5 +38,5 @@ Imports:
     mapview (>= 2.11.2),
     osmdata (>= 0.2.5),
     readr (>= 2.1.5),
-    tcltk (>= 4.4.2),
+    tcltk,
     aws.s3 (>= 0.3.21)
