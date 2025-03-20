@@ -37,4 +37,5 @@ Imports:
     sp (>= 2.1.4),
     mapview (>= 2.11.2),
     osmdata (>= 0.2.5),
-    readr (>= 2.1.5)
+    readr (>= 2.1.5),
+    tcltk (>= 4.4.2)
