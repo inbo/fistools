@@ -4,12 +4,18 @@
 \alias{rename_ct_files}
 \title{Rename camera trap files for upload in Agouti}
 \usage{
-rename_ct_files(foldername, extensions = c("jpg", "png", "jpeg", "bmp"))
+rename_ct_files(
+  foldername,
+  extensions = c("jpg", "png", "jpeg", "bmp"),
+  compile = FALSE
+)
 }
 \arguments{
 \item{foldername}{DCIM folder to be treated}
 
 \item{extensions}{file extensions to be rename. Default is jpg, jpeg, bmp and png}
+
+\item{compile}{logical. If TRUE, all files will be compiled in a single folder}
 }
 \value{
 renamed picture files in the original folder
@@ -33,6 +39,15 @@ foldername <- paste0(tempdir(), "/test_case_renaming")
 unzip(tempzip,
       exdir = tempdir())
 rename_ct_files(foldername)
+browseURL(foldername)
+unlink(foldername,
+       recursive = TRUE)
+
+# The function also works when no foldername is provided
+rename_ct_files()
+
+# The function can also compile all files in a single folder
+rename_ct_files(foldername, compile = TRUE)
 browseURL(foldername)
 unlink(foldername,
        recursive = TRUE)
