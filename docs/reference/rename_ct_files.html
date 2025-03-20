@@ -15,7 +15,7 @@ old rename_file_names() in the old fis-projecten (archived)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fistools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.18</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,11 @@ old <code>rename_file_names()</code> in the old <code>fis-projecten</code> (arch
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rename_ct_files</span><span class="op">(</span><span class="va">foldername</span>, extensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"jpg"</span>, <span class="st">"png"</span>, <span class="st">"jpeg"</span>, <span class="st">"bmp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rename_ct_files</span><span class="op">(</span></span>
+<span>  <span class="va">foldername</span>,</span>
+<span>  extensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"jpg"</span>, <span class="st">"png"</span>, <span class="st">"jpeg"</span>, <span class="st">"bmp"</span><span class="op">)</span>,</span>
+<span>  compile <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -63,10 +67,22 @@ old <code>rename_file_names()</code> in the old <code>fis-projecten</code> (arch
 <dt id="arg-extensions">extensions<a class="anchor" aria-label="anchor" href="#arg-extensions"></a></dt>
 <dd><p>file extensions to be rename. Default is jpg, jpeg, bmp and png</p></dd>
 
+
+<dt id="arg-compile">compile<a class="anchor" aria-label="anchor" href="#arg-compile"></a></dt>
+<dd><p>logical. If TRUE, all files will be compiled in a single folder</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>renamed picture files in the original folder</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>This function will rename all files in the subfolders of the folder specified
+by foldername. If no foldername is provided, the user will be prompted to
+select a folder. The function will rename all files with the extensions
+specified in the extensions argument. The function will also compile all files
+in a single folder if compile is set to TRUE.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -86,6 +102,15 @@ old <code>rename_file_names()</code> in the old <code>fis-projecten</code> (arch
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">tempzip</span>,</span></span>
 <span class="r-in"><span>      exdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">rename_ct_files</span><span class="op">(</span><span class="va">foldername</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="va">foldername</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">foldername</span>,</span></span>
+<span class="r-in"><span>       recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The function also works when no foldername is provided</span></span></span>
+<span class="r-in"><span><span class="fu">rename_ct_files</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The function can also compile all files in a single folder</span></span></span>
+<span class="r-in"><span><span class="fu">rename_ct_files</span><span class="op">(</span><span class="va">foldername</span>, compile <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="va">foldername</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">foldername</span>,</span></span>
 <span class="r-in"><span>       recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
