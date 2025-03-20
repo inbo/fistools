@@ -12,6 +12,13 @@
 #' @param extensions file extensions to be rename. Default is jpg, jpeg, bmp and png
 #' @param compile logical. If TRUE, all files will be compiled in a single folder
 #'
+#' @details
+#' This function will rename all files in the subfolders of the folder specified
+#' by foldername. If no foldername is provided, the user will be prompted to
+#' select a folder. The function will rename all files with the extensions
+#' specified in the extensions argument. The function will also compile all files
+#' in a single folder if compile is set to TRUE.
+#'
 #' @returns renamed picture files in the original folder
 #'
 #' @examples
