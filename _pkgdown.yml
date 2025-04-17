@@ -28,3 +28,6 @@ reference:
 
 build:
   without_rdb: true
+
+template:
+  bootstrap: 5
