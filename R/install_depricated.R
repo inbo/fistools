@@ -58,7 +58,7 @@ install_depricated <- function(package_name,
         stop("The package is not available on the CRAN archive")
       }
     } else {
-      download.file(url, destfile = tempfile)
+      download.file(version_url, destfile = tempfile)
     }
 
     # install the tarball
