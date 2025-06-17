@@ -10,7 +10,8 @@ label_selecter(
   label_type,
   jaar,
   soort,
-  bo_dir = "~/Github/backoffice-wild-analyse/"
+  bo_dir = "~/Github/backoffice-wild-analyse/",
+  debug = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ label_selecter(
 \item{soort}{een character van de soort die onderzocht dient te worden.}
 
 \item{bo_dir}{een character met de directory waar de backoffice-wild-analyse repository staat.}
+
+\item{debug}{een boolean die aangeeft of de debug modus moet worden aangezet.}
 }
 \value{
 Een dataframe met de volgende kolommen:
