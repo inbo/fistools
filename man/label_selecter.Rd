@@ -93,6 +93,11 @@ Of als je aanwezig bent op een vestiging van de Vlaamse Overheid (VAC).
  output <- label_selecter(label, jaar = jaar , soort = soort)
 }
 }
+\seealso{
+Other other: 
+\code{\link{install_depricated}()},
+\code{\link{install_sp}()}
+}
 \author{
 Sander Devisscher
 }
