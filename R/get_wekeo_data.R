@@ -13,6 +13,7 @@
 #' @param enddate The end date for the data request (optional).
 #' @param itemsPerPage The number of items per page (default is 200).
 #' @param startIndex The starting index for pagination (default is 0).
+#' @param py_env The name of the Python virtual environment to use (default is "myenv").
 #'
 #' @details
 #' This function retrieves data from the [Wekeo service](https://wekeo.copernicus.eu/) using the Earthkit library.
@@ -61,7 +62,8 @@ get_wekeo_data <- function(dataset_id,
                            startdate,
                            enddate,
                            itemsPerPage = 200,
-                           startIndex = 0){
+                           startIndex = 0,
+                           py_env = "myenv") {
 
   # Check if dataset_id is provided
   if(missing(dataset_id)) {
@@ -125,40 +127,38 @@ get_wekeo_data <- function(dataset_id,
 #' @param dataset_id The dataset identifier.
 #' @param api_request The API request in JSON format.
 #' @param cache_dir Directory to store cached files.
+#' @param py_env The name of the Python virtual environment to use (default is "myenv").
 #' @return The path to the downloaded file.
 
 earthkit_download <- function(
     source = "wekeo",
     dataset_id,
     api_request,
-    cache_dir = file.path(Sys.getenv("USERPROFILE"), ".earthkit_cache")
+    cache_dir = file.path(Sys.getenv("USERPROFILE"), ".earthkit_cache"),
+    py_env = "myenv"
 ) {
   #create the cache directory if it doesn't exist
   dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
 
   # create a virtual environment if it doesn't exist
-  if (!reticulate::virtualenv_exists("myenv")) {
-    message("Creating virtual environment 'myenv'...")
-    reticulate::virtualenv_create(envname = "myenv")
+  if (!reticulate::virtualenv_exists(py_env)) {
+    message(paste0("Creating virtual environment '", py_env,  "'..."))
+    reticulate::virtualenv_create(envname = py_env)
   }else{
-    cat("Virtual environment 'myenv' already exists.\n")
+    cat(paste0("Virtual environment '", py_env, "' already exists.\n"))
   }
 
   # Install earthkit data in the virtual environment ifnot allready installed
   if (!reticulate::py_module_available("earthkit")) {
-    message("Installing earthkit in the virtual environment 'myenv'...")
-    reticulate::virtualenv_install(packages = "earthkit", envname = "myenv")
+    message(paste0("Installing earthkit in the virtual environment '", py_env, "'..."))
+    reticulate::virtualenv_install(packages = "earthkit", envname = py_env)
   }
 
   # Use the virtual environment
-  reticulate::use_virtualenv("myenv", required = TRUE)
+  reticulate::use_virtualenv(py_env, required = TRUE)
 
 
   pyconfig <- reticulate::py_config()
-
-  # Install earthkit.data if not already installed
-  reticulate::py_install(packages = "earthkit",
-                         envname = pyconfig$python)
 
   # Create a temporary variable name to capture the path
   reticulate::py_run_string("ekd_path_out = None")
