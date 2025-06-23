@@ -74,8 +74,15 @@ data <- get_wekeo_data(
   )
 }
 }
+\seealso{
+Other download: 
+\code{\link{download_dep_media}()},
+\code{\link{download_gdrive_if_missing}()},
+\code{\link{download_seq_media}()}
+}
 \author{
 Martijn Bollen & Sander Devisscher
 
 This function retrieves data from the Wekeo service using the Earthkit library.
 }
+\concept{download}
