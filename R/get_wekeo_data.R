@@ -27,6 +27,9 @@
 #' When the API request is provided, it will be used directly, ignoring the other parameters (except dataset_id).
 #'
 #' @return A terra SpatRaster object containing the requested data.
+#' @export
+#'
+#' @family download
 #'
 #' @examples
 #' \dontrun{
@@ -165,7 +168,7 @@ earthkit_download <- function(
     "import warnings",
     "warnings.filterwarnings('ignore')",
     sprintf("ekd.settings.set({'cache-policy': 'user', 'user-cache-directory': r'%s'})", cache_dir),
-    "print('📁 Using Earthkit cache at:', ekd.cache.directory())",
+    "print('Using Earthkit cache at:', ekd.cache.directory())",
     sprintf("request = %s", api_request),
     sprintf("ds = ekd.from_source('%s', '%s', request=request)", source, dataset_id),
     "path = ds.path",  # cached file path (usually a .nc or .grib file)
