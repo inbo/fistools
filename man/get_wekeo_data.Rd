@@ -13,7 +13,8 @@ get_wekeo_data(
   startdate,
   enddate,
   itemsPerPage = 200,
-  startIndex = 0
+  startIndex = 0,
+  py_env = "myenv"
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ get_wekeo_data(
 \item{itemsPerPage}{The number of items per page (default is 200).}
 
 \item{startIndex}{The starting index for pagination (default is 0).}
+
+\item{py_env}{The name of the Python virtual environment to use (default is "myenv").}
 }
 \value{
 A terra SpatRaster object containing the requested data.
