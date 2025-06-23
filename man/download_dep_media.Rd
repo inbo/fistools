@@ -63,7 +63,8 @@ download_dep_media(dataset = drg,
 \seealso{
 Other download: 
 \code{\link{download_gdrive_if_missing}()},
-\code{\link{download_seq_media}()}
+\code{\link{download_seq_media}()},
+\code{\link{get_wekeo_data}()}
 }
 \author{
 Lynn Pallemaerts
