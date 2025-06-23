@@ -63,7 +63,8 @@ download_gdrive_if_missing(gfileID = "1FX8DDyREKMH1M3iW9ijWjVjO_tBH8PXi",
 \seealso{
 Other download: 
 \code{\link{download_dep_media}()},
-\code{\link{download_seq_media}()}
+\code{\link{download_seq_media}()},
+\code{\link{get_wekeo_data}()}
 }
 \author{
 Sander Devisscher
