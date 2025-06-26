@@ -41,4 +41,5 @@ Imports:
     tcltk,
     aws.s3 (>= 0.3.21),
     reticulate (>= 1.42.0),
-    terra (>= 1.8.50)
+    terra (>= 1.8.50),
+    getPass (>= 0.2.4)
