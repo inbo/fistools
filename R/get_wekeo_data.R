@@ -136,30 +136,6 @@ earthkit_download <- function(
   #create the cache directory if it doesn't exist
   dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
 
-  # create a virtual environment if it doesn't exist
-  if (!reticulate::virtualenv_exists("myenv")) {
-    message("Creating virtual environment 'myenv'...")
-    reticulate::virtualenv_create(envname = "myenv")
-  }else{
-    cat("Virtual environment 'myenv' already exists.\n")
-  }
-
-  # Install earthkit data in the virtual environment ifnot allready installed
-  if (!reticulate::py_module_available("earthkit")) {
-    message("Installing earthkit in the virtual environment 'myenv'...")
-    reticulate::virtualenv_install(packages = "earthkit", envname = "myenv")
-  }
-
-  # Use the virtual environment
-  reticulate::use_virtualenv("myenv", required = TRUE)
-
-
-  pyconfig <- reticulate::py_config()
-
-  # Install earthkit.data if not already installed
-  reticulate::py_install(packages = "earthkit",
-                         envname = pyconfig$python)
-
   # Create a temporary variable name to capture the path
   reticulate::py_run_string("ekd_path_out = None")
 
