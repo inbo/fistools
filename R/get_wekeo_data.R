@@ -129,7 +129,7 @@ get_wekeo_data <- function(dataset_id,
     }
 
     # Add pagination parameters
-    # These should allways be added to the API request
+    # These should always be added to the API request
     api_request <- paste0(api_request, ',
   "itemsPerPage": ', itemsPerPage, ',
   "startIndex": ', startIndex, '
