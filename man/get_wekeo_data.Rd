@@ -56,22 +56,46 @@ When the API request is provided, it will be used directly, ignoring the other p
 \examples{
 \dontrun{
 
+# Set up the virtual environment and install required python packages
+py_env <- "myenv" # Change this to your desired virtual environment name
+# 0. Create the virtualenv if needed
+if (!py_env \%in\% reticulate::virtualenv_list()) {
+  reticulate::virtualenv_create(py_env)
+}
+
+# 1. Activate the environment for the session
+reticulate::use_virtualenv(py_env, required = TRUE)
+
+# 2. Install Python packages if not already installed
+if (!reticulate::py_module_available("hda")) {
+  message("Installing Python module 'hda'...")
+  reticulate::virtualenv_install(py_env,"hda")
+}
+if (!reticulate::py_module_available("earthkit")) {
+  message("Installing Python module 'earthkit'...")
+  reticulate::virtualenv_install(py_env,"earthkit")
+}
+
 # Example usage with a custom API request
 api_request <- '{
 "dataset_id": "EO:CLMS:DAT:CLMS_GLOBAL_NDVI_300M_V1_10DAILY_NETCDF",
-"productType": "NDVI300",
 "resolution": "300",
+"bbox": [
+  1.6063443461063671,
+  48.05229722213296,
+  8.35299059975311,
+  51.7736550957488
+],
 "startdate": "2021-01-01T00:00:00.000Z",
-"enddate": "2021-01-29T23:59:59.999Z",
+"enddate": "2021-01-01T23:59:59.999Z",
 "itemsPerPage": 200,
 "startIndex": 0
 }'
 
-Call the function with the custom API request
 data <- get_wekeo_data(
   dataset_id = "EO:CLMS:DAT:CLMS_GLOBAL_NDVI_300M_V1_10DAILY_NETCDF",
   api_request = api_request
-  )
+)
 }
 }
 \seealso{
