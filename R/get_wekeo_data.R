@@ -34,22 +34,46 @@
 #' @examples
 #' \dontrun{
 #'
+#' # Set up the virtual environment and install required python packages
+#' py_env <- "myenv" # Change this to your desired virtual environment name
+#' # 0. Create the virtualenv if needed
+#' if (!py_env %in% reticulate::virtualenv_list()) {
+#'   reticulate::virtualenv_create(py_env)
+#' }
+#'
+#' # 1. Activate the environment for the session
+#' reticulate::use_virtualenv(py_env, required = TRUE)
+#'
+#' # 2. Install Python packages if not already installed
+#' if (!reticulate::py_module_available("hda")) {
+#'   message("Installing Python module 'hda'...")
+#'   reticulate::virtualenv_install(py_env,"hda")
+#' }
+#' if (!reticulate::py_module_available("earthkit")) {
+#'   message("Installing Python module 'earthkit'...")
+#'   reticulate::virtualenv_install(py_env,"earthkit")
+#' }
+#'
 #' # Example usage with a custom API request
 #' api_request <- '{
 #' "dataset_id": "EO:CLMS:DAT:CLMS_GLOBAL_NDVI_300M_V1_10DAILY_NETCDF",
-#' "productType": "NDVI300",
 #' "resolution": "300",
+#' "bbox": [
+#'   1.6063443461063671,
+#'   48.05229722213296,
+#'   8.35299059975311,
+#'   51.7736550957488
+#' ],
 #' "startdate": "2021-01-01T00:00:00.000Z",
-#' "enddate": "2021-01-29T23:59:59.999Z",
+#' "enddate": "2021-01-01T23:59:59.999Z",
 #' "itemsPerPage": 200,
 #' "startIndex": 0
 #' }'
 #'
-#' Call the function with the custom API request
 #' data <- get_wekeo_data(
 #'   dataset_id = "EO:CLMS:DAT:CLMS_GLOBAL_NDVI_300M_V1_10DAILY_NETCDF",
 #'   api_request = api_request
-#'   )
+#' )
 #' }
 
 
@@ -136,6 +160,9 @@ earthkit_download <- function(
   #create the cache directory if it doesn't exist
   dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
 
+  # setup HDA credentials
+  hda_client <- setup_hda_credentials()
+
   # Create a temporary variable name to capture the path
   reticulate::py_run_string("ekd_path_out = None")
 
@@ -157,3 +184,43 @@ earthkit_download <- function(
   # Return the cached file path back to R
   return(py$ekd_path_out)
 }
+
+#' Setup HDA credentials for accessing Wekeo data
+#' @description
+#' This function sets up the HDA (Harmonized Data Access) credentials required to access Wekeo data.
+#' It checks if the HDA Python module is available, installs it if necessary,
+#' and prompts the user for their HDA username and password if they are not already stored in the `.hdarc` file.
+#'
+#' @examples
+#' \dontrun{
+#' # Setup HDA credentials
+#' hda_client <- setup_hda_credentials()
+#' }
+#'
+#' @return A Python client object for accessing Wekeo data.
+
+setup_hda_credentials <- function() {
+  # Prompt in R
+  username <- readline("Enter your username: ")
+  password <- getPass::getPass("Enter your password: ")  # getPass package for masked input
+
+  # Write .hdarc file in R
+  reticulate::py_run_string("import pathlib; pyhome = str(pathlib.Path.home())")
+  py_home <- reticulate::py$pyhome
+  hdarc_path <- file.path(py_home, ".hdarc")
+  writeLines(
+    c(
+      paste0("user:", username),
+      paste0("password:", password)
+    ),
+    con = hdarc_path
+  )
+
+  # Now create the client in Python
+  reticulate::py_run_string("
+from hda import Client
+hda_client = Client()
+  ")
+  return(py$hda_client)
+}
+
