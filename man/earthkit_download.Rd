@@ -8,8 +8,7 @@ earthkit_download(
   source = "wekeo",
   dataset_id,
   api_request,
-  cache_dir = file.path(Sys.getenv("USERPROFILE"), ".earthkit_cache"),
-  py_env = "myenv"
+  cache_dir = file.path(Sys.getenv("USERPROFILE"), ".earthkit_cache")
 )
 }
 \arguments{
@@ -20,8 +19,6 @@ earthkit_download(
 \item{api_request}{The API request in JSON format.}
 
 \item{cache_dir}{Directory to store cached files.}
-
-\item{py_env}{The name of the Python virtual environment to use (default is "myenv").}
 }
 \value{
 The path to the downloaded file.
