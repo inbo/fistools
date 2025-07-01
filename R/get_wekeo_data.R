@@ -26,6 +26,10 @@
 #' When no API request is provided the function constructs a custom API request.
 #' When the API request is provided, it will be used directly, ignoring the other parameters (except dataset_id).
 #'
+#' This function uses .hdarc file to store the HDA credentials.
+#' If the file does not exist, the user will be prompted to enter their HDA username and password.
+#' These are your copernicus login & password.
+#'
 #' @return A terra SpatRaster object containing the requested data.
 #' @export
 #'
@@ -76,7 +80,7 @@
 #' data <- get_wekeo_data(
 #'   dataset_id = "EO:CLMS:DAT:CLMS_GLOBAL_NDVI_300M_V1_10DAILY_NETCDF",
 #'   api_request = api_request
-#' )
+#' ) |> terra::rast()
 #' }
 
 
@@ -143,7 +147,9 @@ get_wekeo_data <- function(dataset_id,
   r <- earthkit_download(
     dataset_id = dataset_id,
     api_request = api_request
-  ) |> terra::rast()
+  )
+
+  return(r)
 }
 
 
