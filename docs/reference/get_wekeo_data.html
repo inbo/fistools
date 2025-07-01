@@ -105,6 +105,9 @@ This toolkit is required to compile the <code>earthkit</code> package.
 To install the toolkit please place ict helpdesk call at <code>ict.helpdesk@inbo.be</code></p>
 <p>When no API request is provided the function constructs a custom API request.
 When the API request is provided, it will be used directly, ignoring the other parameters (except dataset_id).</p>
+<p>This function uses .hdarc file to store the HDA credentials.
+If the file does not exist, the user will be prompted to enter their HDA username and password.
+These are your copernicus login &amp; password.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -125,9 +128,12 @@ When the API request is provided, it will be used directly, ignoring the other p
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Set up the virtual environment and install required python packages</span></span></span>
 <span class="r-in"><span><span class="va">py_env</span> <span class="op">&lt;-</span> <span class="st">"myenv"</span> <span class="co"># Change this to your desired virtual environment name</span></span></span>
-<span class="r-in"><span><span class="co"># 0. Create the virtualenv if needed</span></span></span>
+<span class="r-in"><span><span class="co"># 0. Install python and create the virtualenv if needed</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_available.html" class="external-link">py_available</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/install_python.html" class="external-link">install_python</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">py_env</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/virtualenv-tools.html" class="external-link">virtualenv_list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/virtualenv-tools.html" class="external-link">virtualenv_create</a></span><span class="op">(</span><span class="va">py_env</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/virtualenv-tools.html" class="external-link">virtualenv_create</a></span><span class="op">(</span><span class="va">py_env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 1. Activate the environment for the session</span></span></span>
@@ -162,7 +168,7 @@ When the API request is provided, it will be used directly, ignoring the other p
 <span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">get_wekeo_data</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  dataset_id <span class="op">=</span> <span class="st">"EO:CLMS:DAT:CLMS_GLOBAL_NDVI_300M_V1_10DAILY_NETCDF"</span>,</span></span>
 <span class="r-in"><span>  api_request <span class="op">=</span> <span class="va">api_request</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
