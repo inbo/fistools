@@ -214,7 +214,7 @@ setup_hda_credentials <- function() {
   password <- getPass::getPass("Enter your password: ")  # getPass package for masked input
 
   # Write .hdarc file in R
-  reticulate::py_run_string("import pathlib; pyhome = str(pathlib.Path.home())")
+  py <- reticulate::py_run_string("import pathlib; pyhome = str(pathlib.Path.home())")
   py_home <- reticulate::py$pyhome
   hdarc_path <- file.path(py_home, ".hdarc")
   writeLines(
