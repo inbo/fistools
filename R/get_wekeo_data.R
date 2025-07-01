@@ -36,9 +36,12 @@
 #'
 #' # Set up the virtual environment and install required python packages
 #' py_env <- "myenv" # Change this to your desired virtual environment name
-#' # 0. Create the virtualenv if needed
+#' # 0. Install python and create the virtualenv if needed
+#' if(!reticulate::py_available()) {
+#'  reticulate::install_python()
+#' }
 #' if (!py_env %in% reticulate::virtualenv_list()) {
-#'   reticulate::virtualenv_create(py_env)
+#'  reticulate::virtualenv_create(py_env)
 #' }
 #'
 #' # 1. Activate the environment for the session
