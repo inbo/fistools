@@ -52,15 +52,22 @@ To install the toolkit please place ict helpdesk call at \code{ict.helpdesk@inbo
 
 When no API request is provided the function constructs a custom API request.
 When the API request is provided, it will be used directly, ignoring the other parameters (except dataset_id).
+
+This function uses .hdarc file to store the HDA credentials.
+If the file does not exist, the user will be prompted to enter their HDA username and password.
+These are your copernicus login & password.
 }
 \examples{
 \dontrun{
 
 # Set up the virtual environment and install required python packages
 py_env <- "myenv" # Change this to your desired virtual environment name
-# 0. Create the virtualenv if needed
+# 0. Install python and create the virtualenv if needed
+if(!reticulate::py_available()) {
+ reticulate::install_python()
+}
 if (!py_env \%in\% reticulate::virtualenv_list()) {
-  reticulate::virtualenv_create(py_env)
+ reticulate::virtualenv_create(py_env)
 }
 
 # 1. Activate the environment for the session
@@ -95,7 +102,7 @@ api_request <- '{
 data <- get_wekeo_data(
   dataset_id = "EO:CLMS:DAT:CLMS_GLOBAL_NDVI_300M_V1_10DAILY_NETCDF",
   api_request = api_request
-)
+) |> terra::rast()
 }
 }
 \seealso{
