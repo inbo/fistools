@@ -17,7 +17,8 @@ retry_function(expr, max_attempts = 3, sleep_time = 0)
 The result of the expression if successful.
 }
 \description{
-This function evaluates an expression multiple times until it succeeds or the maximum number of attempts is reached.
+This function evaluates an expression multiple times until it succeeds or the
+maximum number of attempts is reached.
 }
 \examples{
 \dontrun{
@@ -25,7 +26,7 @@ This function evaluates an expression multiple times until it succeeds or the ma
 
 some_function <- function() {
  if (runif(1) < 0.5) {  # Randomly fail
-   stop("Failed")
+   stop("\U02620 Something went wrong!")
    }
  return("Success")
 }
