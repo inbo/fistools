@@ -58,7 +58,7 @@ shape_to_geojson <- function(input,
       output <- input
     }
   }else{
-    filelist <- list(input)
+    filelist <- input
 
     ## Extract input folder ####
     input <- dirname(input)
@@ -90,7 +90,7 @@ shape_to_geojson <- function(input,
   }
 
   ## omit .shp.xml extention files
-  filelist <- gsub(pattern = ".xml", replacement = "", filelist)
+  filelist <- gsub(pattern = ".xml", replacement = "", filelist, fixed = TRUE)
   filelist <- gsub(pattern = ".shp", replacement = "", filelist)
   filelist <- unique(filelist)
 
@@ -124,7 +124,7 @@ shape_to_geojson <- function(input,
     }
 
     ## Check if the crs is not wgs84 ####
-    if(sf::st_crs(shape)$input != output_crs){
+    if(sf::st_crs(shape)$epsg != output_crs){
       message(paste0(f, " is not output crs >> transforming"))
       shape <- sf::st_transform(shape, output_crs)
     }
