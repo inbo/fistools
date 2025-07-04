@@ -63,7 +63,8 @@ leaflet() \%>\%
 Other spatial: 
 \code{\link{CRS_extracter}()},
 \code{\link{apply_grtsdb}()},
-\code{\link{collect_osm_features}()}
+\code{\link{collect_osm_features}()},
+\code{\link{shape_to_geojson}()}
 }
 \author{
 Sander Devisscher
