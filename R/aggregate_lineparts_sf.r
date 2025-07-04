@@ -1,4 +1,4 @@
-#' Connect seperate line parts into 1 line
+#' Connect separate line parts into 1 line
 #'
 #' This function takes a sf object with separate line parts and connects them into 1 line.
 #' The function is based on the st_union function from the sf package.
@@ -61,8 +61,7 @@ aggregate_lineparts_sf <- function(sf_data,
     stop("sf_id is not a column in sf_data")
   } else {
     # check if sf_id == "sf_id"
-    if(sf_id == "sf_id"){
-    } else {
+    if(sf_id != "sf_id"){
       sf_data <- sf_data %>%
         dplyr::mutate(sf_id = as.character(sf_data[[sf_id]]))
     }
