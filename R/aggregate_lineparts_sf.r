@@ -45,7 +45,7 @@
 
 aggregate_lineparts_sf <- function(sf_data, sf_id) {
 
-  utils::globalVariables(c(".data", ".", "lon", "lat", "distance", "geometry"))
+  .data <- . <- lon <- lat <- distance <- geometry <- NULL
 
   # Check if sf_data is a sf object
   if (!inherits(sf_data, "sf")) {
