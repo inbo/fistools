@@ -2,7 +2,7 @@
 % Please edit documentation in R/aggregate_lineparts_sf.r
 \name{aggregate_lineparts_sf}
 \alias{aggregate_lineparts_sf}
-\title{Connect seperate line parts into 1 line}
+\title{Connect separate line parts into 1 line}
 \usage{
 aggregate_lineparts_sf(sf_data, sf_id)
 }
