@@ -86,8 +86,19 @@ rename_ct_files <- function(foldername,
 
     dir.create(paste0(foldername, "/compiled"))
 
-    pbapply::pblapply(seq_len(nrow(images_compile)), function(i) {
+    compile_success <- pbapply::pblapply(seq_len(nrow(images_compile)), function(i) {
       file.copy(images_compile$full_new_filename[i], images_compile$full_new_filename_compiled[i])
     })
+
+
+    # Count the number of failed copies
+    n_failed <- sum(!unlist(compile_success))
+
+    # Show the number of failed copies, if any
+    if (n_failed > 0) {
+      cat("Number of failed copies:", n_failed, "\n")
+    } else {
+      cat("All files copied successfully.\n")
+    }
   }
 }
