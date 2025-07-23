@@ -29,7 +29,7 @@ get_last_modified_zip <- function(folder_id) {
 
   if (length(last) == 0) {
     stop("No zip files found in the specified folder.")
-  }else{
+  } else {
     return(x$id[last])
   }
 }
@@ -62,7 +62,7 @@ unzip_last_modified_zip <- function(folder_id,
 
   zip_path <- file.path(exdir, "last_modified.zip")
 
-  get_last_modified_zip(folder_id) |>
+  zip_id |>
     download_gdrive_if_missing(zip_path, update_always = TRUE)
 
   if (!file.exists(zip_path)) {
