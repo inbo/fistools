@@ -66,10 +66,29 @@ dms_column_to_decimal <- function(df, coord_col) {
     # Extract degrees, minutes, seconds, and direction
     dms <- strsplit(as.character(df[[col]]), "[\u00B0 '\" ]")
     df[[paste0(col, "_decimal")]] <- sapply(dms, function(x) {
+
+      if (length(x) < 3) {
+        stop(paste("Column", col, "does not contain enough components for DMS format."))
+      }
+
+      if (length(x) == 3) {
+        warning(paste("Column", col, "does not contain a direction. Assuming 'N' for latitude and 'E' for longitude."))
+        x <- c(x, NA)  # If no direction is provided, set it to NA
+      }
+      if (length(x) > 4) {
+        stop(paste("Column", col, "contains too many components for DMS format."))
+      }
+      # Ensure the components are in the correct order
+      if (length(x) == 4 && !is.na(x[4]) && !x[4] %in% c('N', 'S', 'E', 'W')) {
+        stop(paste("Column", col, "contains an invalid direction:", x[4]))
+      }
+
+      # Convert to numeric and handle direction
       deg <- as.numeric(x[1])
       min <- as.numeric(x[2])
       sec <- as.numeric(x[3])
       direction <- x[4]
+
       dms_to_decimal(deg, min, sec, direction)
     })
   }
