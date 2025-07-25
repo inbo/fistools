@@ -50,7 +50,9 @@ leaflet() \%>\%
 Other spatial: 
 \code{\link{apply_grtsdb}()},
 \code{\link{calculate_polygon_centroid}()},
-\code{\link{collect_osm_features}()}
+\code{\link{collect_osm_features}()},
+\code{\link{dms_column_to_decimal}()},
+\code{\link{dms_to_decimal}()}
 }
 \author{
 Sander Devisscher
