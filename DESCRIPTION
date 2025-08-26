@@ -39,4 +39,6 @@ Imports:
     osmdata (>= 0.2.5),
     readr (>= 2.1.5),
     tcltk,
-    aws.s3 (>= 0.3.21)
+    aws.s3 (>= 0.3.21),
+    assertthat (>= 0.2.1),
+    utils (>= 4.5.0)
