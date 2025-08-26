@@ -3,38 +3,37 @@
 #' @author Soria Delva
 #'
 #' @description
-#' Deze functie herwerkt line endings (LF of CRLF) van alle bestanden in de huidige directory
-#' en subdirectories, op basis van de regels in het `.gitattributes`-bestand. Dit zorgt voor consistentie tussen
-#' de online repository en de bestanden op de lokale computer
+#' This function adjusts the line endings (LF or CRLF) and enforces file attribute handling of all files in the current directory and subdirectories, according to the settings specified in the `.gitattributes` file.
+#' This creates consistency between the files on the online repository and those in the local environment.
+#'
 #'
 #' @details
-#' De functie
-#' - Controleert eerst of er een `.gitattributes`-bestand aanwezig is.
-#' - Voert vervolgens de renormalisatie van alle bestanden uit met Git.
-#' - Controleert of bestanden aangepast zijn en vraagt of deze mogen gecommit worden.
-#' - Geeft statusmeldingen weer over de voortgang en het resultaat.
+#' The function
+#' - Checks whether a `.gitattributes` file is available.
+#' - Normalizes all files using Git.
+#' - Checks if files were altered and asks users if these changes can be committed.
+#' - Provides status updates, so users can follow the progress of the function.
 #'
 #'
 #' @return
-#' Bestanden worden, indien relevant, aangepast, en de gebruiker krijgt de optie om deze veranderingen meteen te committen.
+#' Files in the directory will be altered where relevant. Users get the option to commit these changes.
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' # Run renormalization and (optionally) commit changes
+#' # Run normalization and (optionally) commit changes
 #' normalize_line_endings()
 #' }
 
 normalize_line_endings <- function() {
 
   # Step 0: Check if .gitattributes exists
-  # Test that taxon_key is provided
   assertthat::assert_that(file.exists(".gitattributes"),
                           msg = paste( ".gitattributes file is missing in the root of the repository. Please add a .gitattributes file.")
   )
 
-  # Step 1: Renormalize all files according to .gitattributes
+  # Step 1: Normalize all files according to .gitattributes
   system("git add --renormalize .")
 
   # Step 2: Check if there’s anything to commit
@@ -58,6 +57,7 @@ normalize_line_endings <- function() {
   if (commit_status == 0) {
     cat("Commit successful!\n")
   } else {
-    cat("Commit failed. Check Git status for details.\n")
+    cat("Commit failed. Git status:\n")
+    cat(system("git status", intern = TRUE), sep = "\n")
   }
 }
