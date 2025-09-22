@@ -103,7 +103,9 @@ p1 + geom_sf(data = osm$osm_lines, aes(col = line_element)) +
 Other spatial: 
 \code{\link{CRS_extracter}()},
 \code{\link{apply_grtsdb}()},
-\code{\link{calculate_polygon_centroid}()}
+\code{\link{calculate_polygon_centroid}()},
+\code{\link{dms_column_to_decimal}()},
+\code{\link{dms_to_decimal}()}
 }
 \author{
 Martijn Bollen
