@@ -40,4 +40,5 @@ Imports:
     readr (>= 2.1.5),
     tcltk,
     aws.s3 (>= 0.3.21),
-    assertthat (>= 0.2.1)
+    assertthat (>= 0.2.1),
+    pbapply (>= 1.7.2)
