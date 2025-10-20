@@ -68,8 +68,9 @@ apply_grtsdb <- function(perimeter,
                          seed){
   # Setup ####
   ## Libraries ####
-  tryCatch(requireNamespace("grtsdb"), finally = devtools::install_github("inbo/GRTSdb"))
-  requireNamespace("grtsdb")
+  if(!"grtsdb" %in% installed.packages()){
+    devtools::install_github("inbo/GRTSdb")
+  }
 
   crs_bel <- "EPSG:31370"
   crs_wgs <- 4326
@@ -141,7 +142,7 @@ apply_grtsdb <- function(perimeter,
     #### generate new grts.sqlite ####
     db_name <- paste0(export_path, "/grts.sqlite")
 
-    extract_sample(samplesize = n,
+    grtsdb::extract_sample(samplesize = n,
                    bbox = bbox,
                    cellsize = cellsize)
 
@@ -165,10 +166,10 @@ apply_grtsdb <- function(perimeter,
   bbox_samplesize <- as.integer(sf::st_area(perimeter)/cellsize^2)
 
   ### Connect to db ####
-  con <- connect_db(db_name)
+  con <- grtsdb::connect_db(db_name)
 
   ### Extract complete sample ####
-  sample <- extract_sample(grtsdb = con,
+  sample <- grtsdb::extract_sample(grtsdb = con,
                            samplesize = bbox_samplesize,
                            bbox = bbox,
                            cellsize = cellsize)
