@@ -68,7 +68,7 @@ apply_grtsdb <- function(perimeter,
                          seed){
   # Setup ####
   ## Libraries ####
-  if(!"grtsdb" %in% installed.packages()){
+  if(!rlang::is_installed("grtsdb")){
     devtools::install_github("inbo/GRTSdb")
   }
 
