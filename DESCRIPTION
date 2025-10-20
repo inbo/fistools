@@ -42,3 +42,7 @@ Imports:
     aws.s3 (>= 0.3.21),
     assertthat (>= 0.2.1),
     pbapply (>= 1.7.2)
+Suggests: 
+    grtsdb (>= 0.2)
+Remotes:  
+    inbo/GRTSdb
