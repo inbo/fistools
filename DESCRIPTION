@@ -45,4 +45,4 @@ Imports:
 Suggests: 
     grtsdb (>= 0.2)
 Remotes:  
-    inbo/GRTSdb
+    inbo/grtsdb
