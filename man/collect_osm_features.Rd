@@ -104,7 +104,9 @@ Other spatial:
 \code{\link{CRS_extracter}()},
 \code{\link{aggregate_lineparts_sf}()},
 \code{\link{apply_grtsdb}()},
-\code{\link{calculate_polygon_centroid}()}
+\code{\link{calculate_polygon_centroid}()},
+\code{\link{dms_column_to_decimal}()},
+\code{\link{dms_to_decimal}()}
 }
 \author{
 Martijn Bollen

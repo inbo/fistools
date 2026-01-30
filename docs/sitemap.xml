@@ -17,20 +17,25 @@
 <url><loc>/reference/colcompare.html</loc></url>
 <url><loc>/reference/collect_osm_features.html</loc></url>
 <url><loc>/reference/connect_to_bucket.html</loc></url>
+<url><loc>/reference/dms_column_to_decimal.html</loc></url>
+<url><loc>/reference/dms_to_decimal.html</loc></url>
 <url><loc>/reference/download_dep_media.html</loc></url>
 <url><loc>/reference/download_gdrive_if_missing.html</loc></url>
 <url><loc>/reference/download_seq_media.html</loc></url>
 <url><loc>/reference/drg_example.html</loc></url>
+<url><loc>/reference/get_last_modified_zip.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/install_sp.html</loc></url>
 <url><loc>/reference/label_converter.html</loc></url>
 <url><loc>/reference/label_selecter.html</loc></url>
 <url><loc>/reference/lib_crs.html</loc></url>
+<url><loc>/reference/normalize_line_endings.html</loc></url>
 <url><loc>/reference/qd_pci1.html</loc></url>
 <url><loc>/reference/qd_pci2.html</loc></url>
 <url><loc>/reference/qd_pci2_D.html</loc></url>
 <url><loc>/reference/rename_ct_files.html</loc></url>
 <url><loc>/reference/sunsetter.html</loc></url>
 <url><loc>/reference/sunsetter2.html</loc></url>
+<url><loc>/reference/unzip_last_modified_zip.html</loc></url>
 </urlset>
 

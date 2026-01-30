@@ -75,7 +75,9 @@ rename_ct_files <- function(foldername,
     dplyr::mutate(full_new_filename = as.character(file.path(foldername, subfolder, new_filename)))
 
   # execute file renaming
-  file.rename(images$full_filename, images$full_new_filename)
+  pbapply::pblapply(seq_len(nrow(images)), function(i) {
+    file.rename(images$full_filename[i], images$full_new_filename[i])
+  })
 
   # compile all files in a single folder
   if (compile) {
@@ -84,6 +86,19 @@ rename_ct_files <- function(foldername,
 
     dir.create(paste0(foldername, "/compiled"))
 
-    file.copy(images_compile$full_new_filename, images_compile$full_new_filename_compiled)
+    compile_success <- pbapply::pblapply(seq_len(nrow(images_compile)), function(i) {
+      file.copy(images_compile$full_new_filename[i], images_compile$full_new_filename_compiled[i])
+    })
+
+
+    # Count the number of failed copies
+    n_failed <- sum(!unlist(compile_success))
+
+    # Show the number of failed copies, if any
+    if (n_failed > 0) {
+      cat("Number of failed copies:", n_failed, "\n")
+    } else {
+      cat("All files copied successfully.\n")
+    }
   }
 }
