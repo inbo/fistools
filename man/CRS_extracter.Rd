@@ -48,6 +48,7 @@ leaflet() \%>\%
 }
 \seealso{
 Other spatial: 
+\code{\link{aggregate_lineparts_sf}()},
 \code{\link{apply_grtsdb}()},
 \code{\link{calculate_polygon_centroid}()},
 \code{\link{collect_osm_features}()},

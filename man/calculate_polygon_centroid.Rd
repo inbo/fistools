@@ -62,6 +62,7 @@ leaflet() \%>\%
 \seealso{
 Other spatial: 
 \code{\link{CRS_extracter}()},
+\code{\link{aggregate_lineparts_sf}()},
 \code{\link{apply_grtsdb}()},
 \code{\link{collect_osm_features}()},
 \code{\link{dms_column_to_decimal}()},
