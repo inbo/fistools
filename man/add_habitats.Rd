@@ -44,7 +44,7 @@ habitat_info <- add_habitats(example_sf, id_column = "unique_id")
 
 }
 \seealso{
-Other spatial:
+Other spatial: 
 \code{\link{CRS_extracter}()},
 \code{\link{apply_grtsdb}()},
 \code{\link{calculate_polygon_centroid}()},
