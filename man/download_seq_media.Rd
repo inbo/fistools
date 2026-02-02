@@ -46,6 +46,9 @@ Other download:
 \code{\link{download_gdrive_if_missing}()},
 \code{\link{get_last_modified_zip}()},
 \code{\link{unzip_last_modified_zip}()}
+
+Other agouti: 
+\code{\link{agouti_imager}()}
 }
 \author{
 Lynn Pallemaerts
@@ -56,4 +59,5 @@ Sander Devisscher
 
 Soria Delva
 }
+\concept{agouti}
 \concept{download}
