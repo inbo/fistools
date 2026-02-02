@@ -22,9 +22,12 @@ reference:
 - title: Libraries
   contents:
   - has_concept("library")
+- title: Agouti functions
+  contents:
+  - has_concept("agouti")
 - title: Other functions
   contents:
-  - lacks_concepts(c("spatial", "dataframe_comparison", "dataset", "library", "download", "plotting"))
+  - lacks_concepts(c("spatial", "dataframe_comparison", "dataset", "library", "download", "plotting", "agouti"))
 
 build:
   without_rdb: true
