@@ -53,7 +53,10 @@ seqID)
 }
 \seealso{
 Other agouti: 
-\code{\link{download_seq_media}()}
+\code{\link{download_dep_media}()},
+\code{\link{download_seq_media}()},
+\code{\link{drg_example}},
+\code{\link{rename_ct_files}()}
 }
 \author{
 Lynn Pallemaerts
