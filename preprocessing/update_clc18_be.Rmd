@@ -11,7 +11,7 @@ clc_legend <- readr::read_delim("~/GitHub/backoffice-wild-analyse/Data/Libraries
 ```
 
 ```{r combine}
-CLC18_BE_all <- CLC18_BE %>% 
+CLC18_BE <- CLC18_BE %>% 
   dplyr::left_join(clc_legend, c("CODE_18" = "CLC_CODE")) 
 
 table(CLC18_BE$LABEL_Grouped, useNA = "ifany")
