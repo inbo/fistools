@@ -31,3 +31,8 @@ datapackage
 ## See also
 
 Other dataset: [`boswachterijen`](boswachterijen.md)
+
+Other agouti: [`agouti_imager()`](agouti_imager.md),
+[`download_dep_media()`](download_dep_media.md),
+[`download_seq_media()`](download_seq_media.md),
+[`rename_ct_files()`](rename_ct_files.md)

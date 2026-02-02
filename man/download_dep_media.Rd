@@ -66,6 +66,12 @@ Other download:
 \code{\link{download_seq_media}()},
 \code{\link{get_last_modified_zip}()},
 \code{\link{unzip_last_modified_zip}()}
+
+Other agouti: 
+\code{\link{agouti_imager}()},
+\code{\link{download_seq_media}()},
+\code{\link{drg_example}},
+\code{\link{rename_ct_files}()}
 }
 \author{
 Lynn Pallemaerts
@@ -76,4 +82,5 @@ Sander Devisscher
 
 Soria Delva
 }
+\concept{agouti}
 \concept{download}
