@@ -55,9 +55,6 @@ add_habitats <- function(sf_data,
     stop(paste0("id_column '", id_column, "' not found in sf_data"))
   }
 
-  # Load habitat data ####
-  CLC18_BE <- fistools::CLC18_BE
-
   # Calculate area of sf_data ####
   sf_data$Area_m2 <- as.numeric(sf::st_area(sf_data))
 
@@ -67,11 +64,11 @@ add_habitats <- function(sf_data,
 
   # Calculate intersection ####
   # Reproject habitat data to sf_data CRS
-  sf_data <- sf::st_transform(sf_data, sf::st_crs(CLC18_BE))
+  sf_data <- sf::st_transform(sf_data, sf::st_crs(fistools::CLC18_BE))
 
   # Calculate intersection
   intersection <- sf::st_intersection(sf::st_make_valid(sf_data),
-                                      sf::st_make_valid(CLC18_BE))
+                                      sf::st_make_valid(fistools::CLC18_BE))
 
   # Calculate area of intersection ####
   intersection$Area_hab_m2 <- as.numeric(sf::st_area(intersection))
