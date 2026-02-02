@@ -111,10 +111,7 @@ add_habitats <- function(sf_data,
     as.data.frame() |>
     dplyr::select(.data[[id_column]], Area_m2, Area_ha, Area_km2) |>
     dplyr::left_join(habitat_data, by = id_column) |>
-    dplyr::left_join(bos_data, by = id_column) |>
-    dplyr::mutate(dplyr::across(dplyr::starts_with("Area_hab_"),
-                                ~ .x / Area_m2 * 100,
-                                .names = "perc_{.col}"))
+    dplyr::left_join(bos_data, by = id_column)
 
   # Final checks ####
   # Replace NA with 0 for habitat areas and percentages
@@ -133,9 +130,12 @@ add_habitats <- function(sf_data,
                   - Area_hab_m2_grasland
                   - Area_hab_m2_bebouwd,
                   Area_hab_m2_andere = dplyr::case_when(Area_hab_m2_andere < 0 ~ 0,
-                                                 TRUE ~ Area_hab_m2_andere),
+                                                        TRUE ~ Area_hab_m2_andere),
                   Area_hab_ha_andere = Area_hab_m2_andere / 10000 ,
-                  Area_hab_km2_andere = Area_hab_m2_andere / 1e6)
+                  Area_hab_km2_andere = Area_hab_m2_andere / 1e6)  |>
+    dplyr::mutate(dplyr::across(dplyr::starts_with("Area_hab_"),
+                                ~ .x / Area_m2 * 100,
+                                .names = "perc_{.col}"))
 
   # Check if total of habitats does not exceed total area by more than 1% ####
   area_test <- habitat_list |>
