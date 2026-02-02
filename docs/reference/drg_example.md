@@ -30,4 +30,5 @@ datapackage
 
 ## See also
 
-Other dataset: [`boswachterijen`](boswachterijen.md)
+Other dataset: [`CLC18_BE`](CLC18_BE.md),
+[`boswachterijen`](boswachterijen.md)

@@ -33,6 +33,7 @@ Decimal degrees (numeric).
 ## See also
 
 Other spatial: [`CRS_extracter()`](CRS_extracter.md),
+[`add_habitats()`](add_habitats.md),
 [`apply_grtsdb()`](apply_grtsdb.md),
 [`calculate_polygon_centroid()`](calculate_polygon_centroid.md),
 [`collect_osm_features()`](collect_osm_features.md),

@@ -27,7 +27,8 @@ A CRS object
 
 ## See also
 
-Other spatial: [`apply_grtsdb()`](apply_grtsdb.md),
+Other spatial: [`add_habitats()`](add_habitats.md),
+[`apply_grtsdb()`](apply_grtsdb.md),
 [`calculate_polygon_centroid()`](calculate_polygon_centroid.md),
 [`collect_osm_features()`](collect_osm_features.md),
 [`dms_column_to_decimal()`](dms_column_to_decimal.md),
