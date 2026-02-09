@@ -28,6 +28,7 @@ ANB.
 }
 \seealso{
 Other dataset: 
+\code{\link{CLC18_BE}},
 \code{\link{drg_example}}
 }
 \concept{dataset}
