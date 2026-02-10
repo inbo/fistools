@@ -18,11 +18,11 @@
 
 Devisscher S, Pallemaerts L, Delva S, Cartuyvels E, Bollen M (2026).
 *fistools: Tools & data used for wildlife management & invasive species
-in Flanders*. R package version 1.2.27.
+in Flanders*. R package version 1.2.28.
 
     @Manual{,
       title = {fistools: Tools & data used for wildlife management & invasive species in Flanders},
       author = {Sander Devisscher and Lynn Pallemaerts and Soria Delva and Emma Cartuyvels and Martijn Bollen},
       year = {2026},
-      note = {R package version 1.2.27},
+      note = {R package version 1.2.28},
     }
