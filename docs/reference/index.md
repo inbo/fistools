@@ -49,6 +49,18 @@
 
 - [`lib_crs`](lib_crs.md) : Lib CRS
 
+## Agouti functions
+
+- [`agouti_imager()`](agouti_imager.md) : Open sequences in Agouti for
+  imaging
+- [`download_dep_media()`](download_dep_media.md) : Download deployment
+  media
+- [`download_seq_media()`](download_seq_media.md) : Download sequence
+  media
+- [`drg_example`](drg_example.md) : drg_example
+- [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
+  for upload in Agouti
+
 ## Other functions
 
 - [`UUID_List()`](UUID_List.md) : UUID list generator
@@ -68,9 +80,6 @@
 - [`normalize_line_endings()`](normalize_line_endings.md) :
 
   Normalize line endings according to `.gitattributes`
-
-- [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
-  for upload in Agouti
 
 - [`retry_function()`](retry_function.md) : Retry a function multiple
   times

@@ -25,6 +25,13 @@ Subset of Drongengoed Agouti export for testing of functions
 Other dataset: 
 \code{\link{CLC18_BE}},
 \code{\link{boswachterijen}}
+
+Other agouti: 
+\code{\link{agouti_imager}()},
+\code{\link{download_dep_media}()},
+\code{\link{download_seq_media}()},
+\code{\link{rename_ct_files}()}
 }
+\concept{agouti}
 \concept{dataset}
 \keyword{datasets}

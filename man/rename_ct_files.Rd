@@ -61,6 +61,14 @@ unlink(foldername,
 }
 
 }
+\seealso{
+Other agouti: 
+\code{\link{agouti_imager}()},
+\code{\link{download_dep_media}()},
+\code{\link{download_seq_media}()},
+\code{\link{drg_example}}
+}
 \author{
 : Lynn Pallemaerts and Someone Before Her
 }
+\concept{agouti}
