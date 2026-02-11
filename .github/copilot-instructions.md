@@ -76,7 +76,7 @@ Key roxygen2 guidelines:
 
 ### Version Management
 
-- Package version follows semantic versioning (currently 1.2.27)
+- Package version follows semantic versioning
 - Version is incremented automatically via `.github/workflows/increment_version.yaml`
 - Do not manually update the version number in DESCRIPTION unless explicitly required
 
@@ -145,7 +145,7 @@ Key roxygen2 guidelines:
 1. Create a new .R file in R/ directory
 2. Add roxygen2 documentation header
 3. Implement the function with proper error handling
-4. Add examples in `\dontrun{}` blocks
+4. Add examples (use `\dontrun{}` only for examples requiring external data or user interaction)
 5. Run `devtools::document()` to generate .Rd file
 6. Test with `devtools::check()`
 
