@@ -35,9 +35,12 @@ All exported functions MUST be documented using roxygen2 comments with the follo
 #' @returns Description of the return value
 #'
 #' @examples
-#' \dontrun{
-#' # Example usage
+#' # Simple self-contained example
 #' result <- function_name(param = "value")
+#' 
+#' \dontrun{
+#' # Example requiring external data or user interaction
+#' result <- function_name(external_data)
 #' }
 #'
 #' @export
