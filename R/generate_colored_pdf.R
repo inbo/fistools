@@ -2,13 +2,14 @@
 #'
 #' This function takes a line art image (like a logo), applies a specified color to the lines, and saves it as a high-resolution PDF suitable for printing. It uses the `magick` package to handle image processing.
 #'
-#' @param input The file path to the input line art image (e.g., PNG, JPEG).
+#' @param input Optional, the file path to the input line art image (e.g., PNG, JPEG).
 #' @param output The file path where the output PDF should be saved.
 #' @param color A character string specifying the target color in a format recognized by `magick` (e.g., "red", "#FF0000", "rgb(255,0,0)"). The default color is INBO pink ("#c04384").
 #' @param density An integer specifying the resolution (DPI) for the output PDF. The default is 300, which is suitable for high-quality printing.
 #'
 #' @details
 #' The function performs the following steps:
+#' 0. If the `input` parameter is not provided, it prompts the user to select an image file using a file dialog.
 #' 1. Reads the input image using `magick::image_read()`.
 #' 2. Optionally upscales the image if its width is less than 3000 pixels to ensure better print quality.
 #' 3. Creates a mask by converting the image to grayscale, inverting it, and applying a level adjustment to enhance contrast.
@@ -31,10 +32,23 @@
 #' @export
 #' @author Sander Devisscher
 #'
-generate_colored_pdf <- function(input,
+generate_colored_pdf <- function(input = NULL,
                                  output,
                                  color = "#c04384",
                                  density = 300) {
+
+  # 0. Select input if not provided
+  if(is.null(input)) {
+    input <- file.choose()
+  }
+
+  if(!file.exists(input)) {
+    stop("Input file does not exist. Please provide a valid file path.")
+  }
+
+  if(missing(output) || output == "") {
+    stop("Output file path is required. Please provide a valid file path for the output PDF.")
+  }
 
   # 1. Read the image
   img <- magick::image_read(input)
