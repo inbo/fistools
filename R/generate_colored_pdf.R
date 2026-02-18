@@ -34,7 +34,7 @@
 #'
 generate_colored_pdf <- function(input = NULL,
                                  output,
-                                 color = "#c04384",
+                                 color = "#c04384", # INBO pink
                                  density = 300) {
 
   # 0. Select input if not provided
