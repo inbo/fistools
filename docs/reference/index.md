@@ -59,6 +59,9 @@
 
 - [`connect_to_bucket()`](connect_to_bucket.md) : connect to bucket
 
+- [`generate_colored_pdf()`](generate_colored_pdf.md) : Generate a
+  Colored PDF from a Line Art Image
+
 - [`install_sp()`](install_sp.md) : install sp
 
 - [`label_converter()`](label_converter.md) : label converter
