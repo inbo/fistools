@@ -44,6 +44,7 @@ download_seq_media(dataset = drg,
 Other download: 
 \code{\link{download_dep_media}()},
 \code{\link{download_gdrive_if_missing}()},
+\code{\link{folder_to_drive}()},
 \code{\link{get_last_modified_zip}()},
 \code{\link{unzip_last_modified_zip}()}
 }
