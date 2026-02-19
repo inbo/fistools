@@ -41,6 +41,8 @@ page](https://inbo.github.io/fistools/reference/index.html)
   Download gdrive if missing
 - [`download_seq_media()`](download_seq_media.md) : Download sequence
   media
+- [`folder_to_drive()`](folder_to_drive.md) : Upload a folder to Google
+  Drive
 - [`get_last_modified_zip()`](get_last_modified_zip.md) : get last
   modified zip
 - [`unzip_last_modified_zip()`](unzip_last_modified_zip.md) : Unzip last

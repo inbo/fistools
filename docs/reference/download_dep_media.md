@@ -55,6 +55,7 @@ favorited pictures in the whole dataset.
 Other download:
 [`download_gdrive_if_missing()`](download_gdrive_if_missing.md),
 [`download_seq_media()`](download_seq_media.md),
+[`folder_to_drive()`](folder_to_drive.md),
 [`get_last_modified_zip()`](get_last_modified_zip.md),
 [`unzip_last_modified_zip()`](unzip_last_modified_zip.md)
 

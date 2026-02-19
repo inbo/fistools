@@ -31,6 +31,7 @@ specified folder.
 Other download: [`download_dep_media()`](download_dep_media.md),
 [`download_gdrive_if_missing()`](download_gdrive_if_missing.md),
 [`download_seq_media()`](download_seq_media.md),
+[`folder_to_drive()`](folder_to_drive.md),
 [`get_last_modified_zip()`](get_last_modified_zip.md)
 
 ## Examples
