@@ -3,6 +3,8 @@
 ## Spatial functions
 
 - [`CRS_extracter()`](CRS_extracter.md) : CRS_extracter
+- [`add_habitats()`](add_habitats.md) : Add habitat information to
+  spatial features
 - [`apply_grtsdb()`](apply_grtsdb.md) : apply grtsdb
 - [`calculate_polygon_centroid()`](calculate_polygon_centroid.md) :
   Calculate the centroid of a polygon
@@ -39,6 +41,7 @@
 
 ## Datasets
 
+- [`CLC18_BE`](CLC18_BE.md) : CLC18_BE
 - [`boswachterijen`](boswachterijen.md) : Boswachterijen
 - [`drg_example`](drg_example.md) : drg_example
 
@@ -69,8 +72,8 @@
 - [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
   for upload in Agouti
 
-- [`session_info_df()`](session_info_df.md) : Export sessionInfo as
-  data.frames for easy sharing & comparison
+- [`retry_function()`](retry_function.md) : Retry a function multiple
+  times
 
 - [`sunsetter()`](sunsetter.md) : sunsetter Calculate the sunrise and
   sunset times for a given range of dates and location

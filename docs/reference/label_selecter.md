@@ -134,6 +134,10 @@ verbinding met de DWH nodig. Dit is enkel mogelijk als je met de VPN van
 het INBO verbonden bent. Of als je aanwezig bent op een vestiging van de
 Vlaamse Overheid (VAC).
 
+## See also
+
+Other other: [`retry_function()`](retry_function.md)
+
 ## Author
 
 Sander Devisscher

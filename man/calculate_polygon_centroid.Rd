@@ -62,6 +62,7 @@ leaflet() \%>\%
 \seealso{
 Other spatial: 
 \code{\link{CRS_extracter}()},
+\code{\link{add_habitats}()},
 \code{\link{apply_grtsdb}()},
 \code{\link{collect_osm_features}()},
 \code{\link{dms_column_to_decimal}()},

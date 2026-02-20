@@ -5,8 +5,10 @@
 <url><loc>/LICENSE.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
+<url><loc>/reference/CLC18_BE.html</loc></url>
 <url><loc>/reference/CRS_extracter.html</loc></url>
 <url><loc>/reference/UUID_List.html</loc></url>
+<url><loc>/reference/add_habitats.html</loc></url>
 <url><loc>/reference/apply_grtsdb.html</loc></url>
 <url><loc>/reference/boswachterijen.html</loc></url>
 <url><loc>/reference/calculate_polygon_centroid.html</loc></url>
@@ -33,7 +35,7 @@
 <url><loc>/reference/qd_pci2.html</loc></url>
 <url><loc>/reference/qd_pci2_D.html</loc></url>
 <url><loc>/reference/rename_ct_files.html</loc></url>
-<url><loc>/reference/session_info_df.html</loc></url>
+<url><loc>/reference/retry_function.html</loc></url>
 <url><loc>/reference/sunsetter.html</loc></url>
 <url><loc>/reference/sunsetter2.html</loc></url>
 <url><loc>/reference/unzip_last_modified_zip.html</loc></url>
