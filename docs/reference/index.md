@@ -78,6 +78,9 @@
 - [`retry_function()`](retry_function.md) : Retry a function multiple
   times
 
+- [`session_info_df()`](session_info_df.md) : Export sessionInfo as
+  data.frames for easy sharing & comparison
+
 - [`sunsetter()`](sunsetter.md) : sunsetter Calculate the sunrise and
   sunset times for a given range of dates and location
 
