@@ -133,7 +133,7 @@ add_habitats <- function(sf_data,
                                                         TRUE ~ Area_hab_m2_andere),
                   Area_hab_ha_andere = Area_hab_m2_andere / 10000 ,
                   Area_hab_km2_andere = Area_hab_m2_andere / 1e6)  |>
-    dplyr::mutate(dplyr::across(dplyr::starts_with("Area_hab_"),
+    dplyr::mutate(dplyr::across(dplyr::starts_with("Area_hab_m2"),
                                 ~ .x / Area_m2 * 100,
                                 .names = "perc_{.col}"))
 
