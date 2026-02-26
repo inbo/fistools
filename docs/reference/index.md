@@ -28,6 +28,8 @@
   Download gdrive if missing
 - [`download_seq_media()`](download_seq_media.md) : Download sequence
   media
+- [`drive_to_folder()`](drive_to_folder.md) : Download files from a
+  Google Drive folder to a local directory
 - [`get_last_modified_zip()`](get_last_modified_zip.md) : get last
   modified zip
 - [`unzip_last_modified_zip()`](unzip_last_modified_zip.md) : Unzip last
