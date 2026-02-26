@@ -64,6 +64,7 @@ download_dep_media(dataset = drg,
 Other download: 
 \code{\link{download_gdrive_if_missing}()},
 \code{\link{download_seq_media}()},
+\code{\link{drive_to_folder}()},
 \code{\link{get_last_modified_zip}()},
 \code{\link{unzip_last_modified_zip}()}
 }
