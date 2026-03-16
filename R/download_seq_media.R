@@ -57,7 +57,7 @@ download_seq_media <- function(dataset,
     output_folder <- paste0(outputfolder, "/", seqID)
   }
   if (!dir.exists(output_folder)) {
-    dir.create(output_folder)
+    dir.create(output_folder, recursive = TRUE)
   }
 
   med <- dataset$data$media
