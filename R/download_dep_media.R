@@ -72,7 +72,11 @@ download_dep_media <- function(dataset,
     output_folder <- paste0(outputfolder, "/", depID)
   }
   if (!dir.exists(output_folder)) {
-    dir.create(output_folder, recursive = TRUE)
+    q_create_dir <- utils::askYesNo(msg = paste0(output_folder, " aanmaken?"))
+
+    if(q_create_dir == TRUE){
+      dir.create(output_folder, recursive = TRUE)
+    }
   }
 
   med <- dataset$data$media
