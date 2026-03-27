@@ -26,6 +26,19 @@
 #' 6. The user can validate the classifications in Agouti
 #' *NOTE:* This function doesn't track which sequences have been validated!
 #'
+#' @family agouti
+#' @author Sander Devisscher
+#' @returns None. The function opens URLs in the default web browser for validation.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' validate_agouti_ai(gfileID = "your_google_drive_file_id",
+#'                    ai_model = "Europe",
+#'                    agouti_prj_id = "your_agouti_project_id",
+#'                    species = c("Lynx lynx", "Canis lupus"))
+#' }
+#'
 #'
 validate_agouti_ai <- function(gfileID,
                                ai_model = "Europe",
