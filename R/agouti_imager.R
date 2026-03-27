@@ -84,8 +84,9 @@ agouti_imager <- function(agouti_prj_id,
 
   for (i in 1:length(seqID)) {
     # Open URL
-    browseURL(url = paste0("https://www.agouti.eu/project/", agouti_prj_id,
-                           "/observations/edit-sequence/",
+    browseURL(url = paste0("https://www.agouti.eu/project/",
+                           project_id,
+                           "/annotate/sequence/",
                            seqID[i]))
     # append seqID to done file to skip next time
 
