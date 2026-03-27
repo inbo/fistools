@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fistools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.28</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.31</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">agouti_imager</span><span class="op">(</span></span>
 <span>  <span class="va">agouti_prj_id</span>,</span>
 <span>  <span class="va">seqID</span>,</span>
+<span>  skip_tracking <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  email <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"email"</span><span class="op">)</span>,</span>
 <span>  sheet_id <span class="op">=</span> <span class="st">"1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -55,6 +56,10 @@
 
 <dt id="arg-seqid">seqID<a class="anchor" aria-label="anchor" href="#arg-seqid"></a></dt>
 <dd><p>A vector of sequence IDs to be processed.</p></dd>
+
+
+<dt id="arg-skip-tracking">skip_tracking<a class="anchor" aria-label="anchor" href="#arg-skip-tracking"></a></dt>
+<dd><p>Optional. A logical value indicating whether to skip tracking processed sequences. Defaults to FALSE.</p></dd>
 
 
 <dt id="arg-email">email<a class="anchor" aria-label="anchor" href="#arg-email"></a></dt>
@@ -87,7 +92,8 @@ Note: if a <code>PERMISSION_DENIED</code> or <code>FORBIDDEN</code> error occurs
 <code><a href="download_dep_media.html">download_dep_media()</a></code>,
 <code><a href="download_seq_media.html">download_seq_media()</a></code>,
 <code><a href="drg_example.html">drg_example</a></code>,
-<code><a href="rename_ct_files.html">rename_ct_files()</a></code></p></div>
+<code><a href="rename_ct_files.html">rename_ct_files()</a></code>,
+<code><a href="validate_agouti_ai.html">validate_agouti_ai()</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

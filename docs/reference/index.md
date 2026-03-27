@@ -60,6 +60,8 @@
 - [`drg_example`](drg_example.md) : drg_example
 - [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
   for upload in Agouti
+- [`validate_agouti_ai()`](validate_agouti_ai.md) : Validate AI
+  classifications in Agouti
 
 ## Other functions
 

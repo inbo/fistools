@@ -9,6 +9,7 @@ editing and tracks which sequences have been processed.
 agouti_imager(
   agouti_prj_id,
   seqID,
+  skip_tracking = FALSE,
   email = Sys.getenv("email"),
   sheet_id = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"
 )
@@ -23,6 +24,11 @@ agouti_imager(
 - seqID:
 
   A vector of sequence IDs to be processed.
+
+- skip_tracking:
+
+  Optional. A logical value indicating whether to skip tracking
+  processed sequences. Defaults to FALSE.
 
 - email:
 
@@ -73,7 +79,8 @@ try this function again.
 Other agouti: [`download_dep_media()`](download_dep_media.md),
 [`download_seq_media()`](download_seq_media.md),
 [`drg_example`](drg_example.md),
-[`rename_ct_files()`](rename_ct_files.md)
+[`rename_ct_files()`](rename_ct_files.md),
+[`validate_agouti_ai()`](validate_agouti_ai.md)
 
 ## Author
 

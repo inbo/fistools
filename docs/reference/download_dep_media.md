@@ -61,7 +61,8 @@ Other download:
 Other agouti: [`agouti_imager()`](agouti_imager.md),
 [`download_seq_media()`](download_seq_media.md),
 [`drg_example`](drg_example.md),
-[`rename_ct_files()`](rename_ct_files.md)
+[`rename_ct_files()`](rename_ct_files.md),
+[`validate_agouti_ai()`](validate_agouti_ai.md)
 
 ## Author
 
