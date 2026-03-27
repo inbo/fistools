@@ -20,6 +20,7 @@
 #'
 #' @param agouti_prj_id The Agouti project ID.
 #' @param seqID A vector of sequence IDs to be processed.
+#' @param skip_tracking Optional. A logical value indicating whether to skip tracking processed sequences. Defaults to FALSE.
 #' @param email Optional. The email address used for Google Sheets authentication.
 #' Defaults to the "email" system environment variable.
 #' @param sheet_id Optional. The Google Sheets ID for tracking processed sequences.
@@ -44,6 +45,7 @@
 
 agouti_imager <- function(agouti_prj_id,
                           seqID,
+                          skip_tracking = FALSE,
                           email = Sys.getenv("email"),
                           sheet_id = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"){
 
@@ -92,11 +94,15 @@ agouti_imager <- function(agouti_prj_id,
 
     # Naar de volgende reeks of niet?
     if (askYesNo("Is de reeks klaar met bewerken in Agouti?")) {
-      googlesheets4::sheet_append(
-        ss = sheet_id,
-        data = data.frame(sequenceID = seqID[i]),
-        sheet = "tracking_seq_done"
-      )
+      if(skip_tracking == FALSE){
+        googlesheets4::sheet_append(
+          ss = sheet_id,
+          data = data.frame(sequenceID = seqID[i]),
+          sheet = "tracking_seq_done"
+        )
+      }else{
+        next
+      }
 
     }else{
       break
