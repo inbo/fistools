@@ -30,7 +30,8 @@ Other agouti:
 \code{\link{agouti_imager}()},
 \code{\link{download_dep_media}()},
 \code{\link{download_seq_media}()},
-\code{\link{rename_ct_files}()}
+\code{\link{rename_ct_files}()},
+\code{\link{validate_agouti_ai}()}
 }
 \concept{agouti}
 \concept{dataset}
