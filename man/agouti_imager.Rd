@@ -7,6 +7,7 @@
 agouti_imager(
   agouti_prj_id,
   seqID,
+  skip_tracking = FALSE,
   email = Sys.getenv("email"),
   sheet_id = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"
 )
@@ -15,6 +16,8 @@ agouti_imager(
 \item{agouti_prj_id}{The Agouti project ID.}
 
 \item{seqID}{A vector of sequence IDs to be processed.}
+
+\item{skip_tracking}{Optional. A logical value indicating whether to skip tracking processed sequences. Defaults to FALSE.}
 
 \item{email}{Optional. The email address used for Google Sheets authentication.
 Defaults to the "email" system environment variable.}
@@ -56,7 +59,8 @@ Other agouti:
 \code{\link{download_dep_media}()},
 \code{\link{download_seq_media}()},
 \code{\link{drg_example}},
-\code{\link{rename_ct_files}()}
+\code{\link{rename_ct_files}()},
+\code{\link{validate_agouti_ai}()}
 }
 \author{
 Lynn Pallemaerts

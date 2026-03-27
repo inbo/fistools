@@ -71,7 +71,8 @@ Other agouti:
 \code{\link{agouti_imager}()},
 \code{\link{download_seq_media}()},
 \code{\link{drg_example}},
-\code{\link{rename_ct_files}()}
+\code{\link{rename_ct_files}()},
+\code{\link{validate_agouti_ai}()}
 }
 \author{
 Lynn Pallemaerts

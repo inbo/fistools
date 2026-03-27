@@ -20,6 +20,7 @@
 #'
 #' @param agouti_prj_id The Agouti project ID.
 #' @param seqID A vector of sequence IDs to be processed.
+#' @param skip_tracking Optional. A logical value indicating whether to skip tracking processed sequences. Defaults to FALSE.
 #' @param email Optional. The email address used for Google Sheets authentication.
 #' Defaults to the "email" system environment variable.
 #' @param sheet_id Optional. The Google Sheets ID for tracking processed sequences.
@@ -44,6 +45,7 @@
 
 agouti_imager <- function(agouti_prj_id,
                           seqID,
+                          skip_tracking = FALSE,
                           email = Sys.getenv("email"),
                           sheet_id = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"){
 
@@ -58,28 +60,29 @@ agouti_imager <- function(agouti_prj_id,
 
   # Authentication ####
   ## email uit system variables
-  if (check(email) == 0) {
+  if (check(email) == 0 & skip_tracking == FALSE) {
     email <- Sys.getenv("email")
     print("extracting email from System variables")
   }
 
   ## email dmv popup
-  if (email == "") {
+  if (email == "" & skip_tracking == FALSE) {
     email <- svDialogs::dlg_input("je email adres:")
     email <- email$res
   }
 
   ## Authenticate
-  googlesheets4::gs4_auth(email)
+  if(skip_tracking == FALSE){
+    googlesheets4::gs4_auth(email)
 
-  seq_done <- googlesheets4::read_sheet(
-    ss = sheet_id,
-    sheet = "tracking_seq_done"
-  )
-  seq_done <- c(seq_done$sequenceID)
+    seq_done <- googlesheets4::read_sheet(
+      ss = sheet_id,
+      sheet = "tracking_seq_done"
+    )
+    seq_done <- c(seq_done$sequenceID)
 
-  seqID <- seqID[!seqID %in% seq_done]
-
+    seqID <- seqID[!seqID %in% seq_done]
+  }
   # 6 Open sequences in Agouti
 
   for (i in 1:length(seqID)) {
@@ -92,11 +95,15 @@ agouti_imager <- function(agouti_prj_id,
 
     # Naar de volgende reeks of niet?
     if (askYesNo("Is de reeks klaar met bewerken in Agouti?")) {
-      googlesheets4::sheet_append(
-        ss = sheet_id,
-        data = data.frame(sequenceID = seqID[i]),
-        sheet = "tracking_seq_done"
-      )
+      if(skip_tracking == FALSE){
+        googlesheets4::sheet_append(
+          ss = sheet_id,
+          data = data.frame(sequenceID = seqID[i]),
+          sheet = "tracking_seq_done"
+        )
+      }else{
+        next
+      }
 
     }else{
       break
