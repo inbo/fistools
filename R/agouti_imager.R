@@ -60,28 +60,29 @@ agouti_imager <- function(agouti_prj_id,
 
   # Authentication ####
   ## email uit system variables
-  if (check(email) == 0) {
+  if (check(email) == 0 & skip_tracking == FALSE) {
     email <- Sys.getenv("email")
     print("extracting email from System variables")
   }
 
   ## email dmv popup
-  if (email == "") {
+  if (email == "" & skip_tracking == FALSE) {
     email <- svDialogs::dlg_input("je email adres:")
     email <- email$res
   }
 
   ## Authenticate
-  googlesheets4::gs4_auth(email)
+  if(skip_tracking == FALSE){
+    googlesheets4::gs4_auth(email)
 
-  seq_done <- googlesheets4::read_sheet(
-    ss = sheet_id,
-    sheet = "tracking_seq_done"
-  )
-  seq_done <- c(seq_done$sequenceID)
+    seq_done <- googlesheets4::read_sheet(
+      ss = sheet_id,
+      sheet = "tracking_seq_done"
+    )
+    seq_done <- c(seq_done$sequenceID)
 
-  seqID <- seqID[!seqID %in% seq_done]
-
+    seqID <- seqID[!seqID %in% seq_done]
+  }
   # 6 Open sequences in Agouti
 
   for (i in 1:length(seqID)) {
