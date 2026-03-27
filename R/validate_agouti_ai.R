@@ -69,5 +69,6 @@ validate_agouti_ai <- function(gfileID,
 
   fistools::agouti_imager(agouti_prj_id = agouti_prj_id,
                           seqID = seqIDs,
-                          email = email)
+                          email = email,
+                          skip_tracking = TRUE)
 }
