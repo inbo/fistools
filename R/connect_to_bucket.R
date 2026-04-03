@@ -55,6 +55,14 @@ connect_to_bucket <- function(bucket_name,
   if(file.exists("../../../bin/aws-cli-mfa-login.exe")){
     mfa_code <- svDialogs::dlg_input("Enter MFA Code: ")$res
 
+    if(nchar(mfa_code) != 6){
+      warning("The MFA code entered might not be valid! A 6 character value is expected")
+    }
+
+    if(is.na(as.integer(mfa_code))){
+      warning("The MFA code entered might not be valid! A integer value is expected")
+    }
+
     cmd <- paste0(normalizePath("../../../bin/aws-cli-mfa-login.exe"), ' aws-mfa -u ',
                   Sys.getenv("USERNAME"),
                   ' -a ', bucket_type, ' -r ', role)
