@@ -53,7 +53,7 @@ connect_to_bucket <- function(bucket_name,
   # Onderstaande code maakt een profiel aan met een sessiontoken die één uur
   # geldig blijft. Deze heb je nodig om verbinding te maken met de s3 buckets.
   if(file.exists("../../../bin/aws-cli-mfa-login.exe")){
-    mfa_code <- readline("Enter MFA Code: ")
+    mfa_code <- svDialogs::dlg_input("Enter MFA Code: ")$res
 
     cmd <- paste0(normalizePath("../../../bin/aws-cli-mfa-login.exe"), ' aws-mfa -u ',
                   Sys.getenv("USERNAME"),
