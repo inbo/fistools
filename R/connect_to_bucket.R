@@ -52,10 +52,14 @@ connect_to_bucket <- function(bucket_name,
   # Refresh session token ####
   # Onderstaande code maakt een profiel aan met een sessiontoken die één uur
   # geldig blijft. Deze heb je nodig om verbinding te maken met de s3 buckets.
-  if(file.exists("../../../bin/aws-cli-mfa-login")){
-    system(paste0('python ../../../bin/aws-cli-mfa-login -u ',
+  if(file.exists("../../../bin/aws-cli-mfa-login.exe")){
+    mfa_code <- readline("Enter MFA Code: ")
+
+    cmd <- paste0(normalizePath("../../../bin/aws-cli-mfa-login.exe"), ' aws-mfa -u ',
                   Sys.getenv("USERNAME"),
-                  ' -a ', bucket_type, ' -r ', role))
+                  ' -a ', bucket_type, ' -r ', role)
+
+    system(cmd, input = mfa_code, intern = FALSE, ignore.stdout = FALSE, ignore.stderr = FALSE, wait = TRUE)
   }else{
     stop("Installeer aws-cli-mfa-login van inbo/devops-tools in je windows home
          directory, zie details")
