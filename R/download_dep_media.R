@@ -20,6 +20,7 @@
 #' If depID = "all" and favorite = TRUE, the function will download all favorited pictures in the whole dataset.
 #'
 #' @family download
+#' @family agouti
 #'
 #' @returns Downloads the specified media files into the outputfolder
 #'

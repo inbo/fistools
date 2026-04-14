@@ -20,6 +20,7 @@
 #' in a single folder if compile is set to TRUE.
 #'
 #' @returns renamed picture files in the original folder
+#' @family agouti
 #'
 #' @examples
 #' \dontrun{
