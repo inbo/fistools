@@ -1,5 +1,5 @@
 read_dmogg <- function(type = "short",
-    email = Sys.getenv("email")){
+                       email = Sys.getenv("email")){
 
   # Checks ####
   ## Type ####
@@ -39,18 +39,22 @@ read_dmogg <- function(type = "short",
 
   # Read file ####
   temp_Backoffice_all <- readr::read_delim(dest_file, delim = ";",
-                                    col_types = cols(afschot_datum2 = col_date(format = "%Y-%m-%d"),
-                                                     afschot_tijdstip = col_time("%H:%M:%S"),
-                                                     PuntLocatieTypeID = col_integer(),
-                                                     Xcoordinaat.x = col_double(),
-                                                     Ycoordinaat.y = col_double(),
-                                                     aantal_embryos_labo = col_character(),
-                                                     opmerkingen.x = col_character(),
-                                                     opmerkingen.y = col_character(),
-                                                     opmerkingen_laboratorium = col_character(),
-                                                     retournering = col_character(),
-                                                     leeftijdcategorie_onderkaak_gs = col_character(),
-                                                     hulpmiddel_comp = col_character()))
+                                           col_types = cols(afschot_datum2 = col_date(format = "%Y-%m-%d"),
+                                                            afschot_tijdstip = col_time("%H:%M:%S"),
+                                                            PuntLocatieTypeID = col_integer(),
+                                                            Xcoordinaat.x = col_double(),
+                                                            Ycoordinaat.y = col_double(),
+                                                            aantal_embryos_labo = col_character(),
+                                                            opmerkingen.x = col_character(),
+                                                            opmerkingen.y = col_character(),
+                                                            opmerkingen_laboratorium = col_character(),
+                                                            retournering = col_character(),
+                                                            leeftijdcategorie_onderkaak_gs = col_character(),
+                                                            hulpmiddel_comp = col_character()))
 
- return(temp_Backoffice_all)
+  # Cleanup ####
+  file.remove(dest_file)
+
+  # Return ####
+  return(temp_Backoffice_all)
 }
