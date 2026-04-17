@@ -30,6 +30,7 @@ Other download:
 \code{\link{download_dep_media}()},
 \code{\link{download_gdrive_if_missing}()},
 \code{\link{download_seq_media}()},
-\code{\link{get_last_modified_zip}()}
+\code{\link{get_last_modified_zip}()},
+\code{\link{read_dmogg}()}
 }
 \concept{download}
