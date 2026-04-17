@@ -75,18 +75,18 @@ read_dmogg <- function(type = "short",
 
   # Read file ####
   temp_Backoffice_all <- readr::read_delim(dest_file, delim = ";",
-                                           col_types = cols(afschot_datum2 = col_date(format = "%Y-%m-%d"),
-                                                            afschot_tijdstip = col_time("%H:%M:%S"),
-                                                            PuntLocatieTypeID = col_integer(),
-                                                            Xcoordinaat.x = col_double(),
-                                                            Ycoordinaat.y = col_double(),
-                                                            aantal_embryos_labo = col_character(),
-                                                            opmerkingen.x = col_character(),
-                                                            opmerkingen.y = col_character(),
-                                                            opmerkingen_laboratorium = col_character(),
-                                                            retournering = col_character(),
-                                                            leeftijdcategorie_onderkaak_gs = col_character(),
-                                                            hulpmiddel_comp = col_character()))
+                                           col_types = readr::cols(afschot_datum2 = readr::col_date(format = "%Y-%m-%d"),
+                                                            afschot_tijdstip = readr::col_time("%H:%M:%S"),
+                                                            PuntLocatieTypeID = readr::col_integer(),
+                                                            Xcoordinaat.x = readr::col_double(),
+                                                            Ycoordinaat.y = readr::col_double(),
+                                                            aantal_embryos_labo = readr::col_character(),
+                                                            opmerkingen.x = readr::col_character(),
+                                                            opmerkingen.y = readr::col_character(),
+                                                            opmerkingen_laboratorium = readr::col_character(),
+                                                            retournering = readr::col_character(),
+                                                            leeftijdcategorie_onderkaak_gs = readr::col_character(),
+                                                            hulpmiddel_comp = readr::col_character()))
 
   # Cleanup ####
   file.remove(dest_file)
