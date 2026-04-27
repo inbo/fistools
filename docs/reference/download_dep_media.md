@@ -56,6 +56,7 @@ Other download:
 [`download_gdrive_if_missing()`](download_gdrive_if_missing.md),
 [`download_seq_media()`](download_seq_media.md),
 [`get_last_modified_zip()`](get_last_modified_zip.md),
+[`read_dmogg()`](read_dmogg.md),
 [`unzip_last_modified_zip()`](unzip_last_modified_zip.md)
 
 ## Author
