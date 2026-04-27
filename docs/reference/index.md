@@ -32,6 +32,8 @@
   Google Drive folder to a local directory
 - [`get_last_modified_zip()`](get_last_modified_zip.md) : get last
   modified zip
+- [`read_dmogg()`](read_dmogg.md) : Read "dieren met onderkaakgegevens
+  georef"
 - [`unzip_last_modified_zip()`](unzip_last_modified_zip.md) : Unzip last
   modified zip
 

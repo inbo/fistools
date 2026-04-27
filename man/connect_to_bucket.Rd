@@ -34,15 +34,14 @@ heb je admin rechten nodig, een \emph{ict helpdesk call} is dus aan de orde.
 Na de installatie moeten je \emph{AWS credentials} eenmalig aangemaakt worden.
 Voer hiervoor \verb{aws configure} uit in \emph{windows powershell}. De credentials
 kan je bekomen bij Jens Polspoel.
--\emph{devops-toolkit} moet lokaal worden geïnstalleerd dit doe je door
-\emph{https://github.com/inbo/devops-toolkit} te clonen dmv \emph{github dekstop}.
-Vervolgens kopiëer je \emph{aws-cli-mfa-login.py} & \emph{common.py} naar de Home
+-\emph{devops-toolkit} moet lokaal worden geïnstalleerd dit doe je door de laatste
+versie van \emph{https://github.com/inbo/devops-toolkit/releases/tag/ (>= v0.6)}
+te downloaden.
+Vervolgens kopiëer je \emph{aws-cli-mfa-login} naar de Home
 Directory van Windows. Default is dat \emph{C:/Users/\%voornaam_achternaam\%/bin}.
--\emph{Python} moet worden geïnstalleerd als dat nog niet gebeurd is. Dit kan
-rechtstreeks in \emph{R} met onderstaande code:
-\code{install.packages("reticulate")}
-\code{reticulate::install_python()}
-\code{system('pip install boto3')}
+Hernoem het bestand vervolgens naar \emph{aws-cli-mfa-login.exe}.
+
+\emph{Python is niet meer vereist voor het gebruik van deze functie}
 }
 
 \examples{

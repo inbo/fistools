@@ -66,6 +66,7 @@ Other download:
 \code{\link{download_seq_media}()},
 \code{\link{drive_to_folder}()},
 \code{\link{get_last_modified_zip}()},
+\code{\link{read_dmogg}()},
 \code{\link{unzip_last_modified_zip}()}
 }
 \author{

@@ -25,7 +25,7 @@ The name of the last modified zip file in the specified folder.
 Other download: [`download_dep_media()`](download_dep_media.md),
 [`download_gdrive_if_missing()`](download_gdrive_if_missing.md),
 [`download_seq_media()`](download_seq_media.md),
-[`drive_to_folder()`](drive_to_folder.md),
+[`read_dmogg()`](read_dmogg.md),
 [`unzip_last_modified_zip()`](unzip_last_modified_zip.md)
 
 ## Author
