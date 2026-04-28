@@ -11,13 +11,17 @@
 #' - `group`: allows the user to choose from predefined groups of columns (e.g., "comp", "georef", "okl", "gewicht", "geslacht", "leeftijd_cat", "toek", "coord").
 #' @param column_list A vector of column names to extract when `columns` is set to "list". This argument is ignored for other values of `columns`.
 #' @param choice A character string specifying the group of columns to extract when `columns` is set to "group". Options include "comp", "georef", "okl", "gewicht", "geslacht", "leeftijd_cat", "toek", and "coord". This argument is ignored for other values of `columns`.
-#' @param presence A boolean indicating whether to include information about the presence of the labels in different datasets. Default is FALSE.
+#' @param presence A boolean indicating whether to include information about the presence of the labels in the "DMOGG" dataset. Default is FALSE.
 #' @param dataset A character string specifying the dataset to extract from. Currently, only "DMOGG" is supported. Default is "DMOGG".
+#' @param email een character met het email adres van de gebruiker. Wordt gebruikt voor authenticatie bij het updaten van de google drive bestanden. Standaard wordt het email adres uit de system variables gehaald, indien deze niet bestaat zal er een popup verschijnen waarin je je email adres kan ingeven.
 #'
 #' @details
-#' The function checks the validity of the input parameters and reads the specified dataset. It then filters the dataset based on the provided labels and extracts the specified columns. If `presence` is set to TRUE, it also joins information about the presence of the labels in different datasets. Finally, it adds a column indicating the dataset and returns the extracted data. Presence data is retrieved using the `label_selecter` function, which may have access restrictions. If you encounter issues with retrieving presence data, try setting `presence` to FALSE.
+#' The function checks the validity of the input parameters and reads the specified dataset. It then filters the dataset based on the provided labels and extracts the specified columns.
+#' If `presence` is set to TRUE, it also joins information about the presence of the labels in the "DMOGG" dataset. Presence data is retrieved using the `label_selecter` function, which may have access restrictions. If you encounter issues with retrieving presence data, try setting `presence` to FALSE. If `presence` is set to FALSE only labels present in the "DMOGG" dataset are returned. If presence is set to TRUE all labels are returned, labels not present in DMOGG get FALSE in the DMOG_GEO column.
+#' Finally, it adds a column indicating the dataset and returns the extracted data.
 #' When using the "select" option for `columns`, the user will be prompted to choose which columns to extract from the dataset. When using the "group" option, the user can choose from predefined groups of columns that are relevant for different types of analyses.
 #'
+#' @return A data frame containing the extracted columns for the specified labels, with an additional column indicating the dataset. If `presence` is set to TRUE, it also includes information about the presence of the labels in different datasets.
 #' @author Sander Devisscher
 #' @export
 #'
@@ -52,7 +56,8 @@ label_extracter <- function(label,
                             column_list,
                             choice,
                             presence = FALSE,
-                            dataset = "DMOGG"){
+                            dataset = "DMOGG",
+                            email = Sys.getenv("email")) {
 
   # Checks ####
   ## Columns ####
@@ -74,10 +79,10 @@ label_extracter <- function(label,
   # Read Data ####
   if(dataset == "DMOGG"){
     print("dataset is dieren met onderkaakgegevens georef")
-    Data <- read_dmogg()
+    Data <- read_dmogg(email = email)
   }
 
-  #Calculate Data_Extract
+  # Calculate Data_Extract ####
   if(columns == "all"){
     Data_Extract <-
       Data %>%
@@ -185,10 +190,11 @@ label_extracter <- function(label,
       dplyr::filter(label_nummer_samen %in% label) %>%
       dplyr::select(prompt)
   }
-  #Add presence data
+  # Add presence data ####
   if(presence == TRUE){
     warning("You have selected presence = TRUE, due to access restrictions this step may fail. Ifso try setting presence = FALSE")
-    presence_tbl <- label_selecter(label)
+    presence_tbl <- label_selecter(label,
+                                   email = email)
     presence_tbl <-
       presence_tbl %>%
       dplyr::select(INPUTLABEL, DMOG_GEO)

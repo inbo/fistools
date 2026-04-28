@@ -9,6 +9,8 @@
 #' @param soort een character van de soort die onderzocht dient te worden.
 #' @param bo_dir een character met de directory waar de backoffice-wild-analyse repository staat.
 #' @param debug een boolean die aangeeft of de debug modus moet worden aangezet.
+#' @param email een character met het email adres van de gebruiker. Wordt gebruikt voor authenticatie bij het updaten van de google drive bestanden. Standaard wordt het email adres uit de system variables gehaald, indien deze niet bestaat zal er een popup verschijnen waarin je je email adres kan ingeven.
+#'
 #'
 #' @details
 #' De parameter `label_type`, `jaar` en `soort` zijn enkel relevant als één van
@@ -78,7 +80,8 @@ label_selecter <- function(label,
                            jaar,
                            soort,
                            bo_dir = "~/Github/backoffice-wild-analyse/",
-                           debug = FALSE){
+                           debug = FALSE,
+                           email = Sys.getenv("email")){
 
   # check if bo_dir is a directory
   if (!dir.exists(bo_dir)) {
@@ -97,7 +100,7 @@ label_selecter <- function(label,
   Toekenningen_Cleaned <- readr::read_delim(paste0(bo_dir,"Basis_Scripts/Interim/Toekenningen_Cleaned.csv"),
                                             ";", escape_double = FALSE, trim_ws = TRUE) #TL_CLEANED
   Dieren_met_onderkaakgegevens <- readr::read_csv(paste0(bo_dir,"Data/Interim/Dieren_met_onderkaakgegevens.csv")) #DMOG
-  Dieren_met_onderkaakgegevens_Georef <- read_dmogg() #DMOG_GEO
+  Dieren_met_onderkaakgegevens_Georef <- read_dmogg(email = email) #DMOG_GEO
 
   if(update == TRUE){
     print("Updating E_Loket Data")
