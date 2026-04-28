@@ -19,7 +19,7 @@ label_selecter(
 
 \item{update}{een boolean die aangeeft of ook de nog niet wegeschreven dwh - bestanden moeten worden gecontroleerd.}
 
-\item{label_type}{een een character (lijst) met labeltypes die dienen onderzocht te worden.}
+\item{label_type}{een character (lijst) met labeltypes die dienen onderzocht te worden.}
 
 \item{jaar}{een numerieke (lijst) van jaren die dienen onderzocht te worden.}
 
