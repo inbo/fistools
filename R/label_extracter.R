@@ -6,60 +6,27 @@ label_extracter <- function(label,
                             dataset = "DMOGG"){
 
   # Checks ####
+  ## Columns ####
   correct_columns <- c("all", "select", "list", "group")
   if(!columns %in% correct_columns){
     stop("ERROR 001: De waarde voor columns is geen correcte optie!! Kies uit 'all', 'select', 'list' of 'group'")
   }
 
+  ## Label ####
   if(check(label) == 0){
     stop("ERROR 002: Waarde voor label ontbreekt!! Gelieve minstens 1 label toe te voegen in ANBjjjjlabeltype###### - vorm.")
   }
 
-  if(!dataset %in% c("DMOGG", "DMOG")){
-    stop("ERROR 003: De gevraagde dataset is niet compatibel met deze functie!! Bedoelde je DMOGG of DMOG")
+  ## Dataset ####
+  if(!dataset %in% c("DMOGG")){
+    stop("ERROR 003: De gevraagde dataset is niet compatibel met deze functie!! Bedoelde je DMOGG")
   }
 
-  if(dir.exists("../backoffice-wild-analyse/")){
-
-  }else{
-    stop("ERROR 004: De inbo/backoffice-wild-analyse - repo kan niet worden gevonden. Open github desktop en clone deze repo!")
-  }
-
-  #Read Data
+  # Read Data ####
   if(dataset == "DMOGG"){
     print("dataset is dieren met onderkaakgegevens georef")
-    Data <- read_delim(here("../backoffice-wild-analyse/Data/Interim/Dieren_met_onderkaakgegevens_georef.csv"), delim = ";",
-                       col_types = cols(afschot_datum2 = col_date(format = "%Y-%m-%d"),
-                                        afschot_tijdstip = col_character(),
-                                        PuntLocatieTypeID = col_integer(),
-                                        Xcoordinaat.x = col_double(),
-                                        Ycoordinaat.y = col_double(),
-                                        aantal_embryos_labo = col_character(),
-                                        opmerkingen.x = col_character(),
-                                        opmerkingen.y = col_character(),
-                                        opmerkingen_laboratorium = col_character(),
-                                        ea_nummer_oud = col_character(),
-                                        retournering = col_character(),
-                                        label_referentie = col_character(),
-                                        leeftijdcategorie_onderkaak_gs = col_character(),
-                                        groepsgrootte = col_integer()))
+    Data <- read_dmogg()
   }
-  if(dataset == "DMOG"){
-    print("dataset is dieren met onderkaakgegevens")
-    Data <- read_csv(here("../backoffice-wild-analyse/Data/Interim/Dieren_met_onderkaakgegevens.csv"),
-                     col_types = cols(afschot_datum2 = col_date(format = "%Y-%m-%d"),
-                                      afschot_tijdstip = col_character(),
-                                      PuntLocatieTypeID = col_integer(),
-                                      Xcoordinaat = col_double(),
-                                      Ycoordinaat = col_double(),
-                                      aantal_embryos_labo = col_character(),
-                                      opmerkingen.x = col_character(),
-                                      ea_nummer_oud = col_character(),
-                                      retournering = col_character(),
-                                      label_referentie = col_character(),
-                                      leeftijdcategorie_onderkaak_gs = col_character()))
-  }
-
 
   #Calculate Data_Extract
   if(columns == "all"){
@@ -70,7 +37,7 @@ label_extracter <- function(label,
     if(columns == "select"){
       column_list <- colnames(Data)
       prompt <- select.list(choices = column_list, title = "Welke kolommen wil je extraheren ?", multiple = TRUE)
-      if(is_empty(grep("label_nummer_samen", prompt, value = TRUE))){
+      if(purrr::is_empty(grep("label_nummer_samen", prompt, value = TRUE))){
         prompt <- append("label_nummer_samen", prompt)
       }
     }else{
@@ -83,23 +50,13 @@ label_extracter <- function(label,
       }else{
         if(columns == "group"){
           print("under construction")
-          if(dataset == "DMOGG"){
-            choices <- c("comp", "georef", "okl", "gewicht", "geslacht", "leeftijd_cat", "toek", "coord")
-            toek <- c("label_nummer_samen",
-                      "KboNummer_Toek_integer",
-                      "KboNummer_Toek",
-                      "WBE_Naam_Toek",
-                      "AfschotplanNummer",
-                      "nummer_afschotplan")
-          }
-          if(dataset == "DMOG"){
-            choices <- c("comp", "okl", "gewicht", "geslacht", "leeftijd_cat", "toek", "coord")
-            toek <- c("label_nummer_samen",
-                      "KboNummer_Toek",
-                      "WBE_Naam_Toek",
-                      "nummer_afschotplan")
-          }
-
+          choices <- c("comp", "georef", "okl", "gewicht", "geslacht", "leeftijd_cat", "toek", "coord")
+          toek <- c("label_nummer_samen",
+                    "KboNummer_Toek_integer",
+                    "KboNummer_Toek",
+                    "WBE_Naam_Toek",
+                    "AfschotplanNummer",
+                    "nummer_afschotplan")
           comp <- c("label_nummer_samen",
                     "onderkaaklengte_comp",
                     "onderkaaklengte_comp_bron",
@@ -111,41 +68,30 @@ label_extracter <- function(label,
                     "geslacht_comp_bron",
                     "ontweid_gewicht",
                     "type_comp")
-          if(dataset == "DMOGG"){
-            georef <- c("label_nummer_samen",
-                        "NisCode_Georef",
-                        "KboNummer_Georef",
-                        "FaunabeheerDeelzone",
-                        "FaunabeheerZone",
-                        "provincie",
-                        "WBE_Naam_Georef",
-                        "NisCode_Oorsprong",
-                        "KboNummer_Oorsprong",
-                        "FaunabeheerDeelzone_Oorsprong",
-                        "FaunabeheerZone_Oorsprong",
-                        "Provincie_Oorsprong",
-                        "Georef",
-                        "GeorefCode")
-            coord <- c("label_nummer_samen",
-                       "Xcoordinaat.x",
-                       "Ycoordinaat.x",
-                       "Xcoordinaat.y",
-                       "Ycoordinaat.y",
-                       "PuntLocatieTypeID",
-                       "verbatimLatitude",
-                       "verbatimLongitude",
-                       "verbatimCoordinateUncertainty")
-          }else{
-            georef <- "label_nummer_samen"
-            coord <- c("label_nummer_samen",
-                       "Xcoordinaat",
-                       "Ycoordinaat",
-                       "PuntLocatieTypeID",
-                       "verbatimLatitude",
-                       "verbatimLongitude",
-                       "verbatimCoordinateUncertainty")
-          }
 
+          georef <- c("label_nummer_samen",
+                      "NisCode_Georef",
+                      "KboNummer_Georef",
+                      "FaunabeheerDeelzone",
+                      "FaunabeheerZone",
+                      "provincie",
+                      "WBE_Naam_Georef",
+                      "NisCode_Oorsprong",
+                      "KboNummer_Oorsprong",
+                      "FaunabeheerDeelzone_Oorsprong",
+                      "FaunabeheerZone_Oorsprong",
+                      "Provincie_Oorsprong",
+                      "Georef",
+                      "GeorefCode")
+          coord <- c("label_nummer_samen",
+                     "Xcoordinaat.x",
+                     "Ycoordinaat.x",
+                     "Xcoordinaat.y",
+                     "Ycoordinaat.y",
+                     "PuntLocatieTypeID",
+                     "verbatimLatitude",
+                     "verbatimLongitude",
+                     "verbatimCoordinateUncertainty")
           okl <- c("label_nummer_samen",
                    "onderkaaklengte_comp",
                    "onderkaaklengte_comp_bron",
@@ -180,7 +126,6 @@ label_extracter <- function(label,
               choice <- menu(choices, title = "Welke groep kolommen wil je extraheren?")
               prompt <- get(choices[choice])
             }
-
           }
 
         }
@@ -188,24 +133,24 @@ label_extracter <- function(label,
     }
     Data_Extract <-
       Data %>%
-      filter(label_nummer_samen %in% label) %>%
+      dplyr::filter(label_nummer_samen %in% label) %>%
       dplyr::select(prompt)
   }
   #Add presence data
   if(presence == TRUE){
-    source("../backoffice-wild-analyse/Functies/label_selecter.R")
+    warning("You have selected presence = TRUE, due to access restrictions this step may fail. Ifso try setting presence = FALSE")
     presence_tbl <- label_selecter(label)
     presence_tbl <-
       presence_tbl %>%
       dplyr::select(INPUTLABEL, DMOG_GEO)
     Data_Extract <-
       Data_Extract %>%
-      full_join(presence_tbl, by = c("label_nummer_samen" = "INPUTLABEL"))
+      dplyr::full_join(presence_tbl, by = c("label_nummer_samen" = "INPUTLABEL"))
   }
 
   #Add dataset column
   Data_Extract <- Data_Extract %>%
-    mutate(dataset = dataset)
+    dplyr::mutate(dataset = dataset)
 
   return(Data_Extract)
 }
