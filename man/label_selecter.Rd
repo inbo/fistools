@@ -11,7 +11,8 @@ label_selecter(
   jaar,
   soort,
   bo_dir = "~/Github/backoffice-wild-analyse/",
-  debug = FALSE
+  debug = FALSE,
+  email = Sys.getenv("email")
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ label_selecter(
 \item{bo_dir}{een character met de directory waar de backoffice-wild-analyse repository staat.}
 
 \item{debug}{een boolean die aangeeft of de debug modus moet worden aangezet.}
+
+\item{email}{een character met het email adres van de gebruiker. Wordt gebruikt voor authenticatie bij het updaten van de google drive bestanden. Standaard wordt het email adres uit de system variables gehaald, indien deze niet bestaat zal er een popup verschijnen waarin je je email adres kan ingeven.}
 }
 \value{
 Een dataframe met de volgende kolommen:
