@@ -4,7 +4,7 @@
 #'
 #' @param label een character (lijst) met labelnummer(s) die dienen onderzocht te worden. Dit kan in 3 vormen (volgnummer, met streepjes of zonder streepjes) of een combinatie van deze vormen aangeleverd worden
 #' @param update een boolean die aangeeft of ook de nog niet wegeschreven dwh - bestanden moeten worden gecontroleerd.
-#' @param label_type een een character (lijst) met labeltypes die dienen onderzocht te worden.
+#' @param label_type een character (lijst) met labeltypes die dienen onderzocht te worden.
 #' @param jaar een numerieke (lijst) van jaren die dienen onderzocht te worden.
 #' @param soort een character van de soort die onderzocht dient te worden.
 #' @param bo_dir een character met de directory waar de backoffice-wild-analyse repository staat.
@@ -97,8 +97,8 @@ label_selecter <- function(label,
   Toekenningen_Cleaned <- readr::read_delim(paste0(bo_dir,"Basis_Scripts/Interim/Toekenningen_Cleaned.csv"),
                                             ";", escape_double = FALSE, trim_ws = TRUE) #TL_CLEANED
   Dieren_met_onderkaakgegevens <- readr::read_csv(paste0(bo_dir,"Data/Interim/Dieren_met_onderkaakgegevens.csv")) #DMOG
-  Dieren_met_onderkaakgegevens_Georef <- readr::read_delim(paste0(bo_dir,"Data/Interim/Dieren_met_onderkaakgegevens_Georef.csv"),
-                                                           ";", escape_double = FALSE, trim_ws = TRUE) #DMOG_GEO
+  Dieren_met_onderkaakgegevens_Georef <- read_dmogg() #DMOG_GEO
+
   if(update == TRUE){
     print("Updating E_Loket Data")
 
