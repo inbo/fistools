@@ -1,3 +1,47 @@
+#' label_extracter
+#'
+#' @description
+#' A function to extract specific columns from the DMOGG dataset based on provided labels. The user can choose to extract all columns, select specific columns, or choose from predefined groups of columns. Additionally, the user can opt to include info about the labels presence in different datasets to the return dataset.
+#'
+#' @param label A vector of labels to filter the dataset on. These should be in the form of ANBjjjjlabeltype######.
+#' @param columns A character string specifying which columns to extract. Options are "all" (default), "select", "list", or "group".
+#' - `all`: extracts all columns from the dataset.
+#' - `select`: allows the user to interactively select columns from the dataset.
+#' - `list`: extracts columns specified in the `column_list` argument.
+#' - `group`: allows the user to choose from predefined groups of columns (e.g., "comp", "georef", "okl", "gewicht", "geslacht", "leeftijd_cat", "toek", "coord").
+#' @param column_list A vector of column names to extract when `columns` is set to "list". This argument is ignored for other values of `columns`.
+#' @param choice A character string specifying the group of columns to extract when `columns` is set to "group". Options include "comp", "georef", "okl", "gewicht", "geslacht", "leeftijd_cat", "toek", and "coord". This argument is ignored for other values of `columns`.
+#' @param presence A boolean indicating whether to include information about the presence of the labels in different datasets. Default is FALSE.
+#' @param dataset A character string specifying the dataset to extract from. Currently, only "DMOGG" is supported. Default is "DMOGG".
+#'
+#' @details
+#' The function checks the validity of the input parameters and reads the specified dataset. It then filters the dataset based on the provided labels and extracts the specified columns. If `presence` is set to TRUE, it also joins information about the presence of the labels in different datasets. Finally, it adds a column indicating the dataset and returns the extracted data. Presence data is retrieved using the `label_selecter` function, which may have access restrictions. If you encounter issues with retrieving presence data, try setting `presence` to FALSE.
+#' When using the "select" option for `columns`, the user will be prompted to choose which columns to extract from the dataset. When using the "group" option, the user can choose from predefined groups of columns that are relevant for different types of analyses.
+#'
+#' @author Sander Devisscher
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Example 1: Extract all columns for specific labels
+#' extracted_data_all <- label_extracter(label = c("ANB2020WILD ZWIJN000001", "ANB2020WILD ZWIJN000002"),
+#'                                      columns = "all")
+#'
+#' # Example 2: Interactively select columns to extract for specific labels
+#' extracted_data_select <- label_extracter(label = c("ANB2020WILD ZWIJN000001", "ANB2020WILD ZWIJN000002"),
+#'                                         columns = "select")
+#'
+#' # Example 3: Extract specific columns from a list for specific labels
+#' extracted_data_list <- label_extracter(label = c("ANB2020WILD ZWIJN000001", "ANB2020WILD ZWIJN000002"),
+#'                                        columns = "list",
+#'                                        column_list = c("label_nummer_samen", "onderkaaklengte_comp", "geslacht_comp"))
+#'
+#' # Example 4: Extract a predefined group of columns for specific labels
+#' extracted_data_group <- label_extracter(label = c("ANB2020WILD ZWIJN000001", "ANB2020WILD ZWIJN000002"),
+#'                                         columns = "group",
+#'                                         choice = "comp")
+#'}
+#'
 label_extracter <- function(label,
                             columns = "all",
                             column_list,
