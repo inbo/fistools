@@ -42,8 +42,8 @@ your Agouti project has Restrict Images on. This needs to be turned off.
 
 Other download: [`download_dep_media()`](download_dep_media.md),
 [`download_gdrive_if_missing()`](download_gdrive_if_missing.md),
+[`folder_to_drive()`](folder_to_drive.md),
 [`get_last_modified_zip()`](get_last_modified_zip.md),
-[`read_dmogg()`](read_dmogg.md),
 [`unzip_last_modified_zip()`](unzip_last_modified_zip.md)
 
 ## Author

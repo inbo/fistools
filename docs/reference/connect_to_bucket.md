@@ -42,14 +42,14 @@ niet gebeurd is. Hiervoor heb je admin rechten nodig, een *ict helpdesk
 call* is dus aan de orde. Na de installatie moeten je *AWS credentials*
 eenmalig aangemaakt worden. Voer hiervoor `aws configure` uit in
 *windows powershell*. De credentials kan je bekomen bij Jens Polspoel.
--*devops-toolkit* moet lokaal worden geïnstalleerd dit doe je door de
-laatste versie van *https://github.com/inbo/devops-toolkit/releases/tag/
-(\>= v0.6)* te downloaden. Vervolgens kopiëer je *aws-cli-mfa-login*
-naar de Home Directory van Windows. Default is dat
-*C:/Users/%voornaam_achternaam%/bin*. Hernoem het bestand vervolgens
-naar *aws-cli-mfa-login.exe*.
-
-*Python is niet meer vereist voor het gebruik van deze functie*
+-*devops-toolkit* moet lokaal worden geïnstalleerd dit doe je door
+*https://github.com/inbo/devops-toolkit* te clonen dmv *github dekstop*.
+Vervolgens kopiëer je *aws-cli-mfa-login.py* & *common.py* naar de Home
+Directory van Windows. Default is dat
+*C:/Users/%voornaam_achternaam%/bin*. -*Python* moet worden
+geïnstalleerd als dat nog niet gebeurd is. Dit kan rechtstreeks in *R*
+met onderstaande code: `install.packages("reticulate")`
+`reticulate::install_python()` `system('pip install boto3')`
 
 ## Author
 

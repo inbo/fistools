@@ -64,8 +64,8 @@ download_gdrive_if_missing(gfileID = "1FX8DDyREKMH1M3iW9ijWjVjO_tBH8PXi",
 Other download: 
 \code{\link{download_dep_media}()},
 \code{\link{download_seq_media}()},
+\code{\link{folder_to_drive}()},
 \code{\link{get_last_modified_zip}()},
-\code{\link{read_dmogg}()},
 \code{\link{unzip_last_modified_zip}()}
 }
 \author{

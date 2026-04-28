@@ -11,7 +11,7 @@ uur geldig blijft. Deze heb je nodig om verbinding te maken met de s3 buckets.">
 
     <a class="navbar-brand me-2" href="../index.html">fistools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.32</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.30</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,13 +80,15 @@ heb je admin rechten nodig, een <em>ict helpdesk call</em> is dus aan de orde.
 Na de installatie moeten je <em>AWS credentials</em> eenmalig aangemaakt worden.
 Voer hiervoor <code>aws configure</code> uit in <em>windows powershell</em>. De credentials
 kan je bekomen bij Jens Polspoel.
--<em>devops-toolkit</em> moet lokaal worden geïnstalleerd dit doe je door de laatste
-versie van <em>https://github.com/inbo/devops-toolkit/releases/tag/ (&gt;= v0.6)</em>
-te downloaden.
-Vervolgens kopiëer je <em>aws-cli-mfa-login</em> naar de Home
+-<em>devops-toolkit</em> moet lokaal worden geïnstalleerd dit doe je door
+<em>https://github.com/inbo/devops-toolkit</em> te clonen dmv <em>github dekstop</em>.
+Vervolgens kopiëer je <em>aws-cli-mfa-login.py</em> &amp; <em>common.py</em> naar de Home
 Directory van Windows. Default is dat <em>C:/Users/%voornaam_achternaam%/bin</em>.
-Hernoem het bestand vervolgens naar <em>aws-cli-mfa-login.exe</em>.</p>
-<p><em>Python is niet meer vereist voor het gebruik van deze functie</em></p>
+-<em>Python</em> moet worden geïnstalleerd als dat nog niet gebeurd is. Dit kan
+rechtstreeks in <em>R</em> met onderstaande code:
+<code>install.packages("reticulate")</code>
+<code>reticulate::install_python()</code>
+<code>system('pip install boto3')</code></p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

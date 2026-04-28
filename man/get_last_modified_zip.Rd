@@ -28,7 +28,7 @@ Other download:
 \code{\link{download_dep_media}()},
 \code{\link{download_gdrive_if_missing}()},
 \code{\link{download_seq_media}()},
-\code{\link{read_dmogg}()},
+\code{\link{folder_to_drive}()},
 \code{\link{unzip_last_modified_zip}()}
 }
 \author{
