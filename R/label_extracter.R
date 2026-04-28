@@ -24,25 +24,25 @@
 #' @examples
 #' \dontrun{
 #' # Example 1: Extract all columns for specific labels
-#' data_all <- label_extracter(label = c("ANB2020WILD ZWIJN000001",
-#' "ANB2020WILD ZWIJN000002"),
+#' data_all <- label_extracter(label = c("ANB2024REEGEIT004002",
+#' "ANB2024REEGEIT004001"),
 #'                                      columns = "all")
 #'
 #' # Example 2: Interactively select columns to extract for specific labels
-#' data_select <- label_extracter(label = c("ANB2020WILD ZWIJN000001",
-#' "ANB2020WILD ZWIJN000002"),
+#' data_select <- label_extracter(label = c("ANB2024REEGEIT004002",
+#' "ANB2024REEGEIT004001"),
 #'                                         columns = "select")
 #'
 #' # Example 3: Extract specific columns from a list for specific labels
-#' data_list <- label_extracter(label = c("ANB2020WILD ZWIJN000001",
-#' "ANB2020WILD ZWIJN000002"),
+#' data_list <- label_extracter(label = c("ANB2024REEGEIT004002",
+#' "ANB2024REEGEIT004001"),
 #' columns = "list",
 #' column_list = c("label_nummer_samen", "onderkaaklengte_comp",
 #' "geslacht_comp"))
 #'
 #' # Example 4: Extract a predefined group of columns for specific labels
-#' data_group <- label_extracter(label = c("ANB2020WILD ZWIJN000001",
-#' "ANB2020WILD ZWIJN000002"),
+#' data_group <- label_extracter(label = c("ANB2024REEGEIT004002",
+#' "ANB2024REEGEIT004001"),
 #'                                         columns = "group",
 #'                                         choice = "comp")
 #'}
