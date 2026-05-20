@@ -22,7 +22,7 @@ drg_example
 Subset of Drongengoed Agouti export for testing of functions
 }
 \seealso{
-Other dataset: 
+Other dataset:
 \code{\link{CLC18_BE}},
 \code{\link{boswachterijen}}
 }

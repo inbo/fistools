@@ -97,8 +97,8 @@ Of als je aanwezig bent op een vestiging van de Vlaamse Overheid (VAC).
 }
 }
 \seealso{
-Other other: 
-\code{\link{retry_function}()}
+Other other:
+\code{\link[=retry_function]{retry_function()}}
 }
 \author{
 Sander Devisscher

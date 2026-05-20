@@ -61,12 +61,12 @@ download_gdrive_if_missing(gfileID = "1FX8DDyREKMH1M3iW9ijWjVjO_tBH8PXi",
 }
 }
 \seealso{
-Other download: 
-\code{\link{download_dep_media}()},
-\code{\link{download_seq_media}()},
-\code{\link{get_last_modified_zip}()},
-\code{\link{read_dmogg}()},
-\code{\link{unzip_last_modified_zip}()}
+Other download:
+\code{\link[=download_dep_media]{download_dep_media()}},
+\code{\link[=download_seq_media]{download_seq_media()}},
+\code{\link[=get_last_modified_zip]{get_last_modified_zip()}},
+\code{\link[=read_dmogg]{read_dmogg()}},
+\code{\link[=unzip_last_modified_zip]{unzip_last_modified_zip()}}
 }
 \author{
 Sander Devisscher

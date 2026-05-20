@@ -22,7 +22,7 @@ CLC18_BE
 Corine landcover of Belgium (2018)
 }
 \seealso{
-Other dataset: 
+Other dataset:
 \code{\link{boswachterijen}},
 \code{\link{drg_example}}
 }

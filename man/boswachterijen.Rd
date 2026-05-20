@@ -27,7 +27,7 @@ Spatiale en andere informatie (o.a. telefoonummers) van de boswachterijen van
 ANB.
 }
 \seealso{
-Other dataset: 
+Other dataset:
 \code{\link{CLC18_BE}},
 \code{\link{drg_example}}
 }
