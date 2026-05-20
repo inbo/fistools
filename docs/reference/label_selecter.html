@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fistools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.32</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.34</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,8 @@
 <span>  <span class="va">jaar</span>,</span>
 <span>  <span class="va">soort</span>,</span>
 <span>  bo_dir <span class="op">=</span> <span class="st">"~/Github/backoffice-wild-analyse/"</span>,</span>
-<span>  debug <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  email <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"email"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -61,7 +62,7 @@
 
 
 <dt id="arg-label-type">label_type<a class="anchor" aria-label="anchor" href="#arg-label-type"></a></dt>
-<dd><p>een een character (lijst) met labeltypes die dienen onderzocht te worden.</p></dd>
+<dd><p>een character (lijst) met labeltypes die dienen onderzocht te worden.</p></dd>
 
 
 <dt id="arg-jaar">jaar<a class="anchor" aria-label="anchor" href="#arg-jaar"></a></dt>
@@ -78,6 +79,10 @@
 
 <dt id="arg-debug">debug<a class="anchor" aria-label="anchor" href="#arg-debug"></a></dt>
 <dd><p>een boolean die aangeeft of de debug modus moet worden aangezet.</p></dd>
+
+
+<dt id="arg-email">email<a class="anchor" aria-label="anchor" href="#arg-email"></a></dt>
+<dd><p>een character met het email adres van de gebruiker. Wordt gebruikt voor authenticatie bij het updaten van de google drive bestanden. Standaard wordt het email adres uit de system variables gehaald, indien deze niet bestaat zal er een popup verschijnen waarin je je email adres kan ingeven.</p></dd>
 
 </dl></div>
     <div class="section level2">
