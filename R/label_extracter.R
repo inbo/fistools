@@ -86,7 +86,7 @@ label_extracter <- function(label,
   if(columns == "all"){
     Data_Extract <-
       Data %>%
-      filter(label_nummer_samen %in% label)
+      dplyr::filter(label_nummer_samen %in% label)
   }else{
     if(columns == "select"){
       column_list <- colnames(Data)
@@ -97,7 +97,7 @@ label_extracter <- function(label,
     }else{
       if(columns == "list"){
         prompt <- column_list
-        if(is_empty(grep("label_nummer_samen", prompt, value = TRUE))){
+        if(purrr::is_empty(grep("label_nummer_samen", prompt, value = TRUE))){
           prompt <- append("label_nummer_samen", prompt)
         }
 
@@ -193,7 +193,7 @@ label_extracter <- function(label,
   # Add presence data ####
   if(presence == TRUE){
     warning("You have selected presence = TRUE, due to access restrictions this step may fail. Ifso try setting presence = FALSE")
-    presence_tbl <- label_selecter(label,
+    presence_tbl <- fistools::label_selecter(label,
                                    email = email)
     presence_tbl <-
       presence_tbl %>%
