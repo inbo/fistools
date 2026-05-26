@@ -36,8 +36,8 @@ retry_function({some_function()}, max_attempts = 5, sleep_time = 1)
 
 }
 \seealso{
-Other other: 
-\code{\link{label_selecter}()}
+Other other:
+\code{\link[=label_selecter]{label_selecter()}}
 }
 \author{
 Sander Devisscher
