@@ -26,6 +26,11 @@
 #' 6. The user can validate the classifications in Agouti
 #' *NOTE:* This function doesn't track which sequences have been validated!
 #'
+#' Filtering occurs using `base::grepl()` on the `classifiedBy` field.
+#' This means that when `ai_model = "Europe"`, the sequences with
+#' `classifiedBy %in% c("Europe v1", "Europe v1.2", "Europe v2", ...)` are
+#' withheld to be manually validated using `agouti_imager`.
+#'
 #' @family agouti
 #' @author Sander Devisscher
 #' @returns None. The function opens URLs in the default web browser for validation.
