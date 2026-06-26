@@ -55,12 +55,12 @@ seqID)
 }
 }
 \seealso{
-Other agouti: 
-\code{\link{download_dep_media}()},
-\code{\link{download_seq_media}()},
+Other agouti:
+\code{\link[=agouti_validate_ai]{agouti_validate_ai()}},
+\code{\link[=download_dep_media]{download_dep_media()}},
+\code{\link[=download_seq_media]{download_seq_media()}},
 \code{\link{drg_example}},
-\code{\link{rename_ct_files}()},
-\code{\link{validate_agouti_ai}()}
+\code{\link[=rename_ct_files]{rename_ct_files()}}
 }
 \author{
 Lynn Pallemaerts
