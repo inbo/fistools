@@ -76,11 +76,11 @@ try this function again.
 
 ## See also
 
-Other agouti: [`download_dep_media()`](download_dep_media.md),
+Other agouti: [`agouti_validate_ai()`](agouti_validate_ai.md),
+[`download_dep_media()`](download_dep_media.md),
 [`download_seq_media()`](download_seq_media.md),
 [`drg_example`](drg_example.md),
-[`rename_ct_files()`](rename_ct_files.md),
-[`validate_agouti_ai()`](validate_agouti_ai.md)
+[`rename_ct_files()`](rename_ct_files.md)
 
 ## Author
 

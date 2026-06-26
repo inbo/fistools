@@ -45,10 +45,10 @@ compile all files in a single folder if compile is set to TRUE.
 ## See also
 
 Other agouti: [`agouti_imager()`](agouti_imager.md),
+[`agouti_validate_ai()`](agouti_validate_ai.md),
 [`download_dep_media()`](download_dep_media.md),
 [`download_seq_media()`](download_seq_media.md),
-[`drg_example`](drg_example.md),
-[`validate_agouti_ai()`](validate_agouti_ai.md)
+[`drg_example`](drg_example.md)
 
 ## Author
 
