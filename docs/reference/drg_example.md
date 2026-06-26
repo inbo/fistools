@@ -31,10 +31,5 @@ datapackage
 ## See also
 
 Other dataset: [`CLC18_BE`](CLC18_BE.md),
-[`boswachterijen`](boswachterijen.md)
-
-Other agouti: [`agouti_imager()`](agouti_imager.md),
-[`download_dep_media()`](download_dep_media.md),
-[`download_seq_media()`](download_seq_media.md),
-[`rename_ct_files()`](rename_ct_files.md),
-[`validate_agouti_ai()`](validate_agouti_ai.md)
+[`boswachterijen`](boswachterijen.md),
+[`surveyMonkey_q6`](surveyMonkey_q6.md)

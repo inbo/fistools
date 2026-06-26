@@ -30,6 +30,8 @@
   media
 - [`get_last_modified_zip()`](get_last_modified_zip.md) : get last
   modified zip
+- [`read_dmogg()`](read_dmogg.md) : Read "dieren met onderkaakgegevens
+  georef"
 - [`unzip_last_modified_zip()`](unzip_last_modified_zip.md) : Unzip last
   modified zip
 
@@ -44,6 +46,7 @@
 - [`CLC18_BE`](CLC18_BE.md) : CLC18_BE
 - [`boswachterijen`](boswachterijen.md) : Boswachterijen
 - [`drg_example`](drg_example.md) : drg_example
+- [`surveyMonkey_q6`](surveyMonkey_q6.md) : surveyMonkey_q6
 
 ## Libraries
 
@@ -72,6 +75,9 @@
 - [`cleanup_sqlite()`](cleanup_sqlite.md) : cleanup sqlite
 
 - [`connect_to_bucket()`](connect_to_bucket.md) : connect to bucket
+
+- [`geom_pci()`](geom_pci.md) : Potential for Conflict Index (PCI)
+  Visualization Layer
 
 - [`install_sp()`](install_sp.md) : install sp
 

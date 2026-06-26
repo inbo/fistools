@@ -46,3 +46,4 @@ po/*~
 rsconnect/
 .Rproj.user
 *.tex
+.positai

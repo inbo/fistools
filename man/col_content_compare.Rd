@@ -33,8 +33,8 @@ col_content_compare(df1 = dataset1, "b", df2 = dataset2, "d")
 
 }
 \seealso{
-Other dataframe_comparison: 
-\code{\link{colcompare}()}
+Other dataframe_comparison:
+\code{\link[=colcompare]{colcompare()}}
 }
 \author{
 Sander Devisscher
