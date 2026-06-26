@@ -71,10 +71,13 @@ agouti_validate_ai <- function(gfileID,
   # Download the file from Google Drive using download_gdrive_if_missing ####
   target_path <- file.path(tempdir(), "datapack.zip")
 
-  fistools::download_gdrive_if_missing(gfileID = gfileID,
-                                       email = email,
-                                       destfile = target_path,
-                                       update_always = TRUE)
+  if(!file.exists(target_path)){
+    fistools::download_gdrive_if_missing(gfileID = gfileID,
+                                         email = email,
+                                         destfile = target_path,
+                                         update_always = TRUE)
+  }
+
 
   exdir <- file.path(tempdir(), "/Files")
   unzip(paste0(tempdir(), "/datapack.zip"),
