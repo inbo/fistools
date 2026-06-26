@@ -64,10 +64,11 @@ validate_agouti_ai <- function(gfileID,
   }
 
   # Download the file from Google Drive using download_gdrive_if_missing ####
+  target_path <- file.path(tempdir(), "datapack.zip")
+
   fistools::download_gdrive_if_missing(gfileID = gfileID,
                                        email = email,
-                                       destfile = paste0(tempdir(),
-                                                         "/datapack.zip"),
+                                       destfile = target_path,
                                        update_always = TRUE)
 
   exdir <- file.path(tempdir(), "/Files")
@@ -79,7 +80,8 @@ validate_agouti_ai <- function(gfileID,
 
   data <- datapack$data$observations %>%
     dplyr::filter(grepl(pattern = ai_model,
-                        "classifiedBy"))
+                        "classifiedBy",
+                        ignore.case = TRUE))
 
   if(nrow(data) == 0){
     stop(paste0("no observations found classified by ", ai_model))
