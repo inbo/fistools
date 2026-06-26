@@ -45,7 +45,7 @@
 #' }
 #'
 #'
-validate_agouti_ai <- function(gfileID,
+agouti_validate_ai <- function(gfileID,
                                ai_model = "Europe",
                                agouti_prj_id,
                                species = NULL,
@@ -83,6 +83,7 @@ validate_agouti_ai <- function(gfileID,
   # Read datapackage using camtraptor ####
   datapack <- camtraptor::read_camtrap_dp(file = exdir)
 
+  browser()
   data <- datapack$data$observations %>%
     dplyr::filter(grepl(pattern = ai_model,
                         "classifiedBy",
