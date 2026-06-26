@@ -83,14 +83,15 @@ agouti_validate_ai <- function(gfileID,
   # Read datapackage using camtraptor ####
   datapack <- camtraptor::read_camtrap_dp(file = exdir)
 
-  browser()
   data <- datapack$data$observations %>%
     dplyr::filter(grepl(pattern = ai_model,
-                        "classifiedBy",
+                        x = classifiedBy,
                         ignore.case = TRUE))
 
   if(nrow(data) == 0){
-    stop(paste0("no observations found classified by ", ai_model))
+    used_models <- find_ai(datapack,
+                           species)
+    stop(paste0("No observations found classified by ", ai_model, ". \n The following ai models were used in the datapackage. Try one of these instead: \n", paste("- ", used_models, collapse = "\n")))
   }
 
   if(fistools::check(species) == 0){
@@ -121,4 +122,31 @@ agouti_validate_ai <- function(gfileID,
                           seqID = seqIDs,
                           email = email,
                           skip_tracking = TRUE)
+}
+
+#' Find used AI models in a datapackage
+#'
+#' @param datapack a camtrapdb datapackage containing the column classificationMethod
+#' @param species a vector of species passed down from `agouti_validate_ai`.
+#'
+#' @return a vector of ai models used
+#'
+find_ai <- function(datapack,
+                    species = species){
+
+  if(check(species) == 1){
+    used_models <- datapack$data$observations %>%
+      dplyr::filter(classificationMethod == "machine") %>%
+      dplyr::distinct(classifiedBy) %>%
+      dplyr::pull(classifiedBy)
+  }else{
+    used_models <- datapack$data$observations %>%
+      dplyr::filter(scientificName %in% species) %>%
+      dplyr::filter(classificationMethod == "machine") %>%
+      dplyr::distinct(classifiedBy) %>%
+      dplyr::pull(classifiedBy)
+  }
+
+
+  return(used_models)
 }
