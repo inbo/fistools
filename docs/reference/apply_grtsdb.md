@@ -1,9 +1,7 @@
 # apply grtsdb
 
-Applies
-[`grtsdb::extract_sample`](https://inbo.github.io/grtsdb/reference/extract_sample.html)
-from inbo/GRTSdb to a custom perimeter. This function installs GRTSdb if
-it is missing from your machine.
+Applies `grtsdb::extract_sample` from inbo/GRTSdb to a custom perimeter.
+This function installs GRTSdb if it is missing from your machine.
 
 ## Usage
 

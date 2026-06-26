@@ -69,11 +69,6 @@ page](https://inbo.github.io/fistools/reference/index.html)
 
 - [`agouti_imager()`](agouti_imager.md) : Open sequences in Agouti for
   imaging
-- [`download_dep_media()`](download_dep_media.md) : Download deployment
-  media
-- [`download_seq_media()`](download_seq_media.md) : Download sequence
-  media
-- [`drg_example`](drg_example.md) : drg_example
 - [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
   for upload in Agouti
 - [`validate_agouti_ai()`](validate_agouti_ai.md) : Validate AI
