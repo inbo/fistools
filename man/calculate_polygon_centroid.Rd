@@ -60,13 +60,13 @@ leaflet() \%>\%
 
 }
 \seealso{
-Other spatial: 
-\code{\link{CRS_extracter}()},
-\code{\link{add_habitats}()},
-\code{\link{apply_grtsdb}()},
-\code{\link{collect_osm_features}()},
-\code{\link{dms_column_to_decimal}()},
-\code{\link{dms_to_decimal}()}
+Other spatial:
+\code{\link[=CRS_extracter]{CRS_extracter()}},
+\code{\link[=add_habitats]{add_habitats()}},
+\code{\link[=apply_grtsdb]{apply_grtsdb()}},
+\code{\link[=collect_osm_features]{collect_osm_features()}},
+\code{\link[=dms_column_to_decimal]{dms_column_to_decimal()}},
+\code{\link[=dms_to_decimal]{dms_to_decimal()}}
 }
 \author{
 Sander Devisscher

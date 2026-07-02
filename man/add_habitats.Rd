@@ -44,13 +44,13 @@ habitat_info <- add_habitats(example_sf, id_column = "unique_id")
 
 }
 \seealso{
-Other spatial: 
-\code{\link{CRS_extracter}()},
-\code{\link{apply_grtsdb}()},
-\code{\link{calculate_polygon_centroid}()},
-\code{\link{collect_osm_features}()},
-\code{\link{dms_column_to_decimal}()},
-\code{\link{dms_to_decimal}()}
+Other spatial:
+\code{\link[=CRS_extracter]{CRS_extracter()}},
+\code{\link[=apply_grtsdb]{apply_grtsdb()}},
+\code{\link[=calculate_polygon_centroid]{calculate_polygon_centroid()}},
+\code{\link[=collect_osm_features]{collect_osm_features()}},
+\code{\link[=dms_column_to_decimal]{dms_column_to_decimal()}},
+\code{\link[=dms_to_decimal]{dms_to_decimal()}}
 }
 \author{
 Sander Devisscher

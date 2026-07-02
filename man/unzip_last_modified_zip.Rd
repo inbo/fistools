@@ -26,11 +26,11 @@ camtraptor::read_camtrap_dp()
 
 }
 \seealso{
-Other download: 
-\code{\link{download_dep_media}()},
-\code{\link{download_gdrive_if_missing}()},
-\code{\link{download_seq_media}()},
-\code{\link{get_last_modified_zip}()},
-\code{\link{read_dmogg}()}
+Other download:
+\code{\link[=download_dep_media]{download_dep_media()}},
+\code{\link[=download_gdrive_if_missing]{download_gdrive_if_missing()}},
+\code{\link[=download_seq_media]{download_seq_media()}},
+\code{\link[=get_last_modified_zip]{get_last_modified_zip()}},
+\code{\link[=read_dmogg]{read_dmogg()}}
 }
 \concept{download}
