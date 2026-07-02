@@ -24,7 +24,8 @@ Corine landcover of Belgium (2018)
 \seealso{
 Other dataset:
 \code{\link{boswachterijen}},
-\code{\link{drg_example}}
+\code{\link{drg_example}},
+\code{\link{surveyMonkey_q6}}
 }
 \concept{dataset}
 \keyword{datasets}

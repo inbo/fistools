@@ -29,7 +29,8 @@ ANB.
 \seealso{
 Other dataset:
 \code{\link{CLC18_BE}},
-\code{\link{drg_example}}
+\code{\link{drg_example}},
+\code{\link{surveyMonkey_q6}}
 }
 \concept{dataset}
 \keyword{datasets}
