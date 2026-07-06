@@ -103,7 +103,7 @@ label_extracter <- function(label,
 
       }else{
         if(columns == "group"){
-          print("under construction")
+          print("More predefined group of columns will be added in the future.")
           choices <- c("comp", "georef", "okl", "gewicht", "geslacht", "leeftijd_cat", "toek", "coord")
           toek <- c("label_nummer_samen",
                     "KboNummer_Toek_integer",
