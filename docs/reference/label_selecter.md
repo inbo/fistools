@@ -15,7 +15,8 @@ label_selecter(
   jaar,
   soort,
   bo_dir = "~/Github/backoffice-wild-analyse/",
-  debug = FALSE
+  debug = FALSE,
+  email = Sys.getenv("email")
 )
 ```
 
@@ -34,8 +35,7 @@ label_selecter(
 
 - label_type:
 
-  een een character (lijst) met labeltypes die dienen onderzocht te
-  worden.
+  een character (lijst) met labeltypes die dienen onderzocht te worden.
 
 - jaar:
 
@@ -53,6 +53,14 @@ label_selecter(
 - debug:
 
   een boolean die aangeeft of de debug modus moet worden aangezet.
+
+- email:
+
+  een character met het email adres van de gebruiker. Wordt gebruikt
+  voor authenticatie bij het updaten van de google drive bestanden.
+  Standaard wordt het email adres uit de system variables gehaald,
+  indien deze niet bestaat zal er een popup verschijnen waarin je je
+  email adres kan ingeven.
 
 ## Value
 
