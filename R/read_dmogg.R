@@ -9,14 +9,21 @@
 #' @param email email used to authenticate the google drive
 #'
 #' @details
-#' Two versions of the DMOGG dataset can be imported by this function, namely:
-#' - The "Short" version containing only data collected via the e-loket and later
-#' WIZ-app from ANB enriched with data from the autopsiedb.
-#' The temporal range of this dataset is 2014 - today.
-#' This dataset is more complete and contains spatial data concerning wbe's & fbz's.
-#' - The "Long" version containing the data from the "Short" dataset plus data
-#' collected via the predecessors of the e-loket (ao zwijntje) by INBO.
-#' This dataset is less complete because early data (<2014) misses almost all spatial info.
+#' This function can import two versions of the DMOGG dataset:
+#'
+#' - The *"Short"* version: Contains data collected via the e-loket and, later,
+#'   the ANB's WIZ-app, enriched with data from the autopsiedb. Its temporal
+#'   range spans from 2014 to the present. This dataset is more comprehensive
+#'   and includes spatial data for WBEs and FBZs. It also contains data on
+#'   causes of death other than culling (mainly "valwild") and exotic species
+#'   (such as raccoon, muntjac, and sika deer).
+#'
+#' - The *"Long"* version: Combines older data collected by INBO via e-loket
+#'   predecessors (e.g., zwijntje) with the subset of the "Short" version
+#'   that specifically concerns culling (`doodsoorzaak == "afschot"`) and a
+#'   select group of species (e.g., roe deer, wild boar, red deer, and fallow
+#'   deer). This dataset is less comprehensive because the early data
+#'   (pre-2014) lacks almost all spatial information.
 #'
 #' This function uses `fistools::download_gdrive_if_missing()` under the hood to
 #' download the file from the google drive.
