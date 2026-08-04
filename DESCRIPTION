@@ -44,7 +44,9 @@ Imports:
     rstudioapi (>= 0.17.1),
     tidyr (>= 1.3.2),
     ggplot2 (>= 4.0.3),
-    forcats (>= 1.0.1)
+    forcats (>= 1.0.1),
+    camtraptor (>= 0.28.0),
+    lubridate (>= 1.9.5)
 Suggests: 
     grtsdb (>= 0.2),
     purrr (>= 1.2.1)
