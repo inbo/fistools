@@ -48,7 +48,8 @@ Imports:
     forcats (>= 1.0.1)
 Suggests:
     camtraptor (>= 0.28.0),
-    grtsdb (>= 0.2)
+    grtsdb (>= 0.2),
+    purrr (>= 1.2.1)
 Remotes: 
     inbo/grtsdb,
     inbo/camtraptor

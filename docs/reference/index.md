@@ -85,6 +85,8 @@
 
 - [`label_converter()`](label_converter.md) : label converter
 
+- [`label_extracter()`](label_extracter.md) : label_extracter
+
 - [`label_selecter()`](label_selecter.md) : label_selecter
 
 - [`normalize_line_endings()`](normalize_line_endings.md) :
