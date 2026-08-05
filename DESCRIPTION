@@ -50,6 +50,7 @@ Imports:
 Suggests: 
     grtsdb (>= 0.2),
     purrr (>= 1.2.1)
-Remotes: 
-    inbo/grtsdb
+Remotes:  
+    inbo/grtsdb,
+    inbo/camtraptor
 Config/roxygen2/version: 8.0.0
