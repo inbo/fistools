@@ -46,6 +46,7 @@
 #' }
 #'
 #' @family agouti
+#' @export
 #'
 #' @author Sander Devisscher
 #'
