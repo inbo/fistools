@@ -51,6 +51,7 @@
 #'
 #' @examples
 #' \dontrun{
+#'
 #' }
 
 redo_non_tracked <- function(track_data,
@@ -114,7 +115,10 @@ redo_non_tracked <- function(track_data,
   }
 
   # x. Other issues. These are not omited from the non-tracked sequences
-  non_tracked_other_issues <- non_tracked_seq |>
+  non_tracked_other_issues <- non_tracked$data$observations |>
+    dplyr::filter(!eventID %in% c(non_tracked_parsing_error$eventID,
+                                  non_tracked_toofew_poles$eventID,
+                                  non_tracked_toofew_positions$eventID)) |>
     dplyr::filter(!is.na(observationComments))
 
   non_tracked_done <- unique(seq_done_out[seq_done_out %in% non_tracked_seq])
