@@ -58,4 +58,86 @@ redo_non_tracked <- function(track_data,
                              redo_toofew_positions = NULL,
                              redo_non_tracked = NULL){
 
+  seq_done_out <- seq_done_in
+
+  # Filter non tracked sequences
+  non_tracked <- track_data |>
+    camtrapdp::filter_observations(is.na(individualSpeed) & observationLevel == "event")
+
+  # Filter tracked data
+  tracked <- track_data |>
+    camtrapdp::filter_observations(!is.na(individualSpeed) & observationLevel == "event")
+
+  # Extract sequenceIDs
+  non_tracked_seq <- unique(non_tracked$data$observations$eventID)
+  tracked_seq <- unique(tracked$data$observations$eventID)
+
+  # Omit sequences with multiple observations of which at least 1 observation has
+  # been tracked
+  non_tracked_seq <- non_tracked_seq[!non_tracked_seq %in%
+                                       tracked_seq]
+
+  # Sometimes the sequence is tracked but the speed could not be calculated
+  # This occurs in 3 known cases, namely:
+  # 1. An error occured while parsing the data => These should be reported to Yorick
+  non_tracked_parsing_error <- non_tracked$data$observations |>
+    dplyr::filter(grepl(pattern = "Error parsing all data",
+                 x = observationComments))
+
+  non_tracked_seq <- non_tracked_seq[!non_tracked_seq %in%
+                                       non_tracked_parsing_error$eventID]
+
+  # 2. Not enough poles were available to do the calibration. These should be
+  # revisited via another way.
+  non_tracked_toofew_poles <- non_tracked$data$observations |>
+    dplyr::filter(grepl(pattern = "Not enough poles calibrated, minimum is 6",
+                 x = observationComments))
+
+  non_tracked_seq <- non_tracked_seq[!non_tracked_seq %in%
+                                       non_tracked_toofew_poles$eventID]
+
+  # 3. Not enough positions were logged to calculate the speed => These should be
+  # revisited via this script.
+  non_tracked_toofew_positions <- non_tracked$data$observations |>
+    dplyr::filter(grepl(pattern = "Not enough positions for speed and distance",
+                 x = observationComments))
+
+  if(nrow(non_tracked_toofew_positions) > 0){
+    if(is.null(redo_toofew_positions)){
+      redo_toofew_positions <- askYesNo(msg = paste(nrow(non_tracked_toofew_positions),
+                                                    "sequenties with too few positions detected, redo?"))
+    }
+    if(!redo_toofew_positions){
+      non_tracked_seq <- non_tracked_seq[!non_tracked_seq %in%
+                                           non_tracked_toofew_positions$eventID]
+    }
+  }
+
+  # x. Other issues. These are not omited from the non-tracked sequences
+  non_tracked_other_issues <- non_tracked_seq |>
+    dplyr::filter(!is.na(observationComments))
+
+  non_tracked_done <- unique(seq_done_out[seq_done_out %in% non_tracked_seq])
+
+  if(length(non_tracked_done) > 0){
+    cat(length(non_tracked_done), "Non-tracked sequences detected on the sequences
+      done list => asking rerun")
+    if(is.null(redo_non_tracked)){
+      redo_non_tracked <- askYesNo("Do you want to redo the non-tracked sequences ?")
+    }
+
+    if(redo_non_tracked){
+
+      seq_done_out <- seq_done_out[!seq_done_out %in% non_tracked_seq]
+
+    }
+  }
+
+  return(list(
+    seq_done_out = seq_done_out,
+    non_tracked_parsing_error = non_tracked_parsing_error,
+    non_tracked_toofew_poles = non_tracked_toofew_poles,
+    non_tracked_toofew_positions = non_tracked_toofew_positions,
+    non_tracked_other_issues = non_tracked_other_issues
+  ))
 }
