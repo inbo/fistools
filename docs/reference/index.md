@@ -82,6 +82,9 @@
 
   Normalize line endings according to `.gitattributes`
 
+- [`redo_non_tracked()`](redo_non_tracked.md) : Redo non-tracked
+  sequences
+
 - [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
   for upload in Agouti
 
