@@ -174,10 +174,11 @@ redo_non_tracked <- function(track_data,
   non_tracked_done <- unique(seq_done_out[seq_done_out %in% non_tracked_seq])
 
   if(length(non_tracked_done) > 0){
-    cat(length(non_tracked_done), "Non-tracked sequences detected on the sequences
-      done list => asking rerun")
+
     if(is.null(redo_non_tracked)){
-      redo_non_tracked <- askYesNo("Do you want to redo the non-tracked sequences ?")
+      redo_non_tracked <- askYesNo(paste0(length(non_tracked_done), " non-tracked
+                                          sequences detected, do you want to redo
+                                          the non-tracked sequences ?"))
     }
 
     if(redo_non_tracked){
