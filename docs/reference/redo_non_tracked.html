@@ -50,7 +50,8 @@ or when REM results indicate a potential issue.</p>
 <span>  <span class="va">track_data</span>,</span>
 <span>  <span class="va">seq_done_in</span>,</span>
 <span>  redo_toofew_positions <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  redo_non_tracked <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  redo_non_tracked <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_tracked <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -72,8 +73,13 @@ or when REM results indicate a potential issue.</p>
 
 
 <dt id="arg-redo-non-tracked">redo_non_tracked<a class="anchor" aria-label="anchor" href="#arg-redo-non-tracked"></a></dt>
-<dd><p>a boolean to hardcode redoing non-tracked
+<dd><p>a boolean to hardcode redoing non-tracked sequences
 (default = NULL)</p></dd>
+
+
+<dt id="arg-add-tracked">add_tracked<a class="anchor" aria-label="anchor" href="#arg-add-tracked"></a></dt>
+<dd><p>a boolean to hardcode adding tracked sequences to
+seq_done_out (default = NULL)</p></dd>
 
 </dl></div>
     <div class="section level2">

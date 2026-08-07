@@ -12,7 +12,8 @@ redo_non_tracked(
   track_data,
   seq_done_in,
   redo_toofew_positions = NULL,
-  redo_non_tracked = NULL
+  redo_non_tracked = NULL,
+  add_tracked = NULL
 )
 ```
 
@@ -32,7 +33,12 @@ redo_non_tracked(
 
 - redo_non_tracked:
 
-  a boolean to hardcode redoing non-tracked (default = NULL)
+  a boolean to hardcode redoing non-tracked sequences (default = NULL)
+
+- add_tracked:
+
+  a boolean to hardcode adding tracked sequences to seq_done_out
+  (default = NULL)
 
 ## Value
 
