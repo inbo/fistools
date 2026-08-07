@@ -111,11 +111,13 @@ redo_non_tracked <- function(track_data,
 
   # Filter non tracked sequences
   non_tracked <- track_data |>
-    camtrapdp::filter_observations(is.na(individualSpeed) & observationLevel == "event")
+    camtrapdp::filter_observations(is.na(individualSpeed) &
+                                     observationLevel == "event")
 
   # Filter tracked data
   tracked <- track_data |>
-    camtrapdp::filter_observations(!is.na(individualSpeed) & observationLevel == "event")
+    camtrapdp::filter_observations(!is.na(individualSpeed) &
+                                     observationLevel == "event")
 
   # Extract sequenceIDs
   non_tracked_seq <- unique(non_tracked$data$observations$eventID)
