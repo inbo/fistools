@@ -153,14 +153,20 @@ redo_non_tracked <- function(track_data,
     dplyr::filter(grepl(pattern = "Not enough positions for speed and distance",
                  x = observationComments))
 
-  if(nrow(non_tracked_toofew_positions) > 0){
+  non_tracked_seq <- non_tracked_seq[!non_tracked_seq %in%
+                                       non_tracked_toofew_positions$eventID]
+
+  non_tracked_toofew_positions_done <- non_tracked_toofew_positions |>
+    dplyr::filter(eventID %in% seq_done_in)
+
+  if(nrow(non_tracked_toofew_positions_done) > 0){
     if(is.null(redo_toofew_positions)){
-      redo_toofew_positions <- askYesNo(msg = paste(nrow(non_tracked_toofew_positions),
+      redo_toofew_positions <- askYesNo(msg = paste(unique(non_tracked_toofew_positions_done$eventID),
                                                     "sequenties with too few positions detected, redo?"))
     }
-    if(!redo_toofew_positions){
-      non_tracked_seq <- non_tracked_seq[!non_tracked_seq %in%
-                                           non_tracked_toofew_positions$eventID]
+    if(redo_toofew_positions){
+      seq_done_out <- seq_done_out[!seq_done_out %in%
+                                           non_tracked_toofew_positions_done$eventID]
     }
   }
 
@@ -176,14 +182,12 @@ redo_non_tracked <- function(track_data,
   if(length(non_tracked_done) > 0){
 
     if(is.null(redo_non_tracked)){
-      redo_non_tracked <- askYesNo(paste0(length(non_tracked_done), " non-tracked
-                                          sequences detected, do you want to redo
-                                          the non-tracked sequences ?"))
+      redo_non_tracked <- askYesNo(paste0(length(non_tracked_done), " non-tracked sequences detected, do you want to redo the non-tracked sequences ?"))
     }
 
     if(redo_non_tracked){
 
-      seq_done_out <- seq_done_out[!seq_done_out %in% non_tracked_seq]
+      seq_done_out <- seq_done_out[!seq_done_out %in% non_tracked_done]
 
     }
   }
@@ -192,20 +196,26 @@ redo_non_tracked <- function(track_data,
 
   if(length(tracked_missing) > 0){
     if(is.null(add_tracked)){
-      add_tracked <- askYesNo(paste0(length(tracked_missing), " tracked sequences
-                                     detected, add?"))
+      add_tracked <- askYesNo(paste0(length(tracked_missing), " tracked sequences detected, add?"))
     }
 
     if(add_tracked){
-      seq_done_out <- c(seq_done_out, add_tracked)
+      seq_done_out <- c(seq_done_out, tracked_missing)
     }
   }
+
+  debug <- data.frame("seq_done_in" = length(seq_done_in),
+                      "seq_done_out" = length(seq_done_out),
+                      "non_tracked_toofew_positions" = -(length(unique(non_tracked_toofew_positions_done$eventID)) * as.integer(redo_toofew_positions)),
+                      "non_tracked_seq" = -(length(non_tracked_done) * as.integer(redo_non_tracked)),
+                      "tracked_missing" = (length(tracked_missing) * as.integer(add_tracked)))
 
   return(list(
     seq_done_out = seq_done_out,
     non_tracked_parsing_error = non_tracked_parsing_error,
     non_tracked_toofew_poles = non_tracked_toofew_poles,
     non_tracked_toofew_positions = non_tracked_toofew_positions,
-    non_tracked_other_issues = non_tracked_other_issues
+    non_tracked_other_issues = non_tracked_other_issues,
+    debug = debug
   ))
 }
