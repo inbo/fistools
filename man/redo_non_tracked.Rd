@@ -8,7 +8,8 @@ redo_non_tracked(
   track_data,
   seq_done_in,
   redo_toofew_positions = NULL,
-  redo_non_tracked = NULL
+  redo_non_tracked = NULL,
+  add_tracked = NULL
 )
 }
 \arguments{
@@ -19,8 +20,11 @@ redo_non_tracked(
 \item{redo_toofew_positions}{a boolean to hardcode redoing too few positions
 (default = NULL)}
 
-\item{redo_non_tracked}{a boolean to hardcode redoing non-tracked
+\item{redo_non_tracked}{a boolean to hardcode redoing non-tracked sequences
 (default = NULL)}
+
+\item{add_tracked}{a boolean to hardcode adding tracked sequences to
+seq_done_out (default = NULL)}
 }
 \value{
 A list containing the following exports:
