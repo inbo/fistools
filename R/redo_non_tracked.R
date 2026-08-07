@@ -9,8 +9,10 @@
 #' @param seq_done_in a character list with viewed sequences
 #' @param redo_toofew_positions a boolean to hardcode redoing too few positions
 #' (default = NULL)
-#' @param redo_non_tracked a boolean to hardcode redoing non-tracked
+#' @param redo_non_tracked a boolean to hardcode redoing non-tracked sequences
 #' (default = NULL)
+#' @param add_tracked a boolean to hardcode adding tracked sequences to
+#' seq_done_out (default = NULL)
 #'
 #' @details
 #' This function detects non-tracked sequences in `seq_done_in` and removes them
@@ -102,7 +104,8 @@
 redo_non_tracked <- function(track_data,
                              seq_done_in,
                              redo_toofew_positions = NULL,
-                             redo_non_tracked = NULL){
+                             redo_non_tracked = NULL,
+                             add_tracked = NULL){
 
   seq_done_out <- seq_done_in
 
@@ -179,6 +182,19 @@ redo_non_tracked <- function(track_data,
 
       seq_done_out <- seq_done_out[!seq_done_out %in% non_tracked_seq]
 
+    }
+  }
+
+  tracked_missing <- tracked_seq[!tracked_seq %in% seq_done_out]
+
+  if(length(tracked_missing) > 0){
+    if(is.null(add_tracked)){
+      add_tracked <- askYesNo(paste0(length(tracked_missing), " tracked sequences
+                                     detected, add?"))
+    }
+
+    if(add_tracked){
+      seq_done_out <- c(seq_done_out, add_tracked)
     }
   }
 
