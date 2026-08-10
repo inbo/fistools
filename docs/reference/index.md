@@ -81,6 +81,11 @@
 - [`geom_pci()`](geom_pci.md) : Potential for Conflict Index (PCI)
   Visualization Layer
 
+- [`get_age_sex_ratio()`](get_age_sex_ratio.md) : get_age_sex_ratio
+
+- [`get_annotation_completeness()`](get_annotation_completeness.md) :
+  get_annotation_completeness
+
 - [`install_sp()`](install_sp.md) : install sp
 
 - [`label_converter()`](label_converter.md) : label converter
