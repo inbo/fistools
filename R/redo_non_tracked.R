@@ -204,7 +204,6 @@ redo_non_tracked <- function(track_data,
     }
   }
 
-  browser()
   debug <- data.frame("seq_done_in" = length(seq_done_in),
                       "seq_done_out" = length(seq_done_out),
                       "non_tracked_toofew_positions" = -(length(unique(non_tracked_toofew_positions_done$eventID)) * as.integer(isTRUE(redo_toofew_positions))),
