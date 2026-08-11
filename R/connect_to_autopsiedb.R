@@ -19,19 +19,3 @@ connect_to_autopsiedb <- function(table,
 
   system(cmd, intern = FALSE, ignore.stdout = FALSE, ignore.stderr = FALSE, wait = TRUE)
 }
-
-
-
-Sys.setenv("AWS_PROFILE" = aws_profile)
-role = "inbo-developers-fis-role"
-
-mfa_code <- svDialogs::dlg_input("Enter MFA Code: ")$res
-cmd <- paste0(normalizePath("../../../bin/aws-cli-mfa-login.exe"), ' aws-mfa -u ',
-              Sys.getenv("USERNAME"),
-              ' -a ', bucket_type, ' -r ', role)
-
-system(cmd, input = mfa_code, intern = FALSE, ignore.stdout = FALSE, ignore.stderr = FALSE, wait = TRUE)
-
-cmd <- paste0(normalizePath("../../../bin/rds-discover.exe"), 'devops-toolkit rds-list -p inbo-uat-sander-devisscher')
-
-system(cmd, intern = FALSE, ignore.stdout = FALSE, ignore.stderr = FALSE, wait = TRUE)
