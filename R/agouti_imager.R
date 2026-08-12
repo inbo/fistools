@@ -4,17 +4,34 @@
 #' @author Sander Devisscher
 #'
 #' @description
-#' The `agouti_imager` function opens specified sequences in Agouti for editing and tracks which sequences have been processed.
+#' The `agouti_imager` function opens specified sequences in Agouti for editing
+#' and tracks which sequences have been processed.
 #'
 #' @details
-#' This function requires the Agouti project ID, project name, and a vector of sequence IDs. It opens each sequence in the default web browser for editing in Agouti. After processing each sequence, the user is prompted to confirm if the sequence is complete. If confirmed, the sequence ID is appended to a tracking file to avoid reprocessing in future runs.
-#' To use this function effectively, ensure that you have the Agouti project ID and the sequence IDs you wish to process. The Agouti project ID can typically be found in the URL of your Agouti project.
-#' Create a Agouti export or use an existing one to obtain the sequence IDs. A mismatch between the provided Agouti project ID and the sequence IDs may lead to errors.
-#' The function uses Google Sheets to maintain the tracking file, requiring authentication via an email address. If the email is not provided, it attempts to retrieve it from system environment variables or prompts the user for input.
-#' Make sure to have the `googlesheets4` and `svDialogs` packages installed and properly configured for Google Sheets authentication.
+#' This function requires the Agouti project ID, project name, and a vector of
+#' sequence IDs. It opens each sequence in the default web browser for editing
+#' in Agouti. After processing each sequence, the user is prompted to confirm
+#' if the sequence is complete. If confirmed, the sequence ID is appended to a
+#' tracking file to avoid reprocessing in future runs.
+#' To use this function effectively, ensure that you have the Agouti project ID
+#' and the sequence IDs you wish to process. The Agouti project ID can typically
+#' be found in the URL of your Agouti project.
+#' Create a Agouti export or use an existing one to obtain the sequence IDs.
+#' A mismatch between the provided Agouti project ID and the sequence IDs may
+#' lead to errors.
+#' The function uses Google Sheets to maintain the tracking file, requiring
+#' authentication via an email address. If the email is not provided, it attempts
+#' to retrieve it from system environment variables or prompts the user for input.
+#' Make sure to have the `googlesheets4` and `svDialogs` packages installed and
+#' properly configured for Google Sheets authentication.
 #'
-#' Note: Ensure that you have the necessary permissions to access and modify the specified Google Sheet.
-#' Note: if a `PERMISSION_DENIED` or `FORBIDDEN` error occurs when you have the correct access to the specified Google Sheet, try the following: `googlesheets4::gs4_deauth()` -> `googlesheets4::gs4_auth()` and select option **1**. After going through the authentication steps, try this function again.
+#' Note: Ensure that you have the necessary permissions to access and modify the
+#' specified Google Sheet.
+#' Note: if a `PERMISSION_DENIED` or `FORBIDDEN` error occurs when you have the
+#' correct access to the specified Google Sheet,
+#' try the following: `googlesheets4::gs4_deauth()` -> `googlesheets4::gs4_auth()`
+#' and select option **1**. After going through the authentication steps, try
+#' this function again.
 #'
 #' @export
 #'
