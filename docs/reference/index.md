@@ -52,6 +52,20 @@
 
 - [`lib_crs`](lib_crs.md) : Lib CRS
 
+## Agouti functions
+
+- [`agouti_imager()`](agouti_imager.md) : Open sequences in Agouti for
+  imaging
+- [`agouti_validate_ai()`](agouti_validate_ai.md) : Validate AI
+  classifications in Agouti
+- [`download_dep_media()`](download_dep_media.md) : Download deployment
+  media
+- [`download_seq_media()`](download_seq_media.md) : Download sequence
+  media
+- [`drg_example`](drg_example.md) : drg_example
+- [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
+  for upload in Agouti
+
 ## Other functions
 
 - [`UUID_List()`](UUID_List.md) : UUID list generator
@@ -61,6 +75,8 @@
 - [`cleanup_sqlite()`](cleanup_sqlite.md) : cleanup sqlite
 
 - [`connect_to_bucket()`](connect_to_bucket.md) : connect to bucket
+
+- [`find_ai()`](find_ai.md) : Find used AI models in a datapackage
 
 - [`geom_pci()`](geom_pci.md) : Potential for Conflict Index (PCI)
   Visualization Layer

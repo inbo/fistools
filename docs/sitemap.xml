@@ -9,6 +9,8 @@
 <url><loc>/reference/CRS_extracter.html</loc></url>
 <url><loc>/reference/UUID_List.html</loc></url>
 <url><loc>/reference/add_habitats.html</loc></url>
+<url><loc>/reference/agouti_imager.html</loc></url>
+<url><loc>/reference/agouti_validate_ai.html</loc></url>
 <url><loc>/reference/apply_grtsdb.html</loc></url>
 <url><loc>/reference/boswachterijen.html</loc></url>
 <url><loc>/reference/calculate_polygon_centroid.html</loc></url>
@@ -24,6 +26,7 @@
 <url><loc>/reference/download_gdrive_if_missing.html</loc></url>
 <url><loc>/reference/download_seq_media.html</loc></url>
 <url><loc>/reference/drg_example.html</loc></url>
+<url><loc>/reference/find_ai.html</loc></url>
 <url><loc>/reference/geom_pci.html</loc></url>
 <url><loc>/reference/get_age_sex_ratio.html</loc></url>
 <url><loc>/reference/get_annotation_completeness.html</loc></url>
@@ -47,5 +50,6 @@
 <url><loc>/reference/sunsetter2.html</loc></url>
 <url><loc>/reference/surveyMonkey_q6.html</loc></url>
 <url><loc>/reference/unzip_last_modified_zip.html</loc></url>
+<url><loc>/reference/validate_agouti_ai.html</loc></url>
 </urlset>
 

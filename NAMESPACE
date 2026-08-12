@@ -3,6 +3,8 @@
 export(CRS_extracter)
 export(UUID_List)
 export(add_habitats)
+export(agouti_imager)
+export(agouti_validate_ai)
 export(apply_grtsdb)
 export(calculate_polygon_centroid)
 export(check)
