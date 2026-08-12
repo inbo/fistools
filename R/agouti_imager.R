@@ -20,13 +20,15 @@
 #'
 #' @param agouti_prj_id The Agouti project ID.
 #' @param seqID A vector of sequence IDs to be processed.
-#' @param skip_tracking Optional. A logical value indicating whether to skip tracking processed sequences. Defaults to FALSE.
+#' @param skip_tracking Optional. A logical value indicating whether to skip
+#' tracking processed sequences. Defaults to FALSE.
 #' @param email Optional. The email address used for Google Sheets authentication.
 #' Defaults to the "email" system environment variable.
 #' @param sheet_id Optional. The Google Sheets ID for tracking processed sequences.
 #' Defaults to a predefined sheet ID.
 #'
-#' @return None. The function opens URLs in the default web browser and updates a tracking file.
+#' @return None. The function opens URLs in the default web browser and updates
+#' a tracking file.
 #'
 #' @family agouti
 #'
@@ -94,19 +96,34 @@ agouti_imager <- function(agouti_prj_id,
     # append seqID to done file to skip next time
 
     # Naar de volgende reeks of niet?
-    if (askYesNo("Is de reeks klaar met bewerken in Agouti?")) {
-      if(skip_tracking == FALSE){
+    if(skip_tracking == FALSE){
+      next_seq <- askYesNo("Tracking completed ? Do you want to load the next
+                         sequence ?
+                         YES: Log the seqID & load new sequence
+                         NO: Log the seqID but don't load the next sequence,
+                         Cancel: Don't log & don't load the next sequence")
+      if (is.na(next_seq)) {
+        break #Cancel
+      }else{
         googlesheets4::sheet_append(
           ss = sheet_id,
           data = data.frame(sequenceID = seqID[i]),
-          sheet = "tracking_seq_done"
-        )
-      }else{
-        next
+          sheet = "tracking_seq_done")
+        if(next_seq){
+          next #Yes
+        }else{
+          break #NO
+        }
       }
 
     }else{
-      break
+      next_seq <- askYesNo("Do you want to load the next
+                         sequence ? No seqID will be logged!!")
+      if(next_seq){
+        next #YES
+      }else{
+        break #NO|CANCEL
+      }
     }
   }
 }
