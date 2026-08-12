@@ -17,7 +17,8 @@ agouti_imager(
 
 \item{seqID}{A vector of sequence IDs to be processed.}
 
-\item{skip_tracking}{Optional. A logical value indicating whether to skip tracking processed sequences. Defaults to FALSE.}
+\item{skip_tracking}{Optional. A logical value indicating whether to skip
+tracking processed sequences. Defaults to FALSE.}
 
 \item{email}{Optional. The email address used for Google Sheets authentication.
 Defaults to the "email" system environment variable.}
@@ -26,20 +27,38 @@ Defaults to the "email" system environment variable.}
 Defaults to a predefined sheet ID.}
 }
 \value{
-None. The function opens URLs in the default web browser and updates a tracking file.
+None. The function opens URLs in the default web browser and updates
+a tracking file.
 }
 \description{
-The \code{agouti_imager} function opens specified sequences in Agouti for editing and tracks which sequences have been processed.
+The \code{agouti_imager} function opens specified sequences in Agouti for editing
+and tracks which sequences have been processed.
 }
 \details{
-This function requires the Agouti project ID, project name, and a vector of sequence IDs. It opens each sequence in the default web browser for editing in Agouti. After processing each sequence, the user is prompted to confirm if the sequence is complete. If confirmed, the sequence ID is appended to a tracking file to avoid reprocessing in future runs.
-To use this function effectively, ensure that you have the Agouti project ID and the sequence IDs you wish to process. The Agouti project ID can typically be found in the URL of your Agouti project.
-Create a Agouti export or use an existing one to obtain the sequence IDs. A mismatch between the provided Agouti project ID and the sequence IDs may lead to errors.
-The function uses Google Sheets to maintain the tracking file, requiring authentication via an email address. If the email is not provided, it attempts to retrieve it from system environment variables or prompts the user for input.
-Make sure to have the \code{googlesheets4} and \code{svDialogs} packages installed and properly configured for Google Sheets authentication.
+This function requires the Agouti project ID, project name, and a vector of
+sequence IDs. It opens each sequence in the default web browser for editing
+in Agouti. After processing each sequence, the user is prompted to confirm
+if the sequence is complete. If confirmed, the sequence ID is appended to a
+tracking file to avoid reprocessing in future runs.
+To use this function effectively, ensure that you have the Agouti project ID
+and the sequence IDs you wish to process. The Agouti project ID can typically
+be found in the URL of your Agouti project.
+Create a Agouti export or use an existing one to obtain the sequence IDs.
+A mismatch between the provided Agouti project ID and the sequence IDs may
+lead to errors.
+The function uses Google Sheets to maintain the tracking file, requiring
+authentication via an email address. If the email is not provided, it attempts
+to retrieve it from system environment variables or prompts the user for input.
+Make sure to have the \code{googlesheets4} and \code{svDialogs} packages installed and
+properly configured for Google Sheets authentication.
 
-Note: Ensure that you have the necessary permissions to access and modify the specified Google Sheet.
-Note: if a \code{PERMISSION_DENIED} or \code{FORBIDDEN} error occurs when you have the correct access to the specified Google Sheet, try the following: \code{googlesheets4::gs4_deauth()} -> \code{googlesheets4::gs4_auth()} and select option \strong{1}. After going through the authentication steps, try this function again.
+Note: Ensure that you have the necessary permissions to access and modify the
+specified Google Sheet.
+Note: if a \code{PERMISSION_DENIED} or \code{FORBIDDEN} error occurs when you have the
+correct access to the specified Google Sheet,
+try the following: \code{googlesheets4::gs4_deauth()} -> \code{googlesheets4::gs4_auth()}
+and select option \strong{1}. After going through the authentication steps, try
+this function again.
 }
 \examples{
 \dontrun{
