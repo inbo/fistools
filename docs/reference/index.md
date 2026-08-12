@@ -63,6 +63,8 @@
 - [`download_seq_media()`](download_seq_media.md) : Download sequence
   media
 - [`drg_example`](drg_example.md) : drg_example
+- [`redo_non_tracked()`](redo_non_tracked.md) : Redo non-tracked
+  sequences
 - [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
   for upload in Agouti
 
@@ -97,12 +99,6 @@
 - [`normalize_line_endings()`](normalize_line_endings.md) :
 
   Normalize line endings according to `.gitattributes`
-
-- [`redo_non_tracked()`](redo_non_tracked.md) : Redo non-tracked
-  sequences
-
-- [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
-  for upload in Agouti
 
 - [`retry_function()`](retry_function.md) : Retry a function multiple
   times
