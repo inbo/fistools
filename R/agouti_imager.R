@@ -97,11 +97,12 @@ agouti_imager <- function(agouti_prj_id,
 
     # Naar de volgende reeks of niet?
     if(skip_tracking == FALSE){
-      next_seq <- askYesNo("Tracking completed ? Do you want to load the next
-                         sequence ?
-                         YES: Log the seqID & load new sequence
-                         NO: Log the seqID but don't load the next sequence,
-                         Cancel: Don't log & don't load the next sequence")
+      next_seq <- askYesNo(paste0(
+        "Tracking completed? Do you want to load the next sequence?\n\n",
+        "[ JA|YES ]: Log the seqID & load new sequence\n",
+        "[ NEE|NO ]: Log the seqID but don't load the next sequence\n",
+        "[ ANNULEREN|CANCEL ]: Don't log seqID & don't load the next sequence"
+      ))
       if (is.na(next_seq)) {
         break #Cancel
       }else{
@@ -117,8 +118,8 @@ agouti_imager <- function(agouti_prj_id,
       }
 
     }else{
-      next_seq <- askYesNo("Do you want to load the next
-                         sequence ? No seqID will be logged!!")
+      next_seq <- askYesNo(paste0("Do you want to load the next sequence ? \n\n",
+                                  "-- No seqID will be logged!! --"))
       if(next_seq){
         next #YES
       }else{
