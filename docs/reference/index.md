@@ -58,11 +58,15 @@
   imaging
 - [`agouti_validate_ai()`](agouti_validate_ai.md) : Validate AI
   classifications in Agouti
+- [`depopulate_agouti_imager_seq_done()`](depopulate_agouti_imager_seq_done.md)
+  : Depopulate agouti_imager_seq_done
 - [`download_dep_media()`](download_dep_media.md) : Download deployment
   media
 - [`download_seq_media()`](download_seq_media.md) : Download sequence
   media
 - [`drg_example`](drg_example.md) : drg_example
+- [`populate_agouti_imager_seq_done()`](populate_agouti_imager_seq_done.md)
+  : Populate agouti_imager_seq_done
 - [`redo_non_tracked()`](redo_non_tracked.md) : Redo non-tracked
   sequences
 - [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
@@ -71,6 +75,9 @@
 ## Other functions
 
 - [`UUID_List()`](UUID_List.md) : UUID list generator
+
+- [`ask_x_options()`](ask_x_options.md) : Custom Multiple Choice Popup
+  Dialog
 
 - [`check()`](check.md) : Check
 

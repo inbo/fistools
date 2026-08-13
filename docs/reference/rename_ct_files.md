@@ -46,9 +46,12 @@ compile all files in a single folder if compile is set to TRUE.
 
 Other agouti: [`agouti_imager()`](agouti_imager.md),
 [`agouti_validate_ai()`](agouti_validate_ai.md),
+[`depopulate_agouti_imager_seq_done()`](depopulate_agouti_imager_seq_done.md),
 [`download_dep_media()`](download_dep_media.md),
 [`download_seq_media()`](download_seq_media.md),
-[`drg_example`](drg_example.md)
+[`drg_example`](drg_example.md),
+[`populate_agouti_imager_seq_done()`](populate_agouti_imager_seq_done.md),
+[`redo_non_tracked()`](redo_non_tracked.md)
 
 ## Author
 

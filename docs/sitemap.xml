@@ -12,6 +12,7 @@
 <url><loc>/reference/agouti_imager.html</loc></url>
 <url><loc>/reference/agouti_validate_ai.html</loc></url>
 <url><loc>/reference/apply_grtsdb.html</loc></url>
+<url><loc>/reference/ask_x_options.html</loc></url>
 <url><loc>/reference/boswachterijen.html</loc></url>
 <url><loc>/reference/calculate_polygon_centroid.html</loc></url>
 <url><loc>/reference/check.html</loc></url>
@@ -20,6 +21,7 @@
 <url><loc>/reference/colcompare.html</loc></url>
 <url><loc>/reference/collect_osm_features.html</loc></url>
 <url><loc>/reference/connect_to_bucket.html</loc></url>
+<url><loc>/reference/depopulate_agouti_imager_seq_done.html</loc></url>
 <url><loc>/reference/dms_column_to_decimal.html</loc></url>
 <url><loc>/reference/dms_to_decimal.html</loc></url>
 <url><loc>/reference/download_dep_media.html</loc></url>
@@ -38,6 +40,7 @@
 <url><loc>/reference/label_selecter.html</loc></url>
 <url><loc>/reference/lib_crs.html</loc></url>
 <url><loc>/reference/normalize_line_endings.html</loc></url>
+<url><loc>/reference/populate_agouti_imager_seq_done.html</loc></url>
 <url><loc>/reference/qd_pci1.html</loc></url>
 <url><loc>/reference/qd_pci2.html</loc></url>
 <url><loc>/reference/qd_pci2_D.html</loc></url>
