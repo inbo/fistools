@@ -66,9 +66,12 @@ validate_agouti_ai(gfileID = "your_google_drive_file_id",
 \seealso{
 Other agouti:
 \code{\link[=agouti_imager]{agouti_imager()}},
+\code{\link[=depopulate_agouti_imager_seq_done]{depopulate_agouti_imager_seq_done()}},
 \code{\link[=download_dep_media]{download_dep_media()}},
 \code{\link[=download_seq_media]{download_seq_media()}},
 \code{\link{drg_example}},
+\code{\link[=populate_agouti_imager_seq_done]{populate_agouti_imager_seq_done()}},
+\code{\link[=redo_non_tracked]{redo_non_tracked()}},
 \code{\link[=rename_ct_files]{rename_ct_files()}}
 }
 \author{
