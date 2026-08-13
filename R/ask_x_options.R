@@ -76,7 +76,7 @@ ask_x_options <- function(title = "Choose an Option",
   grid_args <- c(btn_list, list(padx = 10, pady = c(0, 20)))
 
   # Feed the combined list to tkgrid
-  base::do.call(tkgrid, grid_args)
+  base::do.call(tcltk::tkgrid, grid_args)
 
   # Center the window on the screen (optional but nice)
   tcltk::tkwm.geometry(tt, "+400+300")
