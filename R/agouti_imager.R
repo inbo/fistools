@@ -112,29 +112,42 @@ agouti_imager <- function(agouti_prj_id,
                            seqID[i]))
     # append seqID to done file to skip next time
 
-    # Naar de volgende reeks of niet?
+    # Load the next sequence and log the latter or not?
     if(skip_tracking == FALSE){
-      next_seq <- askYesNo(paste0(
-        "Tracking completed? Do you want to load the next sequence?\n\n",
-        "[ JA|YES ]: Log the seqID & load new sequence\n",
-        "[ NEE|NO ]: Log the seqID but don't load the next sequence\n",
-        "[ ANNULEREN|CANCEL ]: Don't log seqID & don't load the next sequence"
-      ))
-      if (is.na(next_seq)) {
-        break #Cancel
-      }else{
+      # skip_tracking == FALSE
+      next_seq <- ask_x_options(title = "Next sequence?",
+                                message = "Sequence tracked? Open next sequence?",
+                                options = c("Yes & Log", "Yes, skip Log", "No & Log", "No, skip Log"))
+
+      if(is.na(next_seq) || next_seq == "No, skip Log"){
+        # stop loading new sequences without appending the last sequence
+        break
+      }
+
+      if (next_seq == "Yes & Log") {
+        # append seqID to done file & load the next sequence
         googlesheets4::sheet_append(
           ss = sheet_id,
           data = data.frame(sequenceID = seqID[i]),
           sheet = "tracking_seq_done")
-        if(next_seq){
-          next #Yes
-        }else{
-          break #NO
-        }
+        next
       }
 
+      if (next_seq == "Yes, skip Log"){
+        # load the next sequence without logging the seqID (SKIP)
+        next
+      }
+
+      if (next_seq == "No & Log"){
+        # append seqID to done file & stop loading sequences
+        seq_done <- seq_done |>
+          as.data.frame() |>
+          add_row(sequenceID = seqID[i]) |>
+          write_csv("./GMU8/Input/tracking_seq_done.csv")
+        break
+      }
     }else{
+      # skip_tracking == TRUE
       next_seq <- askYesNo(paste0("Do you want to load the next sequence ? \n\n",
                                   "-- No seqID will be logged!! --"))
       if(next_seq){
