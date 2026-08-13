@@ -71,8 +71,11 @@ Other download:
 Other agouti:
 \code{\link[=agouti_imager]{agouti_imager()}},
 \code{\link[=agouti_validate_ai]{agouti_validate_ai()}},
+\code{\link[=depopulate_agouti_imager_seq_done]{depopulate_agouti_imager_seq_done()}},
 \code{\link[=download_seq_media]{download_seq_media()}},
 \code{\link{drg_example}},
+\code{\link[=populate_agouti_imager_seq_done]{populate_agouti_imager_seq_done()}},
+\code{\link[=redo_non_tracked]{redo_non_tracked()}},
 \code{\link[=rename_ct_files]{rename_ct_files()}}
 }
 \author{
