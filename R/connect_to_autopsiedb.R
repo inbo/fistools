@@ -3,12 +3,33 @@
 #' After the upgrade to a newer version of postgresql connecting to the
 #' autopsiedb no longer occurs via the bastion but via a modified localhost.
 #'
-#' @param name description
+#' @param db the number corresponding to the db you want to access, default is 2
+#' @param envir the environment in which the db resides, default is "inbo-prod"
+#' @param role your role used to connect to the db
+#' @param devops_toolkit_path the path, ending with `.exe`, where the devops-toolkit
+#' was installed.
+#'
+#' @details
+#' # Voorbereiding:
+#' De volgende programma's moeten worden geïnstalleerd vooraleer je deze functie
+#' kunt gebruiken:
+#' -*AWS CLI* moet worden geïnstalleerd als dat nog niet gebeurd is. Hiervoor
+#' heb je admin rechten nodig, een _ict helpdesk call_ is dus aan de orde.
+#' Na de installatie moeten je *AWS credentials* eenmalig aangemaakt worden.
+#' Voer hiervoor `aws configure` uit in _windows powershell_. De credentials
+#' kan je bekomen bij Jens Polspoel.
+#' -*devops-toolkit* moet lokaal worden geïnstalleerd dit doe je door de laatste
+#' versie van *https://github.com/inbo/devops-toolkit/releases/tag/ (>= v1.0.3)*
+#' te downloaden. De functie werkt enkel met de windows versie van devops-toolkit
+#'
+#' Vervolgens kopiëer je *aws-cli-mfa-login* naar de Home
+#' Directory van Windows. Default is dat *C:/Users/%voornaam_achternaam%/bin*.
+#' Hernoem het bestand vervolgens naar *aws-cli-mfa-login.exe*.
+#'
 
 
-connect_to_autopsiedb <- function(table,
-                                  db = "2",
-                                  connectie_type = "inbo-prod",
+connect_to_autopsiedb <- function(db = "2",
+                                  envir = "inbo-prod",
                                   role = "inbo-autopsies-rds-connect-role",
                                   devops_toolkit_path = "../../../bin/devops-toolkit-windows-amd64.exe"){
 
@@ -29,7 +50,7 @@ connect_to_autopsiedb <- function(table,
   ## CMD ####
   cmd <- paste0(devops_toolkit_path, ' aws-mfa -u ',
                 Sys.getenv("USERNAME"),
-                ' -a ', connectie_type, ' -r ', role)
+                ' -a ', envir, ' -r ', role)
   ## execute ####
   system(
     command = cmd,
@@ -40,7 +61,7 @@ connect_to_autopsiedb <- function(table,
   )
 
   ## store profile ####
-  aws_profile <- paste0(connectie_type, "-",
+  aws_profile <- paste0(envir, "-",
                         strsplit(Sys.getenv("USERNAME"), split = "-"))
   aws_profile <- gsub(pattern = "_", replacement = "-", x = aws_profile)
 
