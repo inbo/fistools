@@ -162,7 +162,7 @@ get_active_localhost <- function(port = 5555){
 
   # 3. Read into a dataframe
   # text = clean_output reads directly from the character vector
-  if(nchar(clean_output[1]) == 119){
+  if(length(clean_output) != 14){
     df <- read.table(text = clean_output, header = TRUE, stringsAsFactors = FALSE)
     return(df)
   }else{
