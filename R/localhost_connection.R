@@ -43,7 +43,7 @@
 #'                       Driver = "PostgreSQL Unicode(x64)",
 #'                       database = "autopsies",
 #'                       server = "127.0.0.1",
-#'                       port = 5556,
+#'                       port = 5555,
 #'                       uid = "etl_role",
 #'                       pwd = paste0("{", pwd_raw, "}"),
 #'                       sslmode = "require")
