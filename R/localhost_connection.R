@@ -146,7 +146,7 @@ end_localhost_connection <- function(port = 5555){
   active_instances <- get_active_localhost(port = port)
 
   if(nrow(active_instances) > 0){
-    system(command = paste0("taskkill /PID ", active_instances$ID, " /F"))
+    system(command = paste0("taskkill /PID ", active_instances$Id, " /F"))
   }
 }
 
