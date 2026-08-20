@@ -143,7 +143,11 @@ start_localhost_connection <- function(db = "2",
 #' @author Sander Devisscher
 
 end_localhost_connection <- function(port = 5555){
+  active_instances <- get_active_localhost(port = port)
 
+  if(nrow(active_instances) > 0){
+    system(command = paste0("taskkill /PID ", active_instances$ID, " /F"))
+  }
 }
 
 get_active_localhost <- function(port = 5555){
