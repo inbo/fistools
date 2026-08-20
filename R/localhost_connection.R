@@ -14,9 +14,9 @@
 #'
 #' @details
 #' # Voorbereiding:
-#' De volgende programma's moeten worden geïnstalleerd vooraleer je deze functie
+#' De volgende programma's moeten worden geinstalleerd vooraleer je deze functie
 #' kunt gebruiken:
-#' -*AWS CLI* moet worden geïnstalleerd als dat nog niet gebeurd is. Hiervoor
+#' -*AWS CLI* moet worden geinstalleerd als dat nog niet gebeurd is. Hiervoor
 #' heb je admin rechten nodig, een _ict helpdesk call_ is dus aan de orde.
 #' Na de installatie moeten je *AWS credentials* eenmalig aangemaakt worden.
 #' Voer hiervoor `aws configure` uit in _windows powershell_. De credentials
@@ -25,7 +25,7 @@
 #' versie van *https://github.com/inbo/devops-toolkit/releases/tag/ (>= v1.0.3)*
 #' te downloaden. De functie werkt enkel met de windows versie van devops-toolkit
 #'
-#' Vervolgens kopiëer je *aws-cli-mfa-login* naar de Home
+#' Vervolgens kopieer je *aws-cli-mfa-login* naar de Home
 #' Directory van Windows. Default is dat *C:/Users/%voornaam_achternaam%/bin*.
 #' Hernoem het bestand vervolgens naar *aws-cli-mfa-login.exe*.
 #'
@@ -68,7 +68,7 @@ start_localhost_connection <- function(db = "2",
     cat("The devops-toolkit is installed!")
   }else{
     stop(paste0("The devops-toolkit is not installed at ", devops_toolkit_path,
-                " \n points to the wrong file. Try reïnstalling the devops-toolkit, or changing the devops_toolkit_path variable"))
+                " \n points to the wrong file. Try reinstalling the devops-toolkit, or changing the devops_toolkit_path variable"))
   }
 
   # create sessiontoken ####

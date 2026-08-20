@@ -31,9 +31,9 @@ This function allows connection to newer postgresql databases. But its mainly
 focused on the autopsiedb.
 }
 \section{Voorbereiding:}{
-De volgende programma's moeten worden geïnstalleerd vooraleer je deze functie
+De volgende programma's moeten worden geinstalleerd vooraleer je deze functie
 kunt gebruiken:
--\emph{AWS CLI} moet worden geïnstalleerd als dat nog niet gebeurd is. Hiervoor
+-\emph{AWS CLI} moet worden geinstalleerd als dat nog niet gebeurd is. Hiervoor
 heb je admin rechten nodig, een \emph{ict helpdesk call} is dus aan de orde.
 Na de installatie moeten je \emph{AWS credentials} eenmalig aangemaakt worden.
 Voer hiervoor \verb{aws configure} uit in \emph{windows powershell}. De credentials
@@ -42,7 +42,7 @@ kan je bekomen bij Jens Polspoel.
 versie van \emph{https://github.com/inbo/devops-toolkit/releases/tag/ (>= v1.0.3)}
 te downloaden. De functie werkt enkel met de windows versie van devops-toolkit
 
-Vervolgens kopiëer je \emph{aws-cli-mfa-login} naar de Home
+Vervolgens kopieer je \emph{aws-cli-mfa-login} naar de Home
 Directory van Windows. Default is dat \emph{C:/Users/\%voornaam_achternaam\%/bin}.
 Hernoem het bestand vervolgens naar \emph{aws-cli-mfa-login.exe}.
 }
