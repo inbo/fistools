@@ -44,8 +44,8 @@
 #'                       database = "autopsies",
 #'                       server = "127.0.0.1",
 #'                       port = 5555,
-#'                       uid = "etl_role",
-#'                       pwd = paste0("{", pwd_raw, "}"),
+#'                       uid = Sys.getenv("autopsies_user"),
+#'                       pwd = paste0("{", Sys.getenv("autopsies_pwd"), "}"),
 #'                       sslmode = "require")
 #'
 #' end_localhost_connection()
