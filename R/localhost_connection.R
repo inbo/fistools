@@ -48,6 +48,9 @@
 #'                       pwd = paste0("{", Sys.getenv("autopsies_pwd"), "}"),
 #'                       sslmode = "require")
 #'
+#'  identificatie <- DBI::dbGetQuery(con,
+#'                                   "SELECT * FROM public.identificatie")
+#'
 #' end_localhost_connection()
 #' }
 #'
