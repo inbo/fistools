@@ -62,6 +62,9 @@
 
 - [`connect_to_bucket()`](connect_to_bucket.md) : connect to bucket
 
+- [`end_localhost_connection()`](end_localhost_connection.md) : Close
+  localhost connection
+
 - [`geom_pci()`](geom_pci.md) : Potential for Conflict Index (PCI)
   Visualization Layer
 
@@ -90,6 +93,9 @@
 
 - [`session_info_df()`](session_info_df.md) : Export sessionInfo as
   data.frames for easy sharing & comparison
+
+- [`start_localhost_connection()`](start_localhost_connection.md) :
+  Start localhost connection
 
 - [`sunsetter()`](sunsetter.md) : sunsetter Calculate the sunrise and
   sunset times for a given range of dates and location
