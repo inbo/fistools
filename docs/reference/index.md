@@ -64,12 +64,22 @@
 
 - [`connect_to_bucket()`](connect_to_bucket.md) : connect to bucket
 
+- [`end_localhost_connection()`](end_localhost_connection.md) : Close
+  localhost connection
+
 - [`geom_pci()`](geom_pci.md) : Potential for Conflict Index (PCI)
   Visualization Layer
+
+- [`get_age_sex_ratio()`](get_age_sex_ratio.md) : get_age_sex_ratio
+
+- [`get_annotation_completeness()`](get_annotation_completeness.md) :
+  get_annotation_completeness
 
 - [`install_sp()`](install_sp.md) : install sp
 
 - [`label_converter()`](label_converter.md) : label converter
+
+- [`label_extracter()`](label_extracter.md) : label_extracter
 
 - [`label_selecter()`](label_selecter.md) : label_selecter
 
@@ -85,6 +95,9 @@
 
 - [`session_info_df()`](session_info_df.md) : Export sessionInfo as
   data.frames for easy sharing & comparison
+
+- [`start_localhost_connection()`](start_localhost_connection.md) :
+  Start localhost connection
 
 - [`sunsetter()`](sunsetter.md) : sunsetter Calculate the sunrise and
   sunset times for a given range of dates and location
