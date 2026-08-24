@@ -60,7 +60,7 @@ drive_to_folder <- function(drive_folder = NULL,
   # 3. filter files by type if needed ####
   if("all" %in% filetypes){
     if(length(filetypes) == 1){
-      filetypes[i] <- paste0("\\.", filetypes, "$")
+      filetypes <- paste0("\\.", filetypes, "$")
       files_on_drive <- files_on_drive |>
         dplyr::filter(grepl(filetypes, name))
     }else{
