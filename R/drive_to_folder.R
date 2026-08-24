@@ -19,12 +19,12 @@
 #' \dontrun{
 #' #' # download all files from a Google Drive folder to the current working directory
 #'
-#' drive_to_folder(drive_folder = "1a2b3c4d5e6f7g8h9i0j")
+#' drive_to_folder(drive_folder = "1dVckw7LPlj0I5GXyeC5aKDycwamc0YyG")
 #'
 #' # download only wav files from a Google Drive folder to a specified output folder
-#' drive_to_folder(drive_folder = "1a2b3c4d5e6f7g8h9i0j",
+#' drive_to_folder(drive_folder = "1dVckw7LPlj0I5GXyeC5aKDycwamc0YyG",
 #'                 output_folder = "path/to/output/folder",
-#'                 filetypes = "wav")
+#'                 filetypes = "mp4")
 #'}
 #'
 #' @family download
