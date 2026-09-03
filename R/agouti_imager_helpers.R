@@ -53,7 +53,8 @@ populate_agouti_imager_seq_done <- function(dir = NULL,
       dplyr::filter(!sequenceID %in% seq_done_gs$sequenceID)
 
     agouti_imager_seq_done_mover(seqID = seq_done_new$sequenceID,
-                                 type = "insert")
+                                 type = "insert",
+                                 sheet_id = sheet_id)
 
   }else{
     if(dir.exists(dir)){
@@ -79,7 +80,8 @@ populate_agouti_imager_seq_done <- function(dir = NULL,
         dplyr::filter(!sequenceID %in% seq_done_gs$sequenceID)
 
       agouti_imager_seq_done_mover(seqID = seq_done_new$sequenceID,
-                                   type = "insert")
+                                   type = "insert",
+                                   sheet_id = sheet_id)
 
     }else{
       stop(paste0(dir, " is not found, check for typos"))
@@ -119,6 +121,7 @@ depopulate_agouti_imager_seq_done <- function(dir = NULL,
                                               seqID = NULL,
                                               email = Sys.getenv("email"),
                                               sheet_id = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"){
+
   googlesheets4::gs4_auth(email = email)
 
   seq_done_gs <- googlesheets4::read_sheet(
@@ -141,7 +144,8 @@ depopulate_agouti_imager_seq_done <- function(dir = NULL,
       dplyr::filter(sequenceID %in% seq_done_gs$sequenceID)
 
     agouti_imager_seq_done_mover(seqID = seq_done_match$sequenceID,
-                                 type = "delete")
+                                 type = "delete",
+                                 sheet_id = sheet_id)
 
   }else{
     if(dir.exists(dir)){
@@ -162,7 +166,8 @@ depopulate_agouti_imager_seq_done <- function(dir = NULL,
         dplyr::filter(sequenceID %in% seq_done_gs$sequenceID)
 
       agouti_imager_seq_done_mover(seqID = seq_done_match$sequenceID,
-                                   type = "delete")
+                                   type = "delete",
+                                   sheet_id = sheet_id)
 
     }else{
       stop(paste0(dir, " is not found, check for typos"))
@@ -171,7 +176,8 @@ depopulate_agouti_imager_seq_done <- function(dir = NULL,
 }
 
 agouti_imager_seq_done_mover <- function(seqID,
-                                         type){
+                                         type,
+                                         sheet_id){
 
   if(type == "insert"){
     if(length(seqID) > 0){
