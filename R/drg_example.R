@@ -10,6 +10,7 @@
 #'   }
 #'
 #' @family dataset
+#' @family agouti
 #'
 #' @source <https://www.agouti.eu>
 "drg_example"
