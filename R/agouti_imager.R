@@ -140,10 +140,10 @@ agouti_imager <- function(agouti_prj_id,
 
       if (next_seq == "No & Log"){
         # append seqID to done file & stop loading sequences
-        seq_done <- seq_done |>
-          as.data.frame() |>
-          add_row(sequenceID = seqID[i]) |>
-          write_csv("./GMU8/Input/tracking_seq_done.csv")
+        googlesheets4::sheet_append(
+          ss = sheet_id,
+          data = data.frame(sequenceID = seqID[i]),
+          sheet = "tracking_seq_done")
         break
       }
     }else{
