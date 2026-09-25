@@ -5,6 +5,8 @@
 - [`CRS_extracter()`](CRS_extracter.md) : CRS_extracter
 - [`add_habitats()`](add_habitats.md) : Add habitat information to
   spatial features
+- [`aggregate_lineparts_sf()`](aggregate_lineparts_sf.md) : Connect
+  separate line parts into 1 line
 - [`apply_grtsdb()`](apply_grtsdb.md) : apply grtsdb
 - [`calculate_polygon_centroid()`](calculate_polygon_centroid.md) :
   Calculate the centroid of a polygon
