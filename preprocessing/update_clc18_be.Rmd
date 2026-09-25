@@ -1,0 +1,27 @@
+This script updates the CORINE Land Cover 2018 data for Belgium by reading the shapefile, merging it with a legend, and saving the processed data as an RDS file.
+
+The `.rda` file has a `ETRS89 / Belgian Lambert 2008` projection (EPSG:3812).
+
+```{r read data}
+CLC18_BE <- sf::st_read("~/GitHub/backoffice-wild-analyse/Data/Spatial/CORINE/CLC18_BE.shp")
+
+clc_legend <- readr::read_delim("~/GitHub/backoffice-wild-analyse/Data/Libraries/Lib_CLC_legend.csv",
+                         col_types = readr::cols(CLC_CODE = readr::col_character()),
+                         delim = ";")
+```
+
+```{r combine}
+CLC18_BE <- CLC18_BE %>% 
+  dplyr::left_join(clc_legend, c("CODE_18" = "CLC_CODE")) %>% 
+  dplyr::rename(LABEL_18 = LABEL3) 
+
+table(CLC18_BE$LABEL_Grouped, useNA = "ifany")
+```
+
+```{r save as RDS}
+save(CLC18_BE, 
+     file = "./data/CLC18_BE.rda", 
+     compress = "xz")
+```
+
+

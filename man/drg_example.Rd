@@ -22,8 +22,10 @@ drg_example
 Subset of Drongengoed Agouti export for testing of functions
 }
 \seealso{
-Other dataset: 
-\code{\link{boswachterijen}}
+Other dataset:
+\code{\link{CLC18_BE}},
+\code{\link{boswachterijen}},
+\code{\link{surveyMonkey_q6}}
 }
 \concept{dataset}
 \keyword{datasets}

@@ -27,7 +27,7 @@ A CRS object
 
 ## See also
 
-Other spatial: [`aggregate_lineparts_sf()`](aggregate_lineparts_sf.md),
+Other spatial: [`add_habitats()`](add_habitats.md),
 [`apply_grtsdb()`](apply_grtsdb.md),
 [`calculate_polygon_centroid()`](calculate_polygon_centroid.md),
 [`collect_osm_features()`](collect_osm_features.md),

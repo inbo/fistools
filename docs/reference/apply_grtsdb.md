@@ -46,7 +46,7 @@ GRTSdb is automatically installed when missing from your system.
 ## See also
 
 Other spatial: [`CRS_extracter()`](CRS_extracter.md),
-[`aggregate_lineparts_sf()`](aggregate_lineparts_sf.md),
+[`add_habitats()`](add_habitats.md),
 [`calculate_polygon_centroid()`](calculate_polygon_centroid.md),
 [`collect_osm_features()`](collect_osm_features.md),
 [`dms_column_to_decimal()`](dms_column_to_decimal.md),

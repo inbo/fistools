@@ -40,7 +40,7 @@ data frame.
 ## See also
 
 Other spatial: [`CRS_extracter()`](CRS_extracter.md),
-[`aggregate_lineparts_sf()`](aggregate_lineparts_sf.md),
+[`add_habitats()`](add_habitats.md),
 [`apply_grtsdb()`](apply_grtsdb.md),
 [`collect_osm_features()`](collect_osm_features.md),
 [`dms_column_to_decimal()`](dms_column_to_decimal.md),

@@ -48,8 +48,8 @@ qd_pci2(Zv, scale_values = -2:2, x_is_table = FALSE, m = 2, p = 1) # 0
 }
 }
 \seealso{
-Other plotting: 
-\code{\link{qd_pci1}()},
-\code{\link{qd_pci2_D}()}
+Other plotting:
+\code{\link[=qd_pci1]{qd_pci1()}},
+\code{\link[=qd_pci2_D]{qd_pci2_D()}}
 }
 \concept{plotting}

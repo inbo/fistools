@@ -47,8 +47,8 @@ sunsetter()
 
 }
 \seealso{
-Other temporal: 
-\code{\link{sunsetter2}()}
+Other temporal:
+\code{\link[=sunsetter2]{sunsetter2()}}
 }
 \author{
 Sander Devisscher

@@ -44,8 +44,8 @@ df
 
 }
 \seealso{
-Other temporal: 
-\code{\link{sunsetter}()}
+Other temporal:
+\code{\link[=sunsetter]{sunsetter()}}
 }
 \author{
 Sander Devisscher

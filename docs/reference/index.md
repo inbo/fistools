@@ -3,8 +3,8 @@
 ## Spatial functions
 
 - [`CRS_extracter()`](CRS_extracter.md) : CRS_extracter
-- [`aggregate_lineparts_sf()`](aggregate_lineparts_sf.md) : Connect
-  separate line parts into 1 line
+- [`add_habitats()`](add_habitats.md) : Add habitat information to
+  spatial features
 - [`apply_grtsdb()`](apply_grtsdb.md) : apply grtsdb
 - [`calculate_polygon_centroid()`](calculate_polygon_centroid.md) :
   Calculate the centroid of a polygon
@@ -30,6 +30,8 @@
   media
 - [`get_last_modified_zip()`](get_last_modified_zip.md) : get last
   modified zip
+- [`read_dmogg()`](read_dmogg.md) : Read "dieren met onderkaakgegevens
+  georef"
 - [`unzip_last_modified_zip()`](unzip_last_modified_zip.md) : Unzip last
   modified zip
 
@@ -41,8 +43,10 @@
 
 ## Datasets
 
+- [`CLC18_BE`](CLC18_BE.md) : CLC18_BE
 - [`boswachterijen`](boswachterijen.md) : Boswachterijen
 - [`drg_example`](drg_example.md) : drg_example
+- [`surveyMonkey_q6`](surveyMonkey_q6.md) : surveyMonkey_q6
 
 ## Libraries
 
@@ -58,9 +62,22 @@
 
 - [`connect_to_bucket()`](connect_to_bucket.md) : connect to bucket
 
+- [`end_localhost_connection()`](end_localhost_connection.md) : Close
+  localhost connection
+
+- [`geom_pci()`](geom_pci.md) : Potential for Conflict Index (PCI)
+  Visualization Layer
+
+- [`get_age_sex_ratio()`](get_age_sex_ratio.md) : get_age_sex_ratio
+
+- [`get_annotation_completeness()`](get_annotation_completeness.md) :
+  get_annotation_completeness
+
 - [`install_sp()`](install_sp.md) : install sp
 
 - [`label_converter()`](label_converter.md) : label converter
+
+- [`label_extracter()`](label_extracter.md) : label_extracter
 
 - [`label_selecter()`](label_selecter.md) : label_selecter
 
@@ -70,6 +87,15 @@
 
 - [`rename_ct_files()`](rename_ct_files.md) : Rename camera trap files
   for upload in Agouti
+
+- [`retry_function()`](retry_function.md) : Retry a function multiple
+  times
+
+- [`session_info_df()`](session_info_df.md) : Export sessionInfo as
+  data.frames for easy sharing & comparison
+
+- [`start_localhost_connection()`](start_localhost_connection.md) :
+  Start localhost connection
 
 - [`sunsetter()`](sunsetter.md) : sunsetter Calculate the sunrise and
   sunset times for a given range of dates and location

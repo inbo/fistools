@@ -33,8 +33,8 @@ questionnaire data analysis: potential conflict index
 
 }
 \seealso{
-Other plotting: 
-\code{\link{qd_pci2}()},
-\code{\link{qd_pci2_D}()}
+Other plotting:
+\code{\link[=qd_pci2]{qd_pci2()}},
+\code{\link[=qd_pci2_D]{qd_pci2_D()}}
 }
 \concept{plotting}

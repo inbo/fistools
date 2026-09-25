@@ -22,15 +22,14 @@
 #' Na de installatie moeten je *AWS credentials* eenmalig aangemaakt worden.
 #' Voer hiervoor `aws configure` uit in _windows powershell_. De credentials
 #' kan je bekomen bij Jens Polspoel.
-#' -*devops-toolkit* moet lokaal worden geïnstalleerd dit doe je door
-#' *https://github.com/inbo/devops-toolkit* te clonen dmv _github dekstop_.
-#' Vervolgens kopiëer je *aws-cli-mfa-login.py* & *common.py* naar de Home
+#' -*devops-toolkit* moet lokaal worden geïnstalleerd dit doe je door de laatste
+#' versie van *https://github.com/inbo/devops-toolkit/releases/tag/ (>= v0.6)*
+#' te downloaden.
+#' Vervolgens kopiëer je *aws-cli-mfa-login* naar de Home
 #' Directory van Windows. Default is dat *C:/Users/%voornaam_achternaam%/bin*.
-#' -*Python* moet worden geïnstalleerd als dat nog niet gebeurd is. Dit kan
-#' rechtstreeks in _R_ met onderstaande code:
-#' `install.packages("reticulate")`
-#' `reticulate::install_python()`
-#' `system('pip install boto3')`
+#' Hernoem het bestand vervolgens naar *aws-cli-mfa-login.exe*.
+#'
+#' _Python is niet meer vereist voor het gebruik van deze functie_
 #'
 #' @return Dataframe met een lijst van bestanden op de bucket met relevante info.
 #'
@@ -52,10 +51,22 @@ connect_to_bucket <- function(bucket_name,
   # Refresh session token ####
   # Onderstaande code maakt een profiel aan met een sessiontoken die één uur
   # geldig blijft. Deze heb je nodig om verbinding te maken met de s3 buckets.
-  if(file.exists("../../../bin/aws-cli-mfa-login")){
-    system(paste0('python ../../../bin/aws-cli-mfa-login -u ',
+  if(file.exists("../../../bin/aws-cli-mfa-login.exe")){
+    mfa_code <- svDialogs::dlg_input("Enter MFA Code: ")$res
+
+    if(nchar(mfa_code) != 6){
+      warning("The MFA code entered might not be valid! A 6 character value is expected")
+    }
+
+    if(is.na(as.integer(mfa_code))){
+      warning("The MFA code entered might not be valid! A integer value is expected")
+    }
+
+    cmd <- paste0(normalizePath("../../../bin/aws-cli-mfa-login.exe"), ' aws-mfa -u ',
                   Sys.getenv("USERNAME"),
-                  ' -a ', bucket_type, ' -r ', role))
+                  ' -a ', bucket_type, ' -r ', role)
+
+    system(cmd, input = mfa_code, intern = FALSE, ignore.stdout = FALSE, ignore.stderr = FALSE, wait = TRUE)
   }else{
     stop("Installeer aws-cli-mfa-login van inbo/devops-tools in je windows home
          directory, zie details")
