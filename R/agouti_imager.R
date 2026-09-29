@@ -89,7 +89,7 @@ agouti_imager <- function(agouti_prj_id,
 
   ## email dmv popup
   if (email == "" & skip_tracking == FALSE) {
-    email <- svDialogs::dlg_input("je email adres:")
+    email <- svDialogs::dlg_input("Your email:")
     email <- email$res
   }
 
