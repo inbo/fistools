@@ -39,6 +39,8 @@
 #' @param seqID A vector of sequence IDs to be processed.
 #' @param skip_tracking Optional. A logical value indicating whether to skip
 #' tracking processed sequences. Defaults to FALSE.
+#' @param ask boolean whether the user should be prompted per seqID
+#' if it should be done again.
 #' @param email Optional. The email address used for Google Sheets authentication.
 #' Defaults to the "email" system environment variable.
 #' @param sheet_id Optional. The Google Sheets ID for tracking processed sequences.
@@ -65,6 +67,7 @@
 agouti_imager <- function(agouti_prj_id,
                           seqID,
                           skip_tracking = FALSE,
+                          ask = FALSE,
                           email = Sys.getenv("email"),
                           sheet_id = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"){
 
@@ -98,7 +101,21 @@ agouti_imager <- function(agouti_prj_id,
       ss = sheet_id,
       sheet = "tracking_seq_done"
     )
-    seq_done <- c(seq_done$sequenceID)
+
+    # Maintain only relevant seq_done
+    seq_done <- seq_done |>
+      dplyr::filter(sequenceID %in% seqID) |>
+      dplyr::pull()
+
+    if(length(seq_done) > 0 && isTRUE(ask)){
+      for(s in seq_done){
+        redo_seq <- askYesNo(paste0("Redo seq ", s))
+
+        if(isTRUE(redo_seq)){
+          seq_done <- seq_done[!seq_done %in% s]
+        }
+      }
+    }
 
     seqID <- seqID[!seqID %in% seq_done]
   }
