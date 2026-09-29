@@ -120,58 +120,61 @@ agouti_imager <- function(agouti_prj_id,
     seqID <- seqID[!seqID %in% seq_done]
   }
   # 6 Open sequences in Agouti
+  if(length(seqID) > 0){
+    for (i in 1:length(seqID)) {
+      # Open URL
+      browseURL(url = paste0("https://www.agouti.eu/project/",
+                             agouti_prj_id,
+                             "/annotate/sequence/",
+                             seqID[i]))
+      # append seqID to done file to skip next time
 
-  for (i in 1:length(seqID)) {
-    # Open URL
-    browseURL(url = paste0("https://www.agouti.eu/project/",
-                           agouti_prj_id,
-                           "/annotate/sequence/",
-                           seqID[i]))
-    # append seqID to done file to skip next time
+      # Load the next sequence and log the latter or not?
+      if(skip_tracking == FALSE){
+        # skip_tracking == FALSE
+        next_seq <- ask_x_options(title = "Next sequence?",
+                                  message = "Sequence tracked? Open next sequence?",
+                                  options = c("Yes & Log", "Yes, skip Log", "No & Log", "No, skip Log"))
 
-    # Load the next sequence and log the latter or not?
-    if(skip_tracking == FALSE){
-      # skip_tracking == FALSE
-      next_seq <- ask_x_options(title = "Next sequence?",
-                                message = "Sequence tracked? Open next sequence?",
-                                options = c("Yes & Log", "Yes, skip Log", "No & Log", "No, skip Log"))
+        if(is.na(next_seq) || next_seq == "No, skip Log"){
+          # stop loading new sequences without appending the last sequence
+          break
+        }
 
-      if(is.na(next_seq) || next_seq == "No, skip Log"){
-        # stop loading new sequences without appending the last sequence
-        break
-      }
+        if (next_seq == "Yes & Log") {
+          # append seqID to done file & load the next sequence
+          googlesheets4::sheet_append(
+            ss = sheet_id,
+            data = data.frame(sequenceID = seqID[i]),
+            sheet = "tracking_seq_done")
+          next
+        }
 
-      if (next_seq == "Yes & Log") {
-        # append seqID to done file & load the next sequence
-        googlesheets4::sheet_append(
-          ss = sheet_id,
-          data = data.frame(sequenceID = seqID[i]),
-          sheet = "tracking_seq_done")
-        next
-      }
+        if (next_seq == "Yes, skip Log"){
+          # load the next sequence without logging the seqID (SKIP)
+          next
+        }
 
-      if (next_seq == "Yes, skip Log"){
-        # load the next sequence without logging the seqID (SKIP)
-        next
-      }
-
-      if (next_seq == "No & Log"){
-        # append seqID to done file & stop loading sequences
-        googlesheets4::sheet_append(
-          ss = sheet_id,
-          data = data.frame(sequenceID = seqID[i]),
-          sheet = "tracking_seq_done")
-        break
-      }
-    }else{
-      # skip_tracking == TRUE
-      next_seq <- askYesNo(paste0("Do you want to load the next sequence ? \n\n",
-                                  "-- No seqID will be logged!! --"))
-      if(next_seq){
-        next #YES
+        if (next_seq == "No & Log"){
+          # append seqID to done file & stop loading sequences
+          googlesheets4::sheet_append(
+            ss = sheet_id,
+            data = data.frame(sequenceID = seqID[i]),
+            sheet = "tracking_seq_done")
+          break
+        }
       }else{
-        break #NO|CANCEL
+        # skip_tracking == TRUE
+        next_seq <- askYesNo(paste0("Do you want to load the next sequence ? \n\n",
+                                    "-- No seqID will be logged!! --"))
+        if(next_seq){
+          next #YES
+        }else{
+          break #NO|CANCEL
+        }
       }
     }
+  }else{
+    cat("\U0001f389 Congratz: All sequences in this export are done!  \n Ask your supervisor if the export is up to date!!")
   }
 }
