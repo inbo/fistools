@@ -5,7 +5,7 @@
 #' number of logged positions, when additional species need to be tracked,
 #' or when REM results indicate a potential issue.
 #'
-#' @param track_data a camtrapdb datapackage
+#' @param track_data a camtrapdp datapackage
 #' @param seq_done_in a character list with viewed sequences
 #' @param redo_toofew_positions a boolean to hardcode redoing too few positions
 #' (default = NULL)
