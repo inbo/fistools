@@ -102,12 +102,33 @@
 #' }
 
 redo_non_tracked <- function(track_data,
-                             seq_done_in,
+                             seq_done_in = NULL,
                              redo_toofew_positions = NULL,
                              redo_non_tracked = NULL,
-                             add_tracked = NULL){
+                             add_tracked = NULL,
+                             email = Sys.getenv("email")){
 
-  seq_done_out <- seq_done_in
+  # Authentication ####
+  ## email uit system variables
+  email <- Sys.getenv("email")
+
+  ## email dmv popup
+  if (email == "") {
+    email <- svDialogs::dlg_input("Your email:")
+    email <- email$res
+  }
+
+  if(is.null(seq_done_in)){
+    googlesheets4::gs4_auth(email)
+
+    seq_done_in <- googlesheets4::read_sheet(
+      ss = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8",
+      sheet = "tracking_seq_done"
+    ) |>
+      dplyr::pull()
+  }
+
+  seq_done_out <- seq_done_in[seq_done_in %in% track_data$data$observations$eventID]
 
   # Filter non tracked sequences
   non_tracked <- track_data |>
@@ -182,12 +203,16 @@ redo_non_tracked <- function(track_data,
   if(length(non_tracked_done) > 0){
 
     if(is.null(redo_non_tracked)){
-      redo_non_tracked <- askYesNo(paste0(length(non_tracked_done), " non-tracked sequences detected, do you want to redo the non-tracked sequences ?"))
+      redo_non_tracked <- askYesNo(paste0(length(non_tracked_done),
+                                          " non-tracked sequences detected, do you want to redo the non-tracked sequences ?"))
     }
 
-    if(redo_non_tracked){
+    if(isTRUE(redo_non_tracked)){
 
       seq_done_out <- seq_done_out[!seq_done_out %in% non_tracked_done]
+
+      fistools::depopulate_agouti_imager_seq_done(seqID = non_tracked_done,
+                                                  email = email)
 
     }
   }
@@ -199,10 +224,19 @@ redo_non_tracked <- function(track_data,
       add_tracked <- askYesNo(paste0(length(tracked_missing), " tracked sequences detected, add?"))
     }
 
-    if(add_tracked){
+    if(isTRUE(add_tracked)){
       seq_done_out <- c(seq_done_out, tracked_missing)
+
+      fistools::populate_agouti_imager_seq_done(seqID = tracked_missing,
+                                                email = email)
     }
   }
+
+  seq_done_out <- googlesheets4::read_sheet(
+    ss = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8",
+    sheet = "tracking_seq_done"
+  ) |>
+    dplyr::pull()
 
   debug <- data.frame("seq_done_in" = length(seq_done_in),
                       "seq_done_out" = length(seq_done_out),
