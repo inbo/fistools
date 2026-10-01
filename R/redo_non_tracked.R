@@ -109,9 +109,6 @@ redo_non_tracked <- function(track_data,
                              email = Sys.getenv("email")){
 
   # Authentication ####
-  ## email uit system variables
-  email <- Sys.getenv("email")
-
   ## email dmv popup
   if (email == "") {
     email <- svDialogs::dlg_input("Your email:")
@@ -182,12 +179,15 @@ redo_non_tracked <- function(track_data,
 
   if(nrow(non_tracked_toofew_positions_done) > 0){
     if(is.null(redo_toofew_positions)){
-      redo_toofew_positions <- askYesNo(msg = paste(unique(non_tracked_toofew_positions_done$eventID),
+      redo_toofew_positions <- askYesNo(msg = paste(length(unique(non_tracked_toofew_positions_done$eventID)),
                                                     "sequenties with too few positions detected, redo?"))
     }
     if(redo_toofew_positions){
       seq_done_out <- seq_done_out[!seq_done_out %in%
                                            non_tracked_toofew_positions_done$eventID]
+
+      fistools::depopulate_agouti_imager_seq_done(seqID = non_tracked_toofew_positions_done$eventID,
+                                                  email = email)
     }
   }
 
@@ -218,6 +218,7 @@ redo_non_tracked <- function(track_data,
   }
 
   tracked_missing <- tracked_seq[!tracked_seq %in% seq_done_out]
+  tracked_missing <- tracked_missing[!tracked_missing %in% non_tracked_toofew_positions$eventID]
 
   if(length(tracked_missing) > 0){
     if(is.null(add_tracked)){
