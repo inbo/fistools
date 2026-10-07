@@ -104,7 +104,7 @@ agouti_validate_ai <- function(gfileID,
         exdir = exdir)
 
   # Read datapackage using camtraptor ####
-  datapack <- camtraptor::read_camtrap_dp(file = exdir)
+  datapack <- camtraptor::read_camtrap_dp(file = file.path(exdir, "datapackage.json"))
 
   data <- datapack$data$observations %>%
     dplyr::filter(grepl(pattern = ai_model,
@@ -139,7 +139,7 @@ agouti_validate_ai <- function(gfileID,
   print(paste0("Found ", nrow(species_data), " observations for the selected species classified by ", ai_model))
 
   # Extract sequence IDs and open in Agouti using agouti_imager ####
-  seqIDs <- unique(species_data$sequenceID)
+  seqIDs <- unique(species_data$eventID)
 
   fistools::agouti_imager(agouti_prj_id = agouti_prj_id,
                           seqID = seqIDs,
