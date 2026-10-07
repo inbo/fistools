@@ -167,7 +167,7 @@ agouti_imager <- function(agouti_prj_id,
         # skip_tracking == TRUE
         next_seq <- askYesNo(paste0("Do you want to load the next sequence ? \n\n",
                                     "-- No seqID will be logged!! --"))
-        if(next_seq){
+        if(isTRUE(next_seq)){
           next #YES
         }else{
           break #NO|CANCEL
