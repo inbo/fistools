@@ -26,6 +26,9 @@ redo_non_tracked(
 
 \item{add_tracked}{a boolean to hardcode adding tracked sequences to
 seq_done_out (default = NULL)}
+
+\item{email}{Optional. The email address used for Google Sheets authentication.
+Defaults to the "email" system environment variable.}
 }
 \value{
 A list containing the following exports:
