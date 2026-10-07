@@ -58,6 +58,7 @@ agouti_validate_ai <- function(gfileID,
                                species = NULL,
                                ask = FALSE,
                                download_again = FALSE,
+                               skip_tracking = TRUE,
                                email){
 
   # Check for required parameters ####
@@ -144,7 +145,7 @@ agouti_validate_ai <- function(gfileID,
   fistools::agouti_imager(agouti_prj_id = agouti_prj_id,
                           seqID = seqIDs,
                           email = email,
-                          skip_tracking = TRUE)
+                          skip_tracking = skip_tracking)
 }
 
 #' Find used AI models in a datapackage
