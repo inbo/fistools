@@ -47,14 +47,12 @@
 #' \dontrun{
 #' agouti_validate_ai(gfileID = "your_google_drive_file_id",
 #'                    ai_model = "Europe",
-#'                    agouti_prj_id = "your_agouti_project_id",
 #'                    species = c("Lynx lynx", "Canis lupus"))
 #' }
 #'
 #'
 agouti_validate_ai <- function(gfileID,
                                ai_model = "Europe",
-                               agouti_prj_id,
                                species = NULL,
                                ask = FALSE,
                                download_again = FALSE,
@@ -105,6 +103,10 @@ agouti_validate_ai <- function(gfileID,
 
   # Read datapackage using camtraptor ####
   datapack <- camtraptor::read_camtrap_dp(file = file.path(exdir, "datapackage.json"))
+
+  agouti_prj_id <- datapack$project$id
+
+  cat("Opening", datapack$project$name, "for validation")
 
   data <- datapack$data$observations %>%
     dplyr::filter(grepl(pattern = ai_model,
