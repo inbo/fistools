@@ -9,8 +9,6 @@
 #' @param gfileID The Google Drive file ID of the datapackage to be downloaded.
 #' @param ai_model The name of the AI model used for classification (e.g., "Europe").
 #' Default is "Europe".
-#' @param agouti_prj_id The Agouti project ID where the sequences will be opened
-#' for validation.
 #' @param species Optional. A vector of species (scientific names) to filter the
 #' observations for validation. If NULL, the user will be prompted to select species
 #' from the available options.
@@ -19,6 +17,8 @@
 #' FALSE.
 #' @param download_again Optional. Boolean whether should be downloaded again even
 #' if the datapackage exists in the temporary directory. Default is FALSE.
+#' @param skip_tracking Optional. Boolean value indicating whether to skip
+#' tracking processed sequences. Defaults to TRUE.
 #' @param email Optional. The email address used for authentication when downloading the
 #' datapackage from Google Drive. If not provided, the function will attempt to
 #' retrieve it from system environment variables or prompt the user for input.
@@ -31,7 +31,8 @@
 #' 4. Filters the observations based on the specified AI model and species.
 #' 5. Extracts the unique sequence IDs from the filtered observations and opens them in Agouti for manual validation using the `agouti_imager` function.
 #' 6. The user can validate the classifications in Agouti
-#' *NOTE:* This function doesn't track which sequences have been validated!
+#' *NOTE:* As a default, this function doesn't track which sequences have been
+#' validated!
 #'
 #' Filtering occurs using `base::grepl()` on the `classifiedBy` field.
 #' This means that when `ai_model = "Europe"`, the sequences with
