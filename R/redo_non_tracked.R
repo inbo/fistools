@@ -13,6 +13,8 @@
 #' (default = NULL)
 #' @param add_tracked a boolean to hardcode adding tracked sequences to
 #' seq_done_out (default = NULL)
+#' @param email Optional. The email address used for Google Sheets authentication.
+#' Defaults to the "email" system environment variable.
 #'
 #' @details
 #' This function detects non-tracked sequences in `seq_done_in` and removes them
