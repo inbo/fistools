@@ -7,21 +7,32 @@
 agouti_validate_ai(
   gfileID,
   ai_model = "Europe",
-  agouti_prj_id,
   species = NULL,
+  ask = TRUE,
+  download_again = FALSE,
+  skip_tracking = TRUE,
   email
 )
 }
 \arguments{
 \item{gfileID}{The Google Drive file ID of the datapackage to be downloaded.}
 
-\item{ai_model}{The name of the AI model used for classification (e.g., "Europe"). Default is "Europe".}
-
-\item{agouti_prj_id}{The Agouti project ID where the sequences will be opened for validation.}
+\item{ai_model}{The name of the AI model used for classification (e.g., "Europe").
+Default is "Europe".}
 
 \item{species}{Optional. A vector of species (scientific names) to filter the
 observations for validation. If NULL, the user will be prompted to select species
 from the available options.}
+
+\item{ask}{Optional. Boolean whether the user should be prompted to download
+the datapackage again when it exists in the temporary directory. Default is
+TRUE.}
+
+\item{download_again}{Optional. Boolean whether should be downloaded again even
+if the datapackage exists in the temporary directory. Default is FALSE.}
+
+\item{skip_tracking}{Optional. Boolean value indicating whether to skip
+tracking processed sequences. Defaults to TRUE.}
 
 \item{email}{Optional. The email address used for authentication when downloading the
 datapackage from Google Drive. If not provided, the function will attempt to
@@ -45,7 +56,8 @@ The function performs the following steps:
 \item Filters the observations based on the specified AI model and species.
 \item Extracts the unique sequence IDs from the filtered observations and opens them in Agouti for manual validation using the \code{agouti_imager} function.
 \item The user can validate the classifications in Agouti
-\emph{NOTE:} This function doesn't track which sequences have been validated!
+\emph{NOTE:} As a default, this function doesn't track which sequences have been
+validated!
 }
 
 Filtering occurs using \code{base::grepl()} on the \code{classifiedBy} field.
@@ -55,9 +67,8 @@ withheld to be manually validated using \code{agouti_imager}.
 }
 \examples{
 \dontrun{
-validate_agouti_ai(gfileID = "your_google_drive_file_id",
+agouti_validate_ai(gfileID = "your_google_drive_file_id",
                    ai_model = "Europe",
-                   agouti_prj_id = "your_agouti_project_id",
                    species = c("Lynx lynx", "Canis lupus"))
 }
 

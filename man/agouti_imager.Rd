@@ -8,6 +8,7 @@ agouti_imager(
   agouti_prj_id,
   seqID,
   skip_tracking = FALSE,
+  ask = FALSE,
   email = Sys.getenv("email"),
   sheet_id = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"
 )
@@ -19,6 +20,9 @@ agouti_imager(
 
 \item{skip_tracking}{Optional. A logical value indicating whether to skip
 tracking processed sequences. Defaults to FALSE.}
+
+\item{ask}{boolean whether the user should be prompted per seqID
+if it should be done again.}
 
 \item{email}{Optional. The email address used for Google Sheets authentication.
 Defaults to the "email" system environment variable.}
