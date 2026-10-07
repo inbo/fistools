@@ -90,15 +90,14 @@ agouti_validate_ai <- function(gfileID,
     if(isTRUE(ask)){
       download_again <- askYesNo(msg = paste(target_path, "exists! download again?"))
     }
-  }
 
-  if(isTRUE(download_again)){
-    fistools::download_gdrive_if_missing(gfileID = gfileID,
-                                         email = email,
-                                         destfile = target_path,
-                                         update_always = TRUE)
+    if(isTRUE(download_again)){
+      fistools::download_gdrive_if_missing(gfileID = gfileID,
+                                           email = email,
+                                           destfile = target_path,
+                                           update_always = TRUE)
+    }
   }
-
 
   exdir <- file.path(tempdir(), "/Files")
   unzip(paste0(tempdir(), "/datapack.zip"),
