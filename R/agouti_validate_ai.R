@@ -106,8 +106,9 @@ agouti_validate_ai <- function(gfileID,
   datapack <- camtraptor::read_camtrap_dp(file = file.path(exdir, "datapackage.json"))
 
   agouti_prj_id <- datapack$project$id
+  agouti_prj_name <- datapack$project$title
 
-  cat("Opening", datapack$project$name, "for validation")
+  cat("Opening '", agouti_prj_name , "' for validation \n", sep = "")
 
   data <- datapack$data$observations %>%
     dplyr::filter(grepl(pattern = ai_model,
