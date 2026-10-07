@@ -41,6 +41,11 @@ redo_non_tracked(
   a boolean to hardcode adding tracked sequences to seq_done_out
   (default = NULL)
 
+- email:
+
+  Optional. The email address used for Google Sheets authentication.
+  Defaults to the "email" system environment variable.
+
 ## Value
 
 A list containing the following exports:
