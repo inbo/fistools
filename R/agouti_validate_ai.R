@@ -14,7 +14,7 @@
 #' from the available options.
 #' @param ask Optional. Boolean whether the user should be prompted to download
 #' the datapackage again when it exists in the temporary directory. Default is
-#' FALSE.
+#' TRUE.
 #' @param download_again Optional. Boolean whether should be downloaded again even
 #' if the datapackage exists in the temporary directory. Default is FALSE.
 #' @param skip_tracking Optional. Boolean value indicating whether to skip
@@ -55,7 +55,7 @@
 agouti_validate_ai <- function(gfileID,
                                ai_model = "Europe",
                                species = NULL,
-                               ask = FALSE,
+                               ask = TRUE,
                                download_again = FALSE,
                                skip_tracking = TRUE,
                                email){
