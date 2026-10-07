@@ -47,11 +47,11 @@ Imports:
     forcats (>= 1.0.1),
     camtraptor (>= 1.0.1),
     lubridate (>= 1.9.5),
-    camtrapdp (>= 0.5.0.9000)
+    camtrapdp (>= 0.5.0.9000),
+    sp (>= 2.1.4)
 Suggests: 
     grtsdb (>= 0.2),
     purrr (>= 1.2.1),
-    sp (>= 2.1.4)
 Remotes: 
     inbo/grtsdb,
     inbo/camtraptor
