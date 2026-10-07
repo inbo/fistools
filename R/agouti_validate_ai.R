@@ -7,11 +7,18 @@
 #' Agouti for manual validation.
 #'
 #' @param gfileID The Google Drive file ID of the datapackage to be downloaded.
-#' @param ai_model The name of the AI model used for classification (e.g., "Europe"). Default is "Europe".
-#' @param agouti_prj_id The Agouti project ID where the sequences will be opened for validation.
+#' @param ai_model The name of the AI model used for classification (e.g., "Europe").
+#' Default is "Europe".
+#' @param agouti_prj_id The Agouti project ID where the sequences will be opened
+#' for validation.
 #' @param species Optional. A vector of species (scientific names) to filter the
 #' observations for validation. If NULL, the user will be prompted to select species
 #' from the available options.
+#' @param ask Optional. Boolean whether the user should be prompted to download
+#' the datapackage again when it exists in the temporary directory. Default is
+#' FALSE.
+#' @param download_again Optional. Boolean whether should be downloaded again even
+#' if the datapackage exists in the temporary directory. Default is FALSE.
 #' @param email Optional. The email address used for authentication when downloading the
 #' datapackage from Google Drive. If not provided, the function will attempt to
 #' retrieve it from system environment variables or prompt the user for input.
@@ -38,7 +45,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' validate_agouti_ai(gfileID = "your_google_drive_file_id",
+#' agouti_validate_ai(gfileID = "your_google_drive_file_id",
 #'                    ai_model = "Europe",
 #'                    agouti_prj_id = "your_agouti_project_id",
 #'                    species = c("Lynx lynx", "Canis lupus"))
@@ -49,6 +56,8 @@ agouti_validate_ai <- function(gfileID,
                                ai_model = "Europe",
                                agouti_prj_id,
                                species = NULL,
+                               ask = FALSE,
+                               download_again = FALSE,
                                email){
 
   # Check for required parameters ####
@@ -72,6 +81,17 @@ agouti_validate_ai <- function(gfileID,
   target_path <- file.path(tempdir(), "datapack.zip")
 
   if(!file.exists(target_path)){
+    fistools::download_gdrive_if_missing(gfileID = gfileID,
+                                         email = email,
+                                         destfile = target_path,
+                                         update_always = TRUE)
+  }else{
+    if(isTRUE(ask)){
+      download_again <- askYesNo(msg = paste(target_path, "exists! download again?"))
+    }
+  }
+
+  if(isTRUE(download_again)){
     fistools::download_gdrive_if_missing(gfileID = gfileID,
                                          email = email,
                                          destfile = target_path,
