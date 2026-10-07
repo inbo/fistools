@@ -10,6 +10,7 @@ agouti_imager(
   agouti_prj_id,
   seqID,
   skip_tracking = FALSE,
+  ask = FALSE,
   email = Sys.getenv("email"),
   sheet_id = "1PcqJziXm-ZNbCi2JJliQH_FQY8YMPXNEGgYwiiP2Ws8"
 )
@@ -29,6 +30,11 @@ agouti_imager(
 
   Optional. A logical value indicating whether to skip tracking
   processed sequences. Defaults to FALSE.
+
+- ask:
+
+  boolean whether the user should be prompted per seqID if it should be
+  done again.
 
 - email:
 

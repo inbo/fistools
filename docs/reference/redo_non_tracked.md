@@ -10,10 +10,11 @@ be tracked, or when REM results indicate a potential issue.
 ``` r
 redo_non_tracked(
   track_data,
-  seq_done_in,
+  seq_done_in = NULL,
   redo_toofew_positions = NULL,
   redo_non_tracked = NULL,
-  add_tracked = NULL
+  add_tracked = NULL,
+  email = Sys.getenv("email")
 )
 ```
 
@@ -21,7 +22,7 @@ redo_non_tracked(
 
 - track_data:
 
-  a camtrapdb datapackage
+  a camtrapdp datapackage
 
 - seq_done_in:
 
