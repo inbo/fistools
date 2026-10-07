@@ -11,8 +11,10 @@ sequence IDs in Agouti for manual validation.
 agouti_validate_ai(
   gfileID,
   ai_model = "Europe",
-  agouti_prj_id,
   species = NULL,
+  ask = TRUE,
+  download_again = FALSE,
+  skip_tracking = TRUE,
   email
 )
 ```
@@ -28,16 +30,27 @@ agouti_validate_ai(
   The name of the AI model used for classification (e.g., "Europe").
   Default is "Europe".
 
-- agouti_prj_id:
-
-  The Agouti project ID where the sequences will be opened for
-  validation.
-
 - species:
 
   Optional. A vector of species (scientific names) to filter the
   observations for validation. If NULL, the user will be prompted to
   select species from the available options.
+
+- ask:
+
+  Optional. Boolean whether the user should be prompted to download the
+  datapackage again when it exists in the temporary directory. Default
+  is TRUE.
+
+- download_again:
+
+  Optional. Boolean whether should be downloaded again even if the
+  datapackage exists in the temporary directory. Default is FALSE.
+
+- skip_tracking:
+
+  Optional. Boolean value indicating whether to skip tracking processed
+  sequences. Defaults to TRUE.
 
 - email:
 
@@ -70,8 +83,9 @@ The function performs the following steps:
     opens them in Agouti for manual validation using the `agouti_imager`
     function.
 
-6.  The user can validate the classifications in Agouti *NOTE:* This
-    function doesn't track which sequences have been validated!
+6.  The user can validate the classifications in Agouti *NOTE:* As a
+    default, this function doesn't track which sequences have been
+    validated!
 
 Filtering occurs using
 [`base::grepl()`](https://rdrr.io/r/base/grep.html) on the
@@ -99,9 +113,8 @@ Sander Devisscher
 
 ``` r
 if (FALSE) { # \dontrun{
-validate_agouti_ai(gfileID = "your_google_drive_file_id",
+agouti_validate_ai(gfileID = "your_google_drive_file_id",
                    ai_model = "Europe",
-                   agouti_prj_id = "your_agouti_project_id",
                    species = c("Lynx lynx", "Canis lupus"))
 } # }
 

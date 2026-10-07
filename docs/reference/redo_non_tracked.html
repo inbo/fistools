@@ -48,10 +48,11 @@ or when REM results indicate a potential issue.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">redo_non_tracked</span><span class="op">(</span></span>
 <span>  <span class="va">track_data</span>,</span>
-<span>  <span class="va">seq_done_in</span>,</span>
+<span>  seq_done_in <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  redo_toofew_positions <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  redo_non_tracked <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  add_tracked <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  add_tracked <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  email <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"email"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -60,7 +61,7 @@ or when REM results indicate a potential issue.</p>
 
 
 <dl><dt id="arg-track-data">track_data<a class="anchor" aria-label="anchor" href="#arg-track-data"></a></dt>
-<dd><p>a camtrapdb datapackage</p></dd>
+<dd><p>a camtrapdp datapackage</p></dd>
 
 
 <dt id="arg-seq-done-in">seq_done_in<a class="anchor" aria-label="anchor" href="#arg-seq-done-in"></a></dt>
